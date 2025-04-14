@@ -1,4 +1,6 @@
-import { Feather, FontAwesome5 } from '@expo/vector-icons';
+import ChevronLeft from '@/assets/svgs/chevron-left.svg';
+import ChevronRight from '@/assets/svgs/chevron-right.svg';
+import { FontAwesome5 } from '@expo/vector-icons';
 import React from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
@@ -8,12 +10,12 @@ export default function Mypage() {
     <SafeAreaProvider>
       <SafeAreaView className="flex-1 bg-white">
         {/* 헤더 */}
-        <View className="flex-row justify-between items-center px-4 py-3.5">
+        <View className="flex-row justify-between items-center p-[14px]">
           <TouchableOpacity>
-            <Feather name="chevron-left" size={24} color="#57606A" />
+            <ChevronLeft width={24} height={24} />
           </TouchableOpacity>
-          <Text className="font-bold text-base text-[#24292F]">마이</Text>
-          <View style={{ width: 24 }} />
+          <Text className="text-subhead3 text-grey-90">마이</Text>
+          <View className="w-6" />
         </View>
 
         {/* 정보 카드 */}
@@ -24,7 +26,7 @@ export default function Mypage() {
               <Text className="text-sm text-[#434A53] mt-0.5">로그인하고 맞춤 결과를 만나봐요</Text>
             </View>
             <TouchableOpacity>
-              <Feather name="chevron-right" size={24} color="#57606A" />
+              <ChevronRight width={24} height={24} />
             </TouchableOpacity>
           </View>
         </View>
