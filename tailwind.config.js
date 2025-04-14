@@ -5,6 +5,10 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
+      fontFamily: {
+        'suit-regular': ['SUIT-Regular'],
+        'suit-bold': ['SUIT-Bold'],
+      },
       colors: {
         white: '#FFF',
         black: '#000',
@@ -26,6 +30,10 @@ module.exports = {
           '02': '#B4ACFF',
           '03': '#7A6DF0',
         },
+        error: '#ff4d4f',
+        warning: '#faad14',
+        success: '#52c41a',
+        link: '#46a6ff',
       },
       fontSize: {
         headline2: [
@@ -47,6 +55,8 @@ module.exports = {
           {
             lineHeight: '26px',
             fontWeight: '700',
+
+            color: 'red',
           },
         ],
         subhead3: [
