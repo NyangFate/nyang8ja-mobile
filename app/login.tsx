@@ -1,11 +1,25 @@
 import NyangPaljaTextLogo from '@/assets/images/nyang8ja-text-logo.webp';
 import SurprisedCatWithPacifierImage from '@/assets/images/surprised-cat-with-pacifier.webp';
 import CloseIcon from '@/assets/svgs/close.svg';
+import * as AppleAuthentication from 'expo-apple-authentication';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Alert, Pressable, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+// Apple 인증 오류 타입 정의
+interface AppleAuthenticationError extends Error {
+  code:
+    | 'ERR_INVALID_OPERATION'
+    | 'ERR_INVALID_RESPONSE'
+    | 'ERR_INVALID_SCOPE'
+    | 'ERR_REQUEST_CANCELED'
+    | 'ERR_REQUEST_FAILED'
+    | 'ERR_REQUEST_NOT_HANDLED'
+    | 'ERR_REQUEST_NOT_INTERACTIVE'
+    | 'ERR_REQUEST_UNKNOWN';
+}
 
 export default function Login() {
   const router = useRouter();
@@ -33,13 +47,32 @@ export default function Login() {
 
         {/* 로그인 버튼 */}
         <View className="px-5 gap-3 mt-[60px]">
-          <Pressable
-            className="flex-row items-center justify-center py-4 bg-[#24292F] rounded-[4px]"
-            onPress={() => {}}
-          >
-            <View className="mr-2" />
-            <Text className="font-suit-bold text-[16px] text-white">Apple로 시작하기</Text>
-          </Pressable>
+          <AppleAuthentication.AppleAuthenticationButton
+            buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+            buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+            cornerRadius={4}
+            style={{ height: 54 }}
+            onPress={async () => {
+              try {
+                const credential = await AppleAuthentication.signInAsync({
+                  requestedScopes: [
+                    AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                    AppleAuthentication.AppleAuthenticationScope.EMAIL,
+                  ],
+                });
+                // signed in
+              } catch (e) {
+                const error = e as AppleAuthenticationError;
+                if (error.code === 'ERR_REQUEST_CANCELED') {
+                  router.back();
+                } else {
+                  Alert.alert('로그인에 실패했어요', '잠시 후 다시 시도해 주세요', [
+                    { text: '확인' },
+                  ]);
+                }
+              }
+            }}
+          />
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
