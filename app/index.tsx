@@ -14,7 +14,7 @@ export default function Index() {
       }}
     >
       <Text>마이페이지</Text>
-      <Button title="홈으로 이동" onPress={() => router.push('/my-page')} />
+      <Button title="홈으로 이동" onPress={() => router.push('/(my)/my-page')} />
     </View>
   );
 }

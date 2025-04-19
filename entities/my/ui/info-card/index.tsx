@@ -23,7 +23,7 @@ export default function InfoCard() {
     },
   };
 
-  const handleNavigation = () => {
+  const handleNavigate = () => {
     if (!user) {
       router.navigate('/login-page');
     } else if (user.sajuInfo) {
@@ -62,7 +62,7 @@ export default function InfoCard() {
 
   return (
     <View className="px-5">
-      <Pressable onPress={handleNavigation}>
+      <Pressable onPress={handleNavigate}>
         <View className="flex-row items-center justify-between py-4 pl-5 pr-4 bg-grey-00 rounded-xl">
           <View className="flex-row items-center gap-[10px]">
             {user && (

@@ -34,7 +34,7 @@ export default function RootLayout() {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="my-page" options={{ headerShown: false }} />
+      <Stack.Screen name="(my)" options={{ headerShown: false }} />
       <Stack.Screen
         name="login-page"
         options={{
