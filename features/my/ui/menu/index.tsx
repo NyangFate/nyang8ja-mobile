@@ -6,7 +6,7 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 
 export default function Menu() {
   return (
-    <ScrollView className="flex-1 my-2">
+    <ScrollView className="flex-1">
       {/* 서비스 메뉴 */}
       <View className="px-5 py-3">
         <Text className="text-body1 text-grey-50 font-suit-regular">서비스</Text>

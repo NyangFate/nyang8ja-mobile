@@ -3,6 +3,7 @@ import InfoCard from '@/features/my/ui/info-card';
 import Menu from '@/features/my/ui/menu';
 import { useRouter } from 'expo-router';
 import React from 'react';
+import { View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function MyPage() {
@@ -13,7 +14,9 @@ export default function MyPage() {
       <SafeAreaView className="flex-1 bg-white">
         <Header />
         <InfoCard />
-        <Menu />
+        <View className="flex-1 my-2">
+          <Menu />
+        </View>
       </SafeAreaView>
     </SafeAreaProvider>
   );
