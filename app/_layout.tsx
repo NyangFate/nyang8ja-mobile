@@ -1,4 +1,5 @@
 import '@/global.css';
+import { initializeKakaoSDK } from '@react-native-kakao/core';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -20,6 +21,11 @@ export default function RootLayout() {
 
     prepare();
   }, [fontsLoaded, fontLoadError]);
+
+  useEffect(() => {
+    const kakaoNativeAppKey = '9fadc629853919df087ddb8d3498716b';
+    initializeKakaoSDK(kakaoNativeAppKey);
+  }, []);
 
   if (!fontsLoaded || fontLoadError) {
     return null;

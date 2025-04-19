@@ -1,11 +1,15 @@
 import NyangPaljaTextLogo from '@/assets/images/nyang8ja-text-logo.webp';
 import SurprisedCatWithPacifierImage from '@/assets/images/surprised-cat-with-pacifier.webp';
+import AppleIcon from '@/assets/svgs/apple.svg';
 import CloseIcon from '@/assets/svgs/close.svg';
+import KakaoIcon from '@/assets/svgs/kakao.svg';
+import { Class00AuthAPIApi } from '@/openapi/apis';
+import { login } from '@react-native-kakao/user';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Alert, Pressable, View } from 'react-native';
+import { Alert, Pressable, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 // Apple 인증 오류 타입 정의
@@ -46,33 +50,58 @@ export default function Login() {
         </View>
 
         {/* 로그인 버튼 */}
-        <View className="px-5 gap-3 mt-[60px]">
-          <AppleAuthentication.AppleAuthenticationButton
-            buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-            buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-            cornerRadius={4}
-            style={{ height: 54 }}
+        <View className="px-5 gap-3 mt-[54px]">
+          {/* 카카오 버튼 */}
+          <Pressable
+            onPress={async () => {
+              const credential = await login();
+
+              try {
+                const api = new Class00AuthAPIApi();
+
+                const response = await api.kakaoSignIn({
+                  kakaoSignInRequestDto: {
+                    authorizationCode: credential.accessToken,
+                  },
+                });
+              } catch (error) {
+                Alert.alert('로그인에 실패했어요', '잠시 후 다시 시도해 주세요', [
+                  { text: '확인' },
+                ]);
+              }
+            }}
+            className="h-[54px] flex-row items-center justify-between px-5 bg-[#FFE833] rounded-[4px]"
+          >
+            <KakaoIcon width={20} height={20} />
+            <Text className="text-subhead3 font-suit-bold text-grey-90">카카오톡으로 시작하기</Text>
+            <View className="w-5" />
+          </Pressable>
+
+          {/* 애플 버튼 */}
+          <Pressable
+            className="h-[54px] flex-row items-center justify-between px-5 bg-[#24292F] rounded-[4px]"
             onPress={async () => {
               try {
                 const credential = await AppleAuthentication.signInAsync({
-                  requestedScopes: [
-                    AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-                    AppleAuthentication.AppleAuthenticationScope.EMAIL,
-                  ],
+                  requestedScopes: [AppleAuthentication.AppleAuthenticationScope.FULL_NAME],
                 });
                 // signed in
               } catch (e) {
                 const error = e as AppleAuthenticationError;
-                if (error.code === 'ERR_REQUEST_CANCELED') {
-                  router.back();
-                } else {
+                if (error.code !== 'ERR_REQUEST_CANCELED') {
                   Alert.alert('로그인에 실패했어요', '잠시 후 다시 시도해 주세요', [
                     { text: '확인' },
                   ]);
                 }
               }
             }}
-          />
+          >
+            <AppleIcon width={20} height={20} />
+            <Text className="text-white text-subhead3 font-suitkakaoSignIn-bold">
+              Apple로 시작하기
+            </Text>
+            <View className="w-5" />
+          </Pressable>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
