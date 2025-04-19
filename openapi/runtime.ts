@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-export const BASE_PATH = 'http://rokwonk.com/api'.replace(/\/+$/, '');
+export const BASE_PATH = 'https://rokwonk.com/api'.replace(/\/+$/, '');
 
 const isBlob = (value: any) => typeof Blob !== 'undefined' && value instanceof Blob;
 
