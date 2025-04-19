@@ -25,7 +25,7 @@ interface AppleAuthenticationError extends Error {
     | 'ERR_REQUEST_UNKNOWN';
 }
 
-export default function Login() {
+export default function LoginPage() {
   const router = useRouter();
 
   return (

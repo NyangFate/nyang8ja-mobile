@@ -8,7 +8,7 @@ import React from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-export default function Mypage() {
+export default function MyPage() {
   const router = useRouter();
 
   return (
