@@ -13,7 +13,9 @@ export default function MyPage() {
     <SafeAreaProvider>
       <SafeAreaView className="flex-1 bg-white">
         <Header />
-        <InfoCard />
+        <View className="my-3">
+          <InfoCard />
+        </View>
         <View className="flex-1 my-2">
           <Menu />
         </View>
