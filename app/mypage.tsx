@@ -22,7 +22,6 @@ export default function Mypage() {
           <Text className="text-subhead3 font-suit-bold text-grey-90">마이</Text>
           <View className="w-6" />
         </View>
-
         {/* 정보 카드 */}
         <View className="px-5 my-[12px]">
           <Pressable onPress={() => router.navigate('/login')}>
@@ -38,7 +37,6 @@ export default function Mypage() {
             </View>
           </Pressable>
         </View>
-
         <ScrollView className="flex-1 my-2">
           {/* 서비스 메뉴 */}
           <View className="px-5 py-3">
