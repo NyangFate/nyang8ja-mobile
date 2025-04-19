@@ -6,6 +6,8 @@ import { Pressable, Text, View } from 'react-native';
 export default function InfoCard() {
   const router = useRouter();
 
+  const user = {};
+
   return (
     <View className="px-5 my-[12px]">
       <Pressable onPress={() => router.navigate('/login-page')}>
