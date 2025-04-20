@@ -6,7 +6,7 @@ export default function MyLayout() {
       <Stack.Screen name="my-page" options={{ headerShown: false }} />
       <Stack.Screen name="saju-info/create-page" options={{ headerShown: false }} />
       <Stack.Screen name="saju-info/edit-page" options={{ headerShown: false }} />
-      <Stack.Screen name="settings/account-page" options={{ headerShown: false }} />
+      <Stack.Screen name="settings/(account)" options={{ headerShown: false }} />
       <Stack.Screen name="settings/notification-page" options={{ headerShown: false }} />
     </Stack>
   );
