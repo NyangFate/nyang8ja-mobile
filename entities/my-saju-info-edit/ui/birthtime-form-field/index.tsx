@@ -21,29 +21,20 @@ export default function BirthtimeFormField({ control, errors }: BirthtimeFormFie
   const formatTimeInput = (text: string): string => {
     // 숫자만 추출
     const numbers = text.replace(/[^0-9]/g, '');
+    if (!numbers) return '';
 
-    // 입력이 없는 경우
-    if (numbers.length === 0) return '';
+    const [hours, minutes] = [numbers.slice(0, 2), numbers.slice(2, 4)].map(Number);
 
     // 시(HH) 부분만 있는 경우
     if (numbers.length <= 2) {
-      // 23보다 크면 23으로 제한
-      const hours = parseInt(numbers);
-      if (hours > 23) return '23';
-      return numbers;
+      return hours > 23 ? '23' : numbers;
     }
 
-    // 시:분(HH:MM) 형식으로 변환
-    const hours = numbers.substring(0, 2);
-    const minutes = numbers.substring(2, 4);
+    // 시:분(HH:MM) 형식으로 변환 및 유효성 검사
+    const validHours = hours > 23 ? '23' : numbers.slice(0, 2);
+    const validMinutes = minutes > 59 ? '59' : numbers.slice(2, 4);
 
-    // 시간 유효성 검사
-    const hoursNum = parseInt(hours);
-    const minutesNum = parseInt(minutes);
-    if (hoursNum > 23) return '23:' + minutes;
-    if (minutesNum > 59) return hours + ':59';
-
-    return `${hours}:${minutes}`;
+    return `${validHours}:${validMinutes}`;
   };
 
   // 백스페이스 감지 및 처리 함수
@@ -103,32 +94,35 @@ export default function BirthtimeFormField({ control, errors }: BirthtimeFormFie
           <Text className="text-body1 text-grey-90 font-suit-regular">시간을 몰라요</Text>
         </View>
       </View>
-      <Controller
-        control={control}
-        name="birthTime"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextField
-            value={value}
-            onChangeText={(text) => {
-              const formattedTime = handleTimeChange(text);
-              onChange(formattedTime);
-            }}
-            onBlur={onBlur}
-            containerClassName={cn({
-              'bg-grey-10': isBirthTimeUnknownField.value,
-            })}
-            className={cn({
-              'text-subhead3 font-suit-bold text-primary-03 ': isBirthTimeUnknownField.value,
-              'text-body3 font-suit-regular text-grey-90': !isBirthTimeUnknownField.value,
-            })}
-            editable={!isBirthTimeUnknownField.value}
-            placeholder="HH:MM"
-            inputMode="numeric"
-            maxLength={5}
-          />
-        )}
-      />
-      {errors.birthTime?.message && <ErrorMessage message={errors.birthTime.message} />}
+      <View className="gap-1.5">
+        <Controller
+          control={control}
+          name="birthTime"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextField
+              value={value}
+              onChangeText={(text) => {
+                const formattedTime = handleTimeChange(text);
+                onChange(formattedTime);
+              }}
+              onBlur={onBlur}
+              containerClassName={cn({
+                'bg-grey-10': isBirthTimeUnknownField.value,
+              })}
+              className={cn({
+                'text-subhead3 font-suit-bold text-primary-03 ': isBirthTimeUnknownField.value,
+                'text-body3 font-suit-regular text-grey-90': !isBirthTimeUnknownField.value,
+              })}
+              editable={!isBirthTimeUnknownField.value}
+              placeholder="HH:MM"
+              inputMode="numeric"
+              maxLength={5}
+              error={!!errors.birthTime}
+            />
+          )}
+        />
+        {errors.birthTime?.message && <ErrorMessage message={errors.birthTime.message} />}
+      </View>
     </View>
   );
 }

@@ -121,25 +121,27 @@ export default function BirthdateFormField({ control, errors }: BirthdateFormFie
           <Text className="self-start text-body1 text-grey-90 font-suit-regular">음력이에요</Text>
         </View>
       </View>
-      <Controller
-        control={control}
-        name="birthDate"
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextField
-            value={value}
-            onChangeText={(text) => {
-              const formattedDate = formatDate(text, prevInputRef.current);
-              onChange(formattedDate);
-            }}
-            onBlur={onBlur}
-            placeholder="YYYY.MM.DD"
-            error={!!errors.birthDate}
-            inputMode="numeric"
-            maxLength={10} // YYYY.MM.DD 형식이므로 최대 10자
-          />
-        )}
-      />
-      {errors.birthDate?.message && <ErrorMessage message={errors.birthDate.message} />}
+      <View className="gap-1.5">
+        <Controller
+          control={control}
+          name="birthDate"
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextField
+              value={value}
+              onChangeText={(text) => {
+                const formattedDate = formatDate(text, prevInputRef.current);
+                onChange(formattedDate);
+              }}
+              onBlur={onBlur}
+              placeholder="YYYY.MM.DD"
+              error={!!errors.birthDate}
+              inputMode="numeric"
+              maxLength={10} // YYYY.MM.DD 형식이므로 최대 10자
+            />
+          )}
+        />
+        {errors.birthDate?.message && <ErrorMessage message={errors.birthDate.message} />}
+      </View>
     </View>
   );
 }
