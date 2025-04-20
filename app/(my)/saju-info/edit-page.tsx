@@ -4,6 +4,7 @@ import BirthtimeFormField from '@/entities/my-saju-info-edit/ui/birthtime-form-f
 import GenderFormField from '@/entities/my-saju-info-edit/ui/gender-form-field';
 import Header from '@/entities/my-saju-info-edit/ui/header';
 import NameFormField from '@/entities/my-saju-info-edit/ui/name-form-field';
+import cn from '@/shared/utils/cn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
 import React from 'react';
@@ -24,10 +25,15 @@ export default function SajuInfoEditPage() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
+    reValidateMode: 'onBlur',
     resolver: zodResolver(sajuInfoFormDataSchema),
+    defaultValues: {
+      isLunarCalendar: false,
+      isBirthTimeUnknown: false,
+    },
   });
 
   // 저장 처리
@@ -63,8 +69,12 @@ export default function SajuInfoEditPage() {
         {/* 저장 버튼 */}
         <View className="px-5 py-3">
           <Pressable
-            className="items-center justify-center py-4 rounded-lg bg-grey-70"
+            className={cn(
+              'items-center justify-center py-4 rounded-lg bg-grey-70',
+              !isValid && 'bg-grey-30'
+            )}
             onPress={handleSubmit(onSubmit)}
+            disabled={!isValid}
           >
             <Text className="text-white text-subhead3 font-suit-bold">저장하기</Text>
           </Pressable>
