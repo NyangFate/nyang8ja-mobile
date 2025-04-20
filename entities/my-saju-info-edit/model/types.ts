@@ -9,7 +9,9 @@ export const sajuInfoFormDataSchema = z.object({
     .max(6, {
       message: '6자 이하의 실명을 입력해 주세요',
     }),
-  gender: z.enum(['male', 'female']),
+  gender: z.enum(['male', 'female'], {
+    message: '성별을 선택해 주세요',
+  }),
   birthDate: z
     .string({
       required_error: '생년월일을 입력해 주세요',
@@ -41,7 +43,6 @@ export const sajuInfoFormDataSchema = z.object({
     })
     .refine(
       (value) => {
-        console.log('value', value);
         if (value === '모름') return true;
         const regex = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
         return regex.test(value);

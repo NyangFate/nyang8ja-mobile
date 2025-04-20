@@ -12,8 +12,6 @@ export default function WithdrawalConfirmScreen({
 }: WithdrawalConfirmScreenProps) {
   const router = useRouter();
   const { reasons, otherReason } = useLocalSearchParams();
-  console.log('reasons', reasons);
-  console.log('otherReason', otherReason);
 
   const handleBackPress = () => {
     router.back();
@@ -21,7 +19,6 @@ export default function WithdrawalConfirmScreen({
 
   const handleWithdrawal = () => {
     // 계정 탈퇴 로직 구현
-    console.log('계정 탈퇴 진행');
     // 탈퇴 완료 후 로그인 페이지로 이동
     // router.replace('/login-page');
   };

@@ -35,7 +35,6 @@ export default function SajuInfoEditPage() {
   // 저장 처리
   const onSubmit = (data: SajuInfoFormData) => {
     // 사주 정보 저장 로직
-    console.log(data);
     router.back();
   };
 
@@ -53,7 +52,7 @@ export default function SajuInfoEditPage() {
             <NameFormField control={control} errors={errors} />
 
             {/* 성별 선택 */}
-            <GenderFormField control={control} />
+            <GenderFormField control={control} errors={errors} />
 
             {/* 생년월일 */}
             <BirthdateFormField control={control} errors={errors} />
