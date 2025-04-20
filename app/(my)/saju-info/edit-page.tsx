@@ -25,8 +25,6 @@ export default function SajuInfoEditPage() {
     control,
     handleSubmit,
     formState: { errors },
-    setValue,
-    watch,
   } = useForm({
     mode: 'onBlur',
     resolver: zodResolver(sajuInfoFormDataSchema),
