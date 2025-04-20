@@ -35,7 +35,19 @@ export const sajuInfoFormDataSchema = z.object({
     ),
 
   isLunarCalendar: z.boolean(),
-  birthTime: z.string(),
+  birthTime: z
+    .string({
+      required_error: '태어난 시간을 입력해 주세요',
+    })
+    .refine(
+      (value) => {
+        console.log('value', value);
+        if (value === '모름') return true;
+        const regex = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
+        return regex.test(value);
+      },
+      { message: '올바른 시간 형식(HH:MM)을 입력해주세요.' }
+    ),
   isBirthTimeUnknown: z.boolean(),
 });
 
