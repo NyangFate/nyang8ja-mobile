@@ -3,7 +3,7 @@ import Textarea from '@/shared/ui/Textarea';
 import cn from '@/shared/utils/cn';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 
 export default function ReasonPicker() {
   const WITHDRAWAL_REASONS = [
@@ -49,50 +49,55 @@ export default function ReasonPicker() {
   };
 
   return (
-    <View className="flex-1">
-      <View className="flex-1 px-6 py-5">
-        <Text className="mb-4 text-headline2 text-grey-90 font-suit-bold">
-          탈퇴 이유를 알려주세요
-        </Text>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={{ flex: 1 }}
+    >
+      <View className="flex-1">
+        <View className="flex-1 px-6 py-5">
+          <Text className="mb-4 text-headline2 text-grey-90 font-suit-bold">
+            탈퇴 이유를 알려주세요
+          </Text>
 
-        <ScrollView>
-          <View>
-            {WITHDRAWAL_REASONS.map((reason) => (
-              <ReasonItem
-                key={reason}
-                label={reason}
-                value={selectedReason.includes(reason)}
-                onValueChange={(checked) => handleCheckboxPress(checked, reason)}
-              />
-            ))}
-            {selectedReason.includes('기타') && (
-              <Textarea
-                multiline
-                autoFocus
-                placeholder="(선택) 상세 사유를 입력해 주세요"
-                containerClassName="ml-[30px]"
-                className="h-[96px]"
-                value={otherReason}
-                onChangeText={setOtherReason}
-              />
+          <ScrollView>
+            <View>
+              {WITHDRAWAL_REASONS.map((reason) => (
+                <ReasonItem
+                  key={reason}
+                  label={reason}
+                  value={selectedReason.includes(reason)}
+                  onValueChange={(checked) => handleCheckboxPress(checked, reason)}
+                />
+              ))}
+              {selectedReason.includes('기타') && (
+                <Textarea
+                  multiline
+                  autoFocus
+                  placeholder="(선택) 상세 사유를 입력해 주세요"
+                  containerClassName="ml-[30px]"
+                  className="h-[96px]"
+                  value={otherReason}
+                  onChangeText={setOtherReason}
+                />
+              )}
+            </View>
+          </ScrollView>
+        </View>
+
+        {/* 하단 버튼 */}
+        <View className="px-5 py-5">
+          <Pressable
+            className={cn(
+              'h-[54px] rounded-lg justify-center items-center',
+              selectedReason.length > 0 ? 'bg-grey-70' : 'bg-grey-30'
             )}
-          </View>
-        </ScrollView>
+            onPress={handleNextPress}
+            disabled={selectedReason.length === 0}
+          >
+            <Text className="text-white text-subhead3 font-suit-bold">다음</Text>
+          </Pressable>
+        </View>
       </View>
-
-      {/* 하단 버튼 */}
-      <View className="px-5 py-5">
-        <Pressable
-          className={cn(
-            'h-[54px] rounded-lg justify-center items-center',
-            selectedReason.length > 0 ? 'bg-grey-70' : 'bg-grey-30'
-          )}
-          onPress={handleNextPress}
-          disabled={selectedReason.length === 0}
-        >
-          <Text className="text-white text-subhead3 font-suit-bold">다음</Text>
-        </Pressable>
-      </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
