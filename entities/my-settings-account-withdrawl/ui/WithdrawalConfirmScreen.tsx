@@ -1,5 +1,5 @@
-import ChevronLeftIcon from '@/assets/svgs/chevron-left.svg';
-import { useRouter } from 'expo-router';
+import Header from '@/entities/my-settings-account/ui/header';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 
@@ -11,6 +11,9 @@ export default function WithdrawalConfirmScreen({
   username = '사용자',
 }: WithdrawalConfirmScreenProps) {
   const router = useRouter();
+  const { reasons, otherReason } = useLocalSearchParams();
+  console.log('reasons', reasons);
+  console.log('otherReason', otherReason);
 
   const handleBackPress = () => {
     router.back();
@@ -31,13 +34,7 @@ export default function WithdrawalConfirmScreen({
   return (
     <SafeAreaView className="flex-1 bg-white">
       {/* 헤더 */}
-      <View className="flex-row justify-between items-center px-3.5 py-3.5">
-        <Pressable onPress={handleBackPress} className="p-2">
-          <ChevronLeftIcon width={24} height={24} color="#57606A" />
-        </Pressable>
-        <Text className="text-subhead3 text-grey-90 font-suit-bold">탈퇴하기</Text>
-        <View className="w-10" />
-      </View>
+      <Header />
 
       {/* 컨텐츠 */}
       <View className="px-6 py-6">

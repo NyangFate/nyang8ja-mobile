@@ -1,5 +1,5 @@
 import Header from '@/entities/my-settings-account-withdrawl/ui/header';
-import ReasonPicker from '@/entities/my-settings-account-withdrawl/ui/ReasonPicker';
+import ReasonPicker from '@/entities/my-settings-account-withdrawl/ui/reason-picker';
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 

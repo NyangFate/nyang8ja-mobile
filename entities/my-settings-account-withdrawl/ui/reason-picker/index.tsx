@@ -1,4 +1,4 @@
-import ReasonItem from '@/entities/my-settings-account-withdrawl/ui/ReasonItem';
+import ReasonItem from '@/entities/my-settings-account-withdrawl/ui/reason-picker/reason-item';
 import Textarea from '@/shared/ui/Textarea';
 import cn from '@/shared/utils/cn';
 import { useRouter } from 'expo-router';
