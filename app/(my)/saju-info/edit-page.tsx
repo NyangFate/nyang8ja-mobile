@@ -8,7 +8,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Pressable, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 
 export default function SajuInfoEditPage() {
   const router = useRouter();
@@ -32,34 +40,39 @@ export default function SajuInfoEditPage() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <Header />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView className="flex-1 bg-white">
+        <Header />
 
-      <ScrollView className="flex-1">
-        <View className="gap-8 px-5 py-3">
-          {/* 이름 입력 */}
-          <NameFormField control={control} errors={errors} />
+        <ScrollView className="flex-1">
+          <View className="gap-8 px-5 py-3">
+            {/* 이름 입력 */}
+            <NameFormField control={control} errors={errors} />
 
-          {/* 성별 선택 */}
-          <GenderFormField control={control} />
+            {/* 성별 선택 */}
+            <GenderFormField control={control} />
 
-          {/* 생년월일 */}
-          <BirthdateFormField control={control} errors={errors} />
+            {/* 생년월일 */}
+            <BirthdateFormField control={control} errors={errors} />
 
-          {/* 태어난 시간 */}
-          <BirthtimeFormField control={control} />
+            {/* 태어난 시간 */}
+            <BirthtimeFormField control={control} errors={errors} />
+          </View>
+        </ScrollView>
+
+        {/* 저장 버튼 */}
+        <View className="px-5 py-3">
+          <Pressable
+            className="items-center justify-center py-4 rounded-lg bg-grey-70"
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text className="text-white text-subhead3 font-suit-bold">저장하기</Text>
+          </Pressable>
         </View>
-      </ScrollView>
-
-      {/* 저장 버튼 */}
-      <View className="px-5 py-3">
-        <Pressable
-          className="items-center justify-center py-4 rounded-lg bg-grey-70"
-          onPress={handleSubmit(onSubmit)}
-        >
-          <Text className="text-white text-subhead3 font-suit-bold">저장하기</Text>
-        </Pressable>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
