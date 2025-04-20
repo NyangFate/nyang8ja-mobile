@@ -1,8 +1,9 @@
 import ReasonItem from '@/entities/my-settings-account-withdrawl/ui/ReasonItem';
+import Textarea from '@/shared/ui/Textarea';
 import cn from '@/shared/utils/cn';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 
 export default function ReasonPicker() {
   const WITHDRAWAL_REASONS = [
@@ -60,12 +61,13 @@ export default function ReasonPicker() {
               />
             ))}
             {selectedReason.includes('기타') && (
-              <View>
-                <TextInput
-                  className="h-[54px] rounded-lg justify-center items-center"
-                  placeholder="기타 사유를 입력해주세요"
-                />
-              </View>
+              <Textarea
+                multiline
+                autoFocus
+                placeholder="(선택) 상세 사유를 입력해 주세요"
+                containerClassName="ml-[30px]"
+                className="h-[96px]"
+              />
             )}
           </View>
         </ScrollView>
