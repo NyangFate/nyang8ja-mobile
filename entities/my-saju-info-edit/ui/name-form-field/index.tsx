@@ -18,9 +18,6 @@ export default function NameFormField({ control, errors }: NameFieldProps) {
         <Controller
           name="name"
           control={control}
-          rules={{
-            required: true,
-          }}
           render={({ field: { onChange, onBlur, value } }) => (
             <TextField
               value={value}
