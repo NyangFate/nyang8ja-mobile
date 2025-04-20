@@ -21,7 +21,7 @@ const TextField = forwardRef<TextInput, TextFieldProps>(
       >
         <TextInput
           ref={ref}
-          className={cn('text-body3 font-suit-regular align-top pt-0 pb-0', className)}
+          className={cn('text-body3 font-suit-regular align-top pt-0 pb-0 min-h-8', className)}
           placeholder={placeholder}
           placeholderTextColor={COLORS.grey[30]}
           {...props}
