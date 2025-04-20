@@ -15,6 +15,10 @@ export default function Index() {
     >
       <Text>마이페이지</Text>
       <Button title="홈으로 이동" onPress={() => router.push('/(my)/my-page')} />
+      <Button
+        title="사주 정보 생성"
+        onPress={() => router.push('/(my)/saju-info/(create)/create-page')}
+      />
     </View>
   );
 }
