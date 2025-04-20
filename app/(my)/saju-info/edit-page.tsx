@@ -44,7 +44,7 @@ export default function SajuInfoEditPage() {
           <GenderFormField control={control} />
 
           {/* 생년월일 */}
-          <BirthdateFormField control={control} />
+          <BirthdateFormField control={control} errors={errors} />
 
           {/* 태어난 시간 */}
           <BirthtimeFormField control={control} />
