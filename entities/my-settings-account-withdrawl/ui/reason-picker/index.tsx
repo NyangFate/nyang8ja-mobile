@@ -1,5 +1,5 @@
 import ReasonItem from '@/entities/my-settings-account-withdrawl/ui/reason-picker/reason-item';
-import Textarea from '@/shared/ui/Textarea';
+import TextField from '@/shared/ui/text-field';
 import cn from '@/shared/utils/cn';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -70,7 +70,7 @@ export default function ReasonPicker() {
                 />
               ))}
               {selectedReason.includes('기타') && (
-                <Textarea
+                <TextField
                   multiline
                   autoFocus
                   placeholder="(선택) 상세 사유를 입력해 주세요"
@@ -78,6 +78,7 @@ export default function ReasonPicker() {
                   className="h-[96px]"
                   value={otherReason}
                   onChangeText={setOtherReason}
+                  inputMode="text"
                 />
               )}
             </View>
