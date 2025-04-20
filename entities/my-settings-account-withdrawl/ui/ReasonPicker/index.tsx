@@ -19,6 +19,7 @@ export default function ReasonPicker() {
 
   const router = useRouter();
   const [selectedReason, setSelectedReason] = useState<string[]>([]);
+  const [otherReason, setOtherReason] = useState<string>('');
 
   const handleCheckboxPress = (checked: boolean, reason: string) => {
     if (checked) {
@@ -36,10 +37,14 @@ export default function ReasonPicker() {
   };
 
   const handleNextPress = () => {
-    if (selectedReason) {
-      // 다음 단계로 이동
-      console.log('선택된 사유:', selectedReason);
-      router.push('/settings/withdrawal-confirm-page');
+    if (selectedReason.length > 0) {
+      router.push({
+        pathname: '/settings/withdrawal-confirm-page',
+        params: {
+          reasons: selectedReason,
+          otherReason: selectedReason.includes('기타') ? otherReason : undefined,
+        },
+      });
     }
   };
 
@@ -67,6 +72,8 @@ export default function ReasonPicker() {
                 placeholder="(선택) 상세 사유를 입력해 주세요"
                 containerClassName="ml-[30px]"
                 className="h-[96px]"
+                value={otherReason}
+                onChangeText={setOtherReason}
               />
             )}
           </View>
