@@ -76,7 +76,7 @@ export default function SajuInfoCreatePage() {
         }
         return next;
       });
-    }, 3000);
+    }, 2500);
 
     return () => clearInterval(interval);
   }, [animationEnded]);
