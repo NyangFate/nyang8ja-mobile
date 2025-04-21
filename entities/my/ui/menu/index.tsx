@@ -1,5 +1,5 @@
 import BellIcon from '@/assets/svgs/bell.svg';
-import BookmarkIcon from '@/assets/svgs/bookmark.svg';
+// import BookmarkIcon from '@/assets/svgs/bookmark.svg';
 import CircleUserIcon from '@/assets/svgs/circel-user.svg';
 import { fakerKO as faker } from '@faker-js/faker';
 import { Href, useRouter } from 'expo-router';
@@ -31,6 +31,8 @@ export default function Menu() {
   return (
     <ScrollView className="flex-1">
       {/* 서비스 메뉴 */}
+
+      {/* 이번 스프린트에서 제거
       <View className="px-5 py-3">
         <Text className="text-body1 text-grey-50 font-suit-regular">서비스</Text>
         <Pressable className="flex-row items-center gap-3 py-3">
@@ -40,6 +42,7 @@ export default function Menu() {
       </View>
 
       <View className="h-px mx-5 bg-grey-10" />
+      */}
 
       {/* 관리 메뉴 */}
       <View className="px-5 py-3">
