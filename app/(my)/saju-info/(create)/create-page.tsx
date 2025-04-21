@@ -2,11 +2,14 @@ import SurprisedCatWithPacifierImage from '@/assets/images/surprised-cat-with-pa
 import NyaongSinText from '@/assets/svgs/nyaong-sin-text.svg';
 import Header from '@/entities/my-saju-info-create/ui/header';
 import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 export default function SajuInfoCreatePage() {
+  const router = useRouter();
+
   const [currentComponent, setCurrentComponent] = useState(0);
 
   // 애니메이션 상태
@@ -92,7 +95,10 @@ export default function SajuInfoCreatePage() {
       </View>
       {animationEnded && (
         <Animated.View entering={FadeIn.duration(1200)} className="p-5">
-          <Pressable className="rounded-lg bg-grey-90 h-[54px] items-center justify-center">
+          <Pressable
+            onPress={() => router.navigate('/(my)/saju-info/(create)/name-input-page')}
+            className="rounded-lg bg-grey-90 h-[54px] items-center justify-center"
+          >
             <Text className="text-white text-subhead3 font-suit-bold">알려줄게</Text>
           </Pressable>
         </Animated.View>
