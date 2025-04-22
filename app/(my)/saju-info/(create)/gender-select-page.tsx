@@ -2,7 +2,7 @@ import SurprisedCatWithPacifierImage from '@/assets/images/surprised-cat-with-pa
 import Header from '@/entities/my-saju-info-create/ui/header';
 import cn from '@/shared/utils/cn';
 import { Image } from 'expo-image';
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 
@@ -23,7 +23,7 @@ export default function GenderSelectPage() {
           </View>
           <View className="mt-5">
             <Text className="text-center text-body3 font-suit-regular text-grey-70">
-              집사의 이름을 알고 싶어.
+              집사의 성별도 알고 싶어.
             </Text>
           </View>
           {/* 선택 영역 */}
@@ -80,15 +80,13 @@ export default function GenderSelectPage() {
               gender === undefined && 'bg-grey-30 text-grey-10'
             )}
             onPress={() => {
-              /*
               router.push({
-                pathname: '/(my)/saju-info/(create)/birthdate-select-page',
+                pathname: '/(my)/saju-info/(create)/birthdate-input-page',
                 params: {
                   name,
                   gender,
                 },
               });
-              */
             }}
             disabled={gender === undefined}
           >
