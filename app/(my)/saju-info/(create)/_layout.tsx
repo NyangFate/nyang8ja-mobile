@@ -6,6 +6,9 @@ export default function SajuInfoCreateLayout() {
       <Stack.Screen name="create-page" options={{ headerShown: false }} />
       <Stack.Screen name="name-input-page" options={{ headerShown: false }} />
       <Stack.Screen name="gender-select-page" options={{ headerShown: false }} />
+      <Stack.Screen name="birthdate-input-page" options={{ headerShown: false }} />
+      <Stack.Screen name="birthtime-input-page" options={{ headerShown: false }} />
+      <Stack.Screen name="confirm-page" options={{ headerShown: false }} />
     </Stack>
   );
 }
