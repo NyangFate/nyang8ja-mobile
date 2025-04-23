@@ -7,8 +7,18 @@ import React, { useState } from 'react';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 
 export default function GenderSelectPage() {
-  const { name } = useLocalSearchParams<{ name: string }>();
-  const [gender, setGender] = useState<'male' | 'female' | undefined>(undefined);
+  const { name, gender, birthDate, isLunarCalendar, birthTime, isBirthTimeUnknown } =
+    useLocalSearchParams<{
+      name: string;
+      gender?: 'male' | 'female';
+      birthDate?: string;
+      isLunarCalendar?: string;
+      birthTime?: string;
+      isBirthTimeUnknown?: string;
+    }>();
+  const [selectedGender, setSelectedGender] = useState<'male' | 'female' | undefined>(
+    gender || undefined
+  );
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -33,15 +43,15 @@ export default function GenderSelectPage() {
               <Pressable
                 className={cn(
                   'py-3 rounded-lg justify-center items-center px-7',
-                  gender === 'male'
+                  selectedGender === 'male'
                     ? 'bg-primary-01 border border-primary-03'
                     : 'bg-grey-00 border border-grey-20'
                 )}
-                onPress={() => setGender('male')}
+                onPress={() => setSelectedGender('male')}
               >
                 <Text
                   className={cn(
-                    gender === 'male'
+                    selectedGender === 'male'
                       ? 'text-subhead3 text-primary-03 font-suit-bold'
                       : 'text-body3 text-grey-30 font-suit-regular'
                   )}
@@ -52,15 +62,15 @@ export default function GenderSelectPage() {
               <Pressable
                 className={cn(
                   'py-3 rounded-lg justify-center items-center px-7',
-                  gender === 'female'
+                  selectedGender === 'female'
                     ? 'bg-primary-01 border border-primary-03'
                     : 'bg-grey-00 border border-grey-20'
                 )}
-                onPress={() => setGender('female')}
+                onPress={() => setSelectedGender('female')}
               >
                 <Text
                   className={cn(
-                    gender === 'female'
+                    selectedGender === 'female'
                       ? 'text-subhead3 text-primary-03 font-suit-bold'
                       : 'text-body3 text-grey-30 font-suit-regular '
                   )}
@@ -77,18 +87,22 @@ export default function GenderSelectPage() {
           <Pressable
             className={cn(
               'bg-grey-90 h-[54px] rounded-lg justify-center items-center',
-              gender === undefined && 'bg-grey-30 text-grey-10'
+              selectedGender === undefined && 'bg-grey-30 text-grey-10'
             )}
             onPress={() => {
               router.push({
                 pathname: '/(my)/saju-info/(create)/birthdate-input-page',
                 params: {
                   name,
-                  gender,
+                  gender: selectedGender,
+                  birthDate,
+                  isLunarCalendar,
+                  birthTime,
+                  isBirthTimeUnknown,
                 },
               });
             }}
-            disabled={gender === undefined}
+            disabled={selectedGender === undefined}
           >
             <Text className="text-white text-subhead3 font-suit-bold">다음</Text>
           </Pressable>

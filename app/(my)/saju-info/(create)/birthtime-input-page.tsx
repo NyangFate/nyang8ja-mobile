@@ -14,12 +14,15 @@ import { Controller, useForm } from 'react-hook-form';
 import { KeyboardAvoidingView, Platform, Pressable, SafeAreaView, Text, View } from 'react-native';
 import { z } from 'zod';
 export default function BirthTimeInputPage() {
-  const { name, gender, birthDate, isLunarCalendar } = useLocalSearchParams<{
-    name: string;
-    gender: string;
-    birthDate: string;
-    isLunarCalendar: string;
-  }>();
+  const { name, gender, birthDate, isLunarCalendar, birthTime, isBirthTimeUnknown } =
+    useLocalSearchParams<{
+      name: string;
+      gender: string;
+      birthDate: string;
+      isLunarCalendar: string;
+      birthTime?: string;
+      isBirthTimeUnknown?: string;
+    }>();
   const birthTimeSchema = z.object({
     birthTime: z
       .string({
@@ -66,7 +69,8 @@ export default function BirthTimeInputPage() {
     mode: 'onBlur',
     resolver: zodResolver(birthTimeSchema),
     defaultValues: {
-      isBirthTimeUnknown: false,
+      birthTime: birthTime || '',
+      isBirthTimeUnknown: isBirthTimeUnknown === 'true' ? true : false,
     },
   });
 
@@ -102,6 +106,7 @@ export default function BirthTimeInputPage() {
         name: name,
         gender: gender,
         birthDate: birthDate,
+        isLunarCalendar: isLunarCalendar,
         birthTime: data.birthTime,
         isBirthTimeUnknown: data.isBirthTimeUnknown ? 'true' : 'false',
       },

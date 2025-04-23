@@ -6,12 +6,22 @@ import TextField from '@/shared/ui/text-field';
 import cn from '@/shared/utils/cn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Image } from 'expo-image';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { KeyboardAvoidingView, Platform, Pressable, SafeAreaView, Text, View } from 'react-native';
 import { z } from 'zod';
 export default function NameInputPage() {
+  const { name, gender, birthDate, isLunarCalendar, birthTime, isBirthTimeUnknown } =
+    useLocalSearchParams<{
+      name?: string;
+      gender?: string;
+      birthDate?: string;
+      isLunarCalendar?: string;
+      birthTime?: string;
+      isBirthTimeUnknown?: string;
+    }>();
+
   const nameSchema = z.object({
     name: z.string().min(2, { message: '2자 이상의 실명을 입력해 주세요' }).max(6, {
       message: '6자 이하로 입력해 주세요',
@@ -26,7 +36,7 @@ export default function NameInputPage() {
     mode: 'onBlur',
     resolver: zodResolver(nameSchema),
     defaultValues: {
-      name: '',
+      name: name || '',
     },
   });
 
@@ -35,6 +45,11 @@ export default function NameInputPage() {
       pathname: '/(my)/saju-info/(create)/gender-select-page',
       params: {
         name: data.name,
+        gender,
+        birthDate,
+        isLunarCalendar,
+        birthTime,
+        isBirthTimeUnknown,
       },
     });
   };

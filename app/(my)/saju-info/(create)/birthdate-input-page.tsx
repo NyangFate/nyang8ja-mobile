@@ -14,10 +14,15 @@ import { Controller, useForm } from 'react-hook-form';
 import { KeyboardAvoidingView, Platform, Pressable, SafeAreaView, Text, View } from 'react-native';
 import { z } from 'zod';
 export default function BirthdateInputPage() {
-  const { name, gender } = useLocalSearchParams<{
-    name: string;
-    gender: string;
-  }>();
+  const { name, gender, birthDate, isLunarCalendar, birthTime, isBirthTimeUnknown } =
+    useLocalSearchParams<{
+      name: string;
+      gender: string;
+      birthDate?: string;
+      isLunarCalendar?: string;
+      birthTime?: string;
+      isBirthTimeUnknown?: string;
+    }>();
   const birthDateSchema = z.object({
     birthDate: z
       .string({
@@ -137,11 +142,10 @@ export default function BirthdateInputPage() {
     mode: 'onBlur',
     resolver: zodResolver(birthDateSchema),
     defaultValues: {
-      birthDate: '',
-      isLunarCalendar: false,
+      birthDate: birthDate?.split('-').join('.') || '',
+      isLunarCalendar: isLunarCalendar === 'true' ? true : false,
     },
   });
-
   const onSubmit = (data: z.infer<typeof birthDateSchema>) => {
     router.push({
       pathname: '/(my)/saju-info/(create)/birthtime-input-page',
@@ -150,6 +154,8 @@ export default function BirthdateInputPage() {
         isLunarCalendar: data.isLunarCalendar ? 'true' : 'false',
         gender: gender,
         birthDate: data.birthDate,
+        birthTime: birthTime,
+        isBirthTimeUnknown: isBirthTimeUnknown,
       },
     });
   };

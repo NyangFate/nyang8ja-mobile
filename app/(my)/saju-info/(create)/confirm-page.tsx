@@ -35,7 +35,7 @@ export default function ConfirmPage() {
                 {gender === 'male' ? '남자' : '여자'},{'\n'}
               </Text>
               <Text className="font-suit-bold text-primary-03">
-                생년월일은 {birthDate}
+                생년월일은 {birthDate.split('-').join('.')}
                 {isLunarCalendar === 'true' ? '(음력)' : ''},{'\n'}
               </Text>
               태어난 시간은 <Text className="font-suit-bold text-primary-03">{birthTime}</Text>{' '}
@@ -56,6 +56,7 @@ export default function ConfirmPage() {
                   gender,
                   birthDate,
                   birthTime,
+                  isLunarCalendar,
                   isBirthTimeUnknown,
                 },
               });
@@ -66,11 +67,16 @@ export default function ConfirmPage() {
           <Pressable
             className={cn('bg-grey-90 h-[54px] rounded-lg justify-center items-center flex-1')}
             onPress={() => {
-              router.push({
-                pathname: '/(my)/saju-info/(create)/birthdate-input-page',
+              router.dismissAll();
+              router.replace({
+                pathname: '/(my)/my-page',
                 params: {
                   name,
                   gender,
+                  birthDate,
+                  birthTime,
+                  isLunarCalendar,
+                  isBirthTimeUnknown,
                 },
               });
             }}
