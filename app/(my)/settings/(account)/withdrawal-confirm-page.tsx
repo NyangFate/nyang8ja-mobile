@@ -1,5 +1,5 @@
-import Header from '@/entities/my-settings-account-withdrawl/ui/header';
-import { User } from '@/entities/my/model/types';
+import Header from '@/pages/my-settings-account-withdrawl/ui/header';
+import { User } from '@/pages/my/model/types';
 import { fakerKO as faker } from '@faker-js/faker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';

@@ -1,6 +1,6 @@
-import Header from '@/entities/my/ui/header';
-import InfoCard from '@/entities/my/ui/info-card';
-import Menu from '@/entities/my/ui/menu';
+import Header from '@/pages/my/ui/header';
+import InfoCard from '@/pages/my/ui/info-card';
+import Menu from '@/pages/my/ui/menu';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';

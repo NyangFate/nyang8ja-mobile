@@ -25,8 +25,10 @@ export default function AppleLoginButton() {
           const credential = await AppleAuthentication.signInAsync({
             requestedScopes: [AppleAuthentication.AppleAuthenticationScope.FULL_NAME],
           });
+          console.log('credential', credential);
           // signed in
         } catch (e) {
+          console.log('e', e);
           const error = e as AppleAuthenticationError;
           if (error.code !== 'ERR_REQUEST_CANCELED') {
             Alert.alert('로그인에 실패했어요', '잠시 후 다시 시도해 주세요', [{ text: '확인' }]);

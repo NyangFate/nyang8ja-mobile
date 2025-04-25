@@ -1,9 +1,9 @@
-import { SajuInfoFormData, sajuInfoFormDataSchema } from '@/entities/my-saju-info-edit/model/types';
-import BirthdateFormField from '@/entities/my-saju-info-edit/ui/birthdate-form-field';
-import BirthtimeFormField from '@/entities/my-saju-info-edit/ui/birthtime-form-field';
-import GenderFormField from '@/entities/my-saju-info-edit/ui/gender-form-field';
-import Header from '@/entities/my-saju-info-edit/ui/header';
-import NameFormField from '@/entities/my-saju-info-edit/ui/name-form-field';
+import { SajuInfoFormData, sajuInfoFormDataSchema } from '@/pages/my-saju-info-edit/model/types';
+import BirthdateFormField from '@/pages/my-saju-info-edit/ui/birthdate-form-field';
+import BirthtimeFormField from '@/pages/my-saju-info-edit/ui/birthtime-form-field';
+import GenderFormField from '@/pages/my-saju-info-edit/ui/gender-form-field';
+import Header from '@/pages/my-saju-info-edit/ui/header';
+import NameFormField from '@/pages/my-saju-info-edit/ui/name-form-field';
 import cn from '@/shared/utils/cn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';

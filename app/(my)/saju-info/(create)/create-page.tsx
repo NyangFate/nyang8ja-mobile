@@ -1,6 +1,6 @@
 import SurprisedCatWithPacifierImage from '@/assets/images/surprised-cat-with-pacifier.webp';
 import NyaongSinText from '@/assets/svgs/nyaong-sin-text.svg';
-import Header from '@/entities/my-saju-info-create/ui/header';
+import Header from '@/pages/my-saju-info-create/ui/header';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';

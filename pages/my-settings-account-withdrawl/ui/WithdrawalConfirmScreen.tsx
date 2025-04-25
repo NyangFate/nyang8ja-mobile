@@ -1,4 +1,4 @@
-import Header from '@/entities/my-settings-account/ui/header';
+import Header from '@/pages/my-settings-account/ui/header';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';

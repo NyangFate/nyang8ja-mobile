@@ -2,26 +2,16 @@ import ChillSwagSunglassesCatImage from '@/assets/images/chill-swag-sunglasses-c
 import ChevronRightIcon from '@/assets/svgs/chevron-right.svg';
 import cn from '@/shared/utils/cn';
 import dayjs from '@/shared/utils/dayjs';
-import { fakerKO as faker } from '@faker-js/faker';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { SajuInfo, User } from '../../model/types';
+import { SajuInfo } from '../../model/types';
 
 export default function InfoCard() {
   const router = useRouter();
 
-  const user: User = {
-    name: faker.person.fullName(),
-    joinedAt: faker.date.past().toISOString(),
-    signInMethod: 'kakao',
-    sajuInfo: {
-      gender: 'male',
-      birthDate: faker.date.past().toISOString(),
-      isBirthTimeKnown: false,
-    },
-  };
+  const user = undefined;
 
   const handleNavigate = () => {
     if (!user) {

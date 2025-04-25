@@ -9,16 +9,18 @@ export default function KakaoLoginButton() {
     <Pressable
       onPress={async () => {
         const credential = await login();
-
+        console.log('credential', credential);
         try {
           const api = new Class00AuthAPIApi();
 
-          const response = await api.kakaoSignIn({
+          const response = await api.mobileKakaoSignIn({
             kakaoSignInRequestDto: {
-              authorizationCode: credential.accessToken,
+              accessToken: credential.accessToken,
             },
           });
+          console.log('response', response);
         } catch (error) {
+          console.log('error', error);
           Alert.alert('로그인에 실패했어요', '잠시 후 다시 시도해 주세요', [{ text: '확인' }]);
         }
       }}

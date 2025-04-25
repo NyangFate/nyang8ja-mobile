@@ -1,9 +1,9 @@
-import AccountInfo from '@/entities/my-settings-account/ui/account-info';
-import DeleteAccount from '@/entities/my-settings-account/ui/delete-account';
-import Header from '@/entities/my-settings-account/ui/header';
-import Logout from '@/entities/my-settings-account/ui/logout';
-import LogoutModal from '@/entities/my-settings-account/ui/logout-modal';
-import { User } from '@/entities/my/model/types';
+import AccountInfo from '@/pages/my-settings-account/ui/account-info';
+import DeleteAccount from '@/pages/my-settings-account/ui/delete-account';
+import Header from '@/pages/my-settings-account/ui/header';
+import Logout from '@/pages/my-settings-account/ui/logout';
+import LogoutModal from '@/pages/my-settings-account/ui/logout-modal';
+import { User } from '@/pages/my/model/types';
 import { fakerKO as faker } from '@faker-js/faker';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';

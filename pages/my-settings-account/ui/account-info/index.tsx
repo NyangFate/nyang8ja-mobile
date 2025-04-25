@@ -1,6 +1,6 @@
 import AppleIcon from '@/assets/svgs/apple.svg';
 import KakaoIcon from '@/assets/svgs/kakao.svg';
-import { User } from '@/entities/my/model/types';
+import { User } from '@/pages/my/model/types';
 import cn from '@/shared/utils/cn';
 import React from 'react';
 import { Text, View } from 'react-native';

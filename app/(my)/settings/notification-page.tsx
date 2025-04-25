@@ -1,4 +1,4 @@
-import Header from '@/entities/my-settings-notification/ui/header';
+import Header from '@/pages/my-settings-notification/ui/header';
 import COLORS from '@/shared/utils/colors';
 import React, { useState } from 'react';
 import { SafeAreaView, Switch, Text, View } from 'react-native';

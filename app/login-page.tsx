@@ -1,7 +1,7 @@
-import AppleLoginButton from '@/entities/login/ui/AppleLoginButton';
-import Header from '@/entities/login/ui/Header';
-import KakaoLoginButton from '@/entities/login/ui/KakaoLoginButton';
-import LogoWitchCat from '@/entities/login/ui/LogoWitchCat';
+import AppleLoginButton from '@/pages/login/ui/AppleLoginButton';
+import Header from '@/pages/login/ui/Header';
+import KakaoLoginButton from '@/pages/login/ui/KakaoLoginButton';
+import LogoWitchCat from '@/pages/login/ui/LogoWitchCat';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
