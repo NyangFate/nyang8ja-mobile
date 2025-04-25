@@ -1,4 +1,4 @@
-import MyScreen from '@/src/pages/my/ui/my-screen';
+import MyScreen from '@/pages/my/ui/my-screen';
 
 export default function MyPage() {
   return <MyScreen />;
