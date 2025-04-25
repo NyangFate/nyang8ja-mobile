@@ -1,5 +1,5 @@
-import cn from '@/shared/utils/cn';
 import { SajuInfoFormData } from '@/src/pages/saju-info-edit/model/types';
+import cn from '@/src/shared/utils/cn';
 import React from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 import { Pressable, Text, View } from 'react-native';

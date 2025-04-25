@@ -1,6 +1,6 @@
-import TextField from '@/shared/ui/text-field';
-import COLORS from '@/shared/utils/colors';
 import { SajuInfoFormData } from '@/src/pages/saju-info-edit/model/types';
+import TextField from '@/src/shared/ui/text-field';
+import COLORS from '@/src/shared/utils/colors';
 import Checkbox from 'expo-checkbox';
 import React, { useRef } from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';

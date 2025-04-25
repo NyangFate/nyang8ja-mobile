@@ -1,6 +1,6 @@
-import TextField from '@/shared/ui/text-field';
-import cn from '@/shared/utils/cn';
-import COLORS from '@/shared/utils/colors';
+import TextField from '@/src/shared/ui/text-field';
+import cn from '@/src/shared/utils/cn';
+import COLORS from '@/src/shared/utils/colors';
 import Checkbox from 'expo-checkbox';
 import React from 'react';
 import { Control, Controller, FieldErrors, useController } from 'react-hook-form';

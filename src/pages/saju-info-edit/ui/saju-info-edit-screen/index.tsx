@@ -1,10 +1,10 @@
-import Header from '@/shared/ui/header';
-import cn from '@/shared/utils/cn';
 import { SajuInfoFormData, sajuInfoFormDataSchema } from '@/src/pages/saju-info-edit/model/types';
 import BirthdateFormField from '@/src/pages/saju-info-edit/ui/birthdate-form-field';
 import BirthtimeFormField from '@/src/pages/saju-info-edit/ui/birthtime-form-field';
 import GenderFormField from '@/src/pages/saju-info-edit/ui/gender-form-field';
 import NameFormField from '@/src/pages/saju-info-edit/ui/name-form-field';
+import Header from '@/src/shared/ui/header';
+import cn from '@/src/shared/utils/cn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
 import React from 'react';

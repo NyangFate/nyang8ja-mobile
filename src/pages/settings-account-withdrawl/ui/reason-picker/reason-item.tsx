@@ -1,4 +1,4 @@
-import COLORS from '@/shared/utils/colors';
+import COLORS from '@/src/shared/utils/colors';
 import Checkbox, { CheckboxProps } from 'expo-checkbox';
 import React from 'react';
 import { Text, View } from 'react-native';

@@ -1,7 +1,7 @@
 import ChillSwagSunglassesCatImage from '@/assets/images/chill-swag-sunglasses-cat.webp';
 import ChevronRightIcon from '@/assets/svgs/chevron-right.svg';
-import cn from '@/shared/utils/cn';
-import dayjs from '@/shared/utils/dayjs';
+import cn from '@/src/shared/utils/cn';
+import dayjs from '@/src/shared/utils/dayjs';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import React from 'react';

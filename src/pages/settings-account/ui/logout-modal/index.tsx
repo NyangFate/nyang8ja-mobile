@@ -1,4 +1,4 @@
-import ConfirmModal, { ConfirmModalProps } from '@/shared/ui/confirm-modal';
+import ConfirmModal, { ConfirmModalProps } from '@/src/shared/ui/confirm-modal';
 
 type LogoutModalProps = Pick<ConfirmModalProps, 'isVisible' | 'onClose' | 'onConfirm'>;
 

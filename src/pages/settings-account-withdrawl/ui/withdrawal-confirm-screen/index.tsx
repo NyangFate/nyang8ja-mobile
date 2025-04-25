@@ -1,5 +1,5 @@
-import Header from '@/shared/ui/header';
 import { User } from '@/src/pages/my/model/types';
+import Header from '@/src/shared/ui/header';
 import { fakerKO as faker } from '@faker-js/faker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';

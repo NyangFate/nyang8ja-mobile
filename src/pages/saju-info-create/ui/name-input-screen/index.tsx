@@ -1,9 +1,9 @@
 import SurprisedCatWithPacifierImage from '@/assets/images/surprised-cat-with-pacifier.webp';
 import XCircleIcon from '@/assets/svgs/x-circle.svg';
-import TextField from '@/shared/ui/text-field';
-import cn from '@/shared/utils/cn';
 import Header from '@/src/pages/saju-info-create/ui/header';
 import ErrorMessage from '@/src/pages/saju-info-edit/ui/error-message';
+import TextField from '@/src/shared/ui/text-field';
+import cn from '@/src/shared/utils/cn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';

@@ -1,5 +1,5 @@
-import TextField from '@/shared/ui/text-field';
 import { SajuInfoFormData } from '@/src/pages/saju-info-edit/model/types';
+import TextField from '@/src/shared/ui/text-field';
 import React from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 import { Text, View } from 'react-native';

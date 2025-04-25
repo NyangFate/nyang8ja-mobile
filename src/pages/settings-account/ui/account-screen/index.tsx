@@ -1,9 +1,9 @@
-import Header from '@/shared/ui/header';
 import { User } from '@/src/pages/my/model/types';
 import AccountInfo from '@/src/pages/settings-account/ui/account-info';
 import DeleteAccount from '@/src/pages/settings-account/ui/delete-account';
 import Logout from '@/src/pages/settings-account/ui/logout';
 import LogoutModal from '@/src/pages/settings-account/ui/logout-modal';
+import Header from '@/src/shared/ui/header';
 import { fakerKO as faker } from '@faker-js/faker';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';

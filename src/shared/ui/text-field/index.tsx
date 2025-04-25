@@ -1,4 +1,4 @@
-import COLORS from '@/shared/utils/colors';
+import COLORS from '@/src/shared/utils/colors';
 import React, { forwardRef } from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
 import cn from '../../utils/cn';

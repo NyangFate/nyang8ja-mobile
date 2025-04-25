@@ -1,6 +1,6 @@
 import SurprisedCatWithPacifierImage from '@/assets/images/surprised-cat-with-pacifier.webp';
-import cn from '@/shared/utils/cn';
 import Header from '@/src/pages/saju-info-create/ui/header';
+import cn from '@/src/shared/utils/cn';
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';

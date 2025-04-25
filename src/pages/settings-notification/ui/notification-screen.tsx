@@ -1,5 +1,5 @@
-import Header from '@/shared/ui/header';
-import COLORS from '@/shared/utils/colors';
+import Header from '@/src/shared/ui/header';
+import COLORS from '@/src/shared/utils/colors';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { SafeAreaView, Switch, Text, View } from 'react-native';
