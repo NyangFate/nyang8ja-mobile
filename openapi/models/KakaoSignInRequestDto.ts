@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * DDD API 명세
- * DDD(개발 한 스푼) 어플리케이션을 위한 API 명세서입니다. - 모든 API의 Path는 **\'/api\'로 시작**합니다. - 모든 API의 응답은 **공통 응답 형식**을 가집니다. data에 실제 응답 데이터가 들어갑니다.     ```json     {       \"requestId\": \"서버생성 요청ID\",       \"requestTime\": \"요청시간\",       \"success\": \"성공여부\",       \"data\": {         JSON 데이터       }     }     ```
+ * 냥팔자 API 명세
+ * 냥파자는 상팔자 어플리케이션을 위한 API 명세서입니다. - 모든 API의 Path는 **\'/api\'로 시작**합니다. - 모든 API의 응답은 **공통 응답 형식**을 가집니다. data에 실제 응답 데이터가 들어갑니다.     ```json     {       \"requestId\": \"서버생성 요청ID\",       \"requestTime\": \"요청시간\",       \"success\": \"성공여부\",       \"data\": {         JSON 데이터       }     }     ```
  *
  * The version of the OpenAPI document: v1.0.0
  * 
@@ -20,11 +20,11 @@ import { exists, mapValues } from '../runtime';
  */
 export interface KakaoSignInRequestDto {
     /**
-     * 카카오 로그인 시 발급받은 authorization code
+     * 카카오 로그인 시 발급받은 accessToken
      * @type {string}
      * @memberof KakaoSignInRequestDto
      */
-    authorizationCode: string;
+    accessToken: string;
 }
 
 export function KakaoSignInRequestDtoFromJSON(json: any): KakaoSignInRequestDto {
@@ -37,7 +37,7 @@ export function KakaoSignInRequestDtoFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'authorizationCode': json['authorizationCode'],
+        'accessToken': json['accessToken'],
     };
 }
 
@@ -50,7 +50,7 @@ export function KakaoSignInRequestDtoToJSON(value?: KakaoSignInRequestDto | null
     }
     return {
         
-        'authorizationCode': value.authorizationCode,
+        'accessToken': value.accessToken,
     };
 }
 

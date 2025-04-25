@@ -16,39 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface TokenResponseDto
+ * @interface SocialAccountResponseDto
  */
-export interface TokenResponseDto {
+export interface SocialAccountResponseDto {
     /**
-     * 타로냥 접근용 jwt Token
+     * 
      * @type {string}
-     * @memberof TokenResponseDto
+     * @memberof SocialAccountResponseDto
      */
-    accessToken: string;
+    socialType: SocialAccountResponseDtoSocialTypeEnum;
     /**
-     * 신규유저인지
-     * @type {boolean}
-     * @memberof TokenResponseDto
+     * 
+     * @type {Date}
+     * @memberof SocialAccountResponseDto
      */
-    isSignUp: boolean;
+    updatedAt: Date;
 }
 
-export function TokenResponseDtoFromJSON(json: any): TokenResponseDto {
-    return TokenResponseDtoFromJSONTyped(json, false);
+export function SocialAccountResponseDtoFromJSON(json: any): SocialAccountResponseDto {
+    return SocialAccountResponseDtoFromJSONTyped(json, false);
 }
 
-export function TokenResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): TokenResponseDto {
+export function SocialAccountResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): SocialAccountResponseDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'accessToken': json['accessToken'],
-        'isSignUp': json['isSignUp'],
+        'socialType': json['socialType'],
+        'updatedAt': (new Date(json['updatedAt'])),
     };
 }
 
-export function TokenResponseDtoToJSON(value?: TokenResponseDto | null): any {
+export function SocialAccountResponseDtoToJSON(value?: SocialAccountResponseDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -57,9 +57,19 @@ export function TokenResponseDtoToJSON(value?: TokenResponseDto | null): any {
     }
     return {
         
-        'accessToken': value.accessToken,
-        'isSignUp': value.isSignUp,
+        'socialType': value.socialType,
+        'updatedAt': (value.updatedAt.toISOString()),
     };
+}
+
+/**
+* @export
+* @enum {string}
+*/
+export enum SocialAccountResponseDtoSocialTypeEnum {
+    KAKAO = 'KAKAO',
+    APPLE = 'APPLE',
+    GUEST = 'GUEST'
 }
 
 

@@ -16,39 +16,32 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface TokenResponseDto
+ * @interface ServiceNotificationDto
  */
-export interface TokenResponseDto {
+export interface ServiceNotificationDto {
     /**
-     * 타로냥 접근용 jwt Token
-     * @type {string}
-     * @memberof TokenResponseDto
-     */
-    accessToken: string;
-    /**
-     * 신규유저인지
+     * 
      * @type {boolean}
-     * @memberof TokenResponseDto
+     * @memberof ServiceNotificationDto
      */
-    isSignUp: boolean;
+    fortune?: boolean;
 }
 
-export function TokenResponseDtoFromJSON(json: any): TokenResponseDto {
-    return TokenResponseDtoFromJSONTyped(json, false);
+export function ServiceNotificationDtoFromJSON(json: any): ServiceNotificationDto {
+    return ServiceNotificationDtoFromJSONTyped(json, false);
 }
 
-export function TokenResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): TokenResponseDto {
+export function ServiceNotificationDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): ServiceNotificationDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'accessToken': json['accessToken'],
-        'isSignUp': json['isSignUp'],
+        'fortune': !exists(json, 'fortune') ? undefined : json['fortune'],
     };
 }
 
-export function TokenResponseDtoToJSON(value?: TokenResponseDto | null): any {
+export function ServiceNotificationDtoToJSON(value?: ServiceNotificationDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -57,8 +50,7 @@ export function TokenResponseDtoToJSON(value?: TokenResponseDto | null): any {
     }
     return {
         
-        'accessToken': value.accessToken,
-        'isSignUp': value.isSignUp,
+        'fortune': value.fortune,
     };
 }
 

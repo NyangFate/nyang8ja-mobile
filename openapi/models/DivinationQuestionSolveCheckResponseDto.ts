@@ -16,39 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface TokenResponseDto
+ * @interface DivinationQuestionSolveCheckResponseDto
  */
-export interface TokenResponseDto {
+export interface DivinationQuestionSolveCheckResponseDto {
     /**
-     * 타로냥 접근용 jwt Token
-     * @type {string}
-     * @memberof TokenResponseDto
-     */
-    accessToken: string;
-    /**
-     * 신규유저인지
+     * 
      * @type {boolean}
-     * @memberof TokenResponseDto
+     * @memberof DivinationQuestionSolveCheckResponseDto
      */
-    isSignUp: boolean;
+    isSolved: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof DivinationQuestionSolveCheckResponseDto
+     */
+    resultId?: number;
 }
 
-export function TokenResponseDtoFromJSON(json: any): TokenResponseDto {
-    return TokenResponseDtoFromJSONTyped(json, false);
+export function DivinationQuestionSolveCheckResponseDtoFromJSON(json: any): DivinationQuestionSolveCheckResponseDto {
+    return DivinationQuestionSolveCheckResponseDtoFromJSONTyped(json, false);
 }
 
-export function TokenResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): TokenResponseDto {
+export function DivinationQuestionSolveCheckResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): DivinationQuestionSolveCheckResponseDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'accessToken': json['accessToken'],
-        'isSignUp': json['isSignUp'],
+        'isSolved': json['isSolved'],
+        'resultId': !exists(json, 'resultId') ? undefined : json['resultId'],
     };
 }
 
-export function TokenResponseDtoToJSON(value?: TokenResponseDto | null): any {
+export function DivinationQuestionSolveCheckResponseDtoToJSON(value?: DivinationQuestionSolveCheckResponseDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -57,8 +57,8 @@ export function TokenResponseDtoToJSON(value?: TokenResponseDto | null): any {
     }
     return {
         
-        'accessToken': value.accessToken,
-        'isSignUp': value.isSignUp,
+        'isSolved': value.isSolved,
+        'resultId': value.resultId,
     };
 }
 

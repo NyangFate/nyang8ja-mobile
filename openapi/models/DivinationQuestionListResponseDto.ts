@@ -13,42 +13,42 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    DivinationQuestionResponseDto,
+    DivinationQuestionResponseDtoFromJSON,
+    DivinationQuestionResponseDtoFromJSONTyped,
+    DivinationQuestionResponseDtoToJSON,
+} from './';
+
 /**
  * 
  * @export
- * @interface TokenResponseDto
+ * @interface DivinationQuestionListResponseDto
  */
-export interface TokenResponseDto {
+export interface DivinationQuestionListResponseDto {
     /**
-     * 타로냥 접근용 jwt Token
-     * @type {string}
-     * @memberof TokenResponseDto
+     * 
+     * @type {Array<DivinationQuestionResponseDto>}
+     * @memberof DivinationQuestionListResponseDto
      */
-    accessToken: string;
-    /**
-     * 신규유저인지
-     * @type {boolean}
-     * @memberof TokenResponseDto
-     */
-    isSignUp: boolean;
+    results: Array<DivinationQuestionResponseDto>;
 }
 
-export function TokenResponseDtoFromJSON(json: any): TokenResponseDto {
-    return TokenResponseDtoFromJSONTyped(json, false);
+export function DivinationQuestionListResponseDtoFromJSON(json: any): DivinationQuestionListResponseDto {
+    return DivinationQuestionListResponseDtoFromJSONTyped(json, false);
 }
 
-export function TokenResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): TokenResponseDto {
+export function DivinationQuestionListResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): DivinationQuestionListResponseDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'accessToken': json['accessToken'],
-        'isSignUp': json['isSignUp'],
+        'results': ((json['results'] as Array<any>).map(DivinationQuestionResponseDtoFromJSON)),
     };
 }
 
-export function TokenResponseDtoToJSON(value?: TokenResponseDto | null): any {
+export function DivinationQuestionListResponseDtoToJSON(value?: DivinationQuestionListResponseDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -57,8 +57,7 @@ export function TokenResponseDtoToJSON(value?: TokenResponseDto | null): any {
     }
     return {
         
-        'accessToken': value.accessToken,
-        'isSignUp': value.isSignUp,
+        'results': ((value.results as Array<any>).map(DivinationQuestionResponseDtoToJSON)),
     };
 }
 

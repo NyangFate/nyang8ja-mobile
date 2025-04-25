@@ -16,39 +16,39 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface DummyRequestBodyDto
+ * @interface UserWithdrawalRequestDto
  */
-export interface DummyRequestBodyDto {
+export interface UserWithdrawalRequestDto {
     /**
-     * 백엔드에게 하고 싶은 말
+     * 
      * @type {string}
-     * @memberof DummyRequestBodyDto
+     * @memberof UserWithdrawalRequestDto
      */
-    say: string;
+    detail?: string;
     /**
-     * DummyRequestType
+     * 
      * @type {string}
-     * @memberof DummyRequestBodyDto
+     * @memberof UserWithdrawalRequestDto
      */
-    type: DummyRequestBodyDtoTypeEnum;
+    reason: UserWithdrawalRequestDtoReasonEnum;
 }
 
-export function DummyRequestBodyDtoFromJSON(json: any): DummyRequestBodyDto {
-    return DummyRequestBodyDtoFromJSONTyped(json, false);
+export function UserWithdrawalRequestDtoFromJSON(json: any): UserWithdrawalRequestDto {
+    return UserWithdrawalRequestDtoFromJSONTyped(json, false);
 }
 
-export function DummyRequestBodyDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): DummyRequestBodyDto {
+export function UserWithdrawalRequestDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserWithdrawalRequestDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'say': json['say'],
-        'type': json['type'],
+        'detail': !exists(json, 'detail') ? undefined : json['detail'],
+        'reason': json['reason'],
     };
 }
 
-export function DummyRequestBodyDtoToJSON(value?: DummyRequestBodyDto | null): any {
+export function UserWithdrawalRequestDtoToJSON(value?: UserWithdrawalRequestDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -57,8 +57,8 @@ export function DummyRequestBodyDtoToJSON(value?: DummyRequestBodyDto | null): a
     }
     return {
         
-        'say': value.say,
-        'type': value.type,
+        'detail': value.detail,
+        'reason': value.reason,
     };
 }
 
@@ -66,9 +66,14 @@ export function DummyRequestBodyDtoToJSON(value?: DummyRequestBodyDto | null): a
 * @export
 * @enum {string}
 */
-export enum DummyRequestBodyDtoTypeEnum {
-    REPORT = 'REPORT',
-    THANKS = 'THANKS',
+export enum UserWithdrawalRequestDtoReasonEnum {
+    NOTUSE = 'NOT_USE',
+    FREQUENTALARM = 'FREQUENT_ALARM',
+    LACKOFCONTENT = 'LACK_OF_CONTENT',
+    SIMILARRESULT = 'SIMILAR_RESULT',
+    INCONVENIENCE = 'INCONVENIENCE',
+    TOOMANYPAID = 'TOO_MANY_PAID',
+    PRIVACY = 'PRIVACY',
     ETC = 'ETC'
 }
 
