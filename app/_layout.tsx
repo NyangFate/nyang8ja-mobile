@@ -1,3 +1,4 @@
+import ReactQueryClientProvider from '@/application/config/react-query';
 import '@/global.css';
 import { initializeKakaoSDK } from '@react-native-kakao/core';
 import { useFonts } from 'expo-font';
@@ -32,16 +33,19 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="(my)" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="login-page"
-        options={{
-          headerShown: false,
-          presentation: 'fullScreenModal',
-        }}
-      />
-    </Stack>
+    <ReactQueryClientProvider>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(my)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="login-page"
+          options={{
+            headerShown: false,
+            presentation: 'fullScreenModal',
+          }}
+        />
+      </Stack>
+    </ReactQueryClientProvider>
   );
 }
