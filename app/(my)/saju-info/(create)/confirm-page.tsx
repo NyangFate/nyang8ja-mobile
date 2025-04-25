@@ -1,5 +1,5 @@
 import SurprisedCatWithPacifierImage from '@/assets/images/surprised-cat-with-pacifier.webp';
-import Header from '@/pages/my-saju-info-create/ui/header';
+import Header from '@/pages/saju-info-create/ui/header';
 import cn from '@/shared/utils/cn';
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';

@@ -1,4 +1,4 @@
-import { SajuInfoFormData } from '@/pages/my-saju-info-edit/model/types';
+import { SajuInfoFormData } from '@/pages/saju-info-edit/model/types';
 import TextField from '@/shared/ui/text-field';
 import React from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
