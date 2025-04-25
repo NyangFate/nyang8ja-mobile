@@ -1,5 +1,5 @@
 import { User } from '@/pages/my/model/types';
-import Header from '@/pages/settings-account-withdrawl/ui/header';
+import Header from '@/shared/ui/header';
 import { fakerKO as faker } from '@faker-js/faker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
@@ -33,9 +33,13 @@ export default function WithdrawalConfirmPage() {
     router.dismissTo('/my-page');
   };
 
+  const handleBackPress = () => {
+    router.back();
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <Header />
+      <Header title="탈퇴하기" onBackPress={handleBackPress} />
 
       {/* 컨텐츠 */}
       <View className="flex-1 px-6 py-5">

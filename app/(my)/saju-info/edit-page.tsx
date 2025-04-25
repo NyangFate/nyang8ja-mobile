@@ -2,8 +2,8 @@ import { SajuInfoFormData, sajuInfoFormDataSchema } from '@/pages/saju-info-edit
 import BirthdateFormField from '@/pages/saju-info-edit/ui/birthdate-form-field';
 import BirthtimeFormField from '@/pages/saju-info-edit/ui/birthtime-form-field';
 import GenderFormField from '@/pages/saju-info-edit/ui/gender-form-field';
-import Header from '@/pages/saju-info-edit/ui/header';
 import NameFormField from '@/pages/saju-info-edit/ui/name-form-field';
+import Header from '@/shared/ui/header';
 import cn from '@/shared/utils/cn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'expo-router';
@@ -21,6 +21,10 @@ import {
 
 export default function SajuInfoEditPage() {
   const router = useRouter();
+
+  const handleBackPress = () => {
+    router.back();
+  };
 
   const {
     control,
@@ -48,7 +52,7 @@ export default function SajuInfoEditPage() {
       style={{ flex: 1 }}
     >
       <SafeAreaView className="flex-1 bg-white">
-        <Header />
+        <Header title="사주 정보" onBackPress={handleBackPress} />
 
         <ScrollView className="flex-1">
           <View className="gap-8 px-5 py-3">

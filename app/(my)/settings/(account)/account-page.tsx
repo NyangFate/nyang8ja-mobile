@@ -1,9 +1,9 @@
 import { User } from '@/pages/my/model/types';
 import AccountInfo from '@/pages/settings-account/ui/account-info';
 import DeleteAccount from '@/pages/settings-account/ui/delete-account';
-import Header from '@/pages/settings-account/ui/header';
 import Logout from '@/pages/settings-account/ui/logout';
 import LogoutModal from '@/pages/settings-account/ui/logout-modal';
+import Header from '@/shared/ui/header';
 import { fakerKO as faker } from '@faker-js/faker';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -41,9 +41,13 @@ export default function AccountPage() {
     // 계정 탈퇴 로직 구현
   };
 
+  const handleBackPress = () => {
+    router.back();
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <Header />
+      <Header title="계정 설정" onBackPress={handleBackPress} />
       <AccountInfo user={user} />
 
       <View className="h-px mx-5 bg-grey-10" />

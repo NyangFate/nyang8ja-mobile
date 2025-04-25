@@ -1,4 +1,4 @@
-import BaseHeader from '@/shared/ui/base-header';
+import BaseHeader from '@/shared/ui/header';
 import { useRouter } from 'expo-router';
 import React from 'react';
 

@@ -1,9 +1,12 @@
-import Header from '@/pages/my-settings-notification/ui/header';
+import Header from '@/shared/ui/header';
 import COLORS from '@/shared/utils/colors';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { SafeAreaView, Switch, Text, View } from 'react-native';
 
 export default function NotificationPage() {
+  const router = useRouter();
+
   const [isEventNotificationOn, setIsEventNotificationOn] = useState(true);
   const [isFortuneNotificationOn, setIsFortuneNotificationOn] = useState(true);
 
@@ -18,9 +21,13 @@ export default function NotificationPage() {
     setIsFortuneNotificationOn(value);
   };
 
+  const handleBackPress = () => {
+    router.back();
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <Header />
+      <Header title="알림 설정" onBackPress={handleBackPress} />
 
       {/* 혜택 및 이벤트 섹션 */}
       <View className="px-5 py-3">
