@@ -1,10 +1,14 @@
 import KakaoIcon from '@/assets/svgs/kakao.svg';
 import { Class00AuthAPIApi } from '@/openapi/apis';
+import useSignInKakao from '@/pages/login/api/useSignInKakao';
 import { login } from '@react-native-kakao/user';
+import { router } from 'expo-router';
 import React from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
 
 export default function KakaoLoginButton() {
+  const { mutate: signInKakao } = useSignInKakao();
+
   return (
     <Pressable
       onPress={async () => {
@@ -13,14 +17,19 @@ export default function KakaoLoginButton() {
         try {
           const api = new Class00AuthAPIApi();
 
-          const response = await api.mobileKakaoSignIn({
-            kakaoSignInRequestDto: {
-              accessToken: credential.accessToken,
+          signInKakao(
+            {
+              kakaoSignInRequestDto: {
+                accessToken: credential.accessToken,
+              },
             },
-          });
-          console.log('response', response);
+            {
+              onSuccess: () => {
+                router.push('/');
+              },
+            }
+          );
         } catch (error) {
-          console.log('error', error);
           Alert.alert('로그인에 실패했어요', '잠시 후 다시 시도해 주세요', [{ text: '확인' }]);
         }
       }}
