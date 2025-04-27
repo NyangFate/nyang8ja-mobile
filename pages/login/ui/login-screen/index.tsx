@@ -5,23 +5,25 @@ import LogoWitchCat from '@/pages/login/ui/logo-with-cat';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function LoginScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <Header />
+    <SafeAreaProvider>
+      <SafeAreaView className="flex-1 bg-white">
+        <Header />
 
-      <View className="mt-16">
-        <LogoWitchCat />
-      </View>
+        <View className="mt-16">
+          <LogoWitchCat />
+        </View>
 
-      <View className="px-5 gap-3 mt-[54px]">
-        <KakaoLoginButton />
-        <AppleLoginButton />
-      </View>
-    </SafeAreaView>
+        <View className="px-5 gap-3 mt-[54px]">
+          <KakaoLoginButton />
+          <AppleLoginButton />
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

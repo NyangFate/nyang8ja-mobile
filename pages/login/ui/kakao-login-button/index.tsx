@@ -13,10 +13,8 @@ export default function KakaoLoginButton() {
     <Pressable
       onPress={async () => {
         const credential = await login();
-        console.log('credential', credential);
         try {
           const api = new Class00AuthAPIApi();
-
           signInKakao(
             {
               kakaoSignInRequestDto: {
@@ -24,8 +22,12 @@ export default function KakaoLoginButton() {
               },
             },
             {
-              onSuccess: () => {
-                router.push('/');
+              onSuccess: (data) => {
+                if (data.isSignUp) {
+                  router.push('/saju-info/create-page');
+                } else {
+                  router.push('/');
+                }
               },
             }
           );
