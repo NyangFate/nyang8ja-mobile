@@ -24,9 +24,9 @@ export default function KakaoLoginButton() {
             {
               onSuccess: (data) => {
                 if (data.isSignUp) {
-                  router.push('/saju-info/create-page');
+                  router.replace('/saju-info/create-page');
                 } else {
-                  router.push('/');
+                  router.replace('/(my)/my-page');
                 }
               },
             }
