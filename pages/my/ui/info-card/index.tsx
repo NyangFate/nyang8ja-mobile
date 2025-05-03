@@ -46,7 +46,7 @@ export default function InfoCard() {
 
     let birthTimeInfo = '모름';
     if (profile.birthtime) {
-      birthTimeInfo = dayjs.tz(profile.birthtime, 'Asia/Seoul').format('HH시 mm분');
+      birthTimeInfo = dayjs.tz(profile.birthtime, 'Asia/Seoul').format('H시 m분');
     }
 
     return `${gender}${separator}${birthDate}${separator}${birthTimeInfo}`;
