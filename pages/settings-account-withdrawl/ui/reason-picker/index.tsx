@@ -1,3 +1,4 @@
+import { UserWithdrawalRequestDtoReasonEnum } from '@/openapi/models/UserWithdrawalRequestDto';
 import ReasonItem from '@/pages/settings-account-withdrawl/ui/reason-picker/reason-item';
 import TextField from '@/shared/ui/text-field';
 import cn from '@/shared/utils/cn';
@@ -6,33 +7,51 @@ import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, View } from 'react-native';
 
 export default function ReasonPicker() {
+  const withdrawlReasonEnumToText = (reasonEnum: UserWithdrawalRequestDtoReasonEnum) => {
+    const reason = {
+      [UserWithdrawalRequestDtoReasonEnum.NOTUSE]: '자주 사용하지 않게 됐어요',
+      [UserWithdrawalRequestDtoReasonEnum.FREQUENTALARM]: '알림이 너무 자주 와요',
+      [UserWithdrawalRequestDtoReasonEnum.LACKOFCONTENT]: '볼 수 있는 콘텐츠가 부족해요',
+      [UserWithdrawalRequestDtoReasonEnum.SIMILARRESULT]: '결과가 비슷하게 느껴졌어요',
+      [UserWithdrawalRequestDtoReasonEnum.INCONVENIENCE]: '앱 사용이 불편해요 (속도, 화면 구성 등)',
+      [UserWithdrawalRequestDtoReasonEnum.TOOMANYPAID]: '유료 기능이 많아서 부담돼요',
+      [UserWithdrawalRequestDtoReasonEnum.PRIVACY]: '개인정보 보호가 걱정돼요',
+      [UserWithdrawalRequestDtoReasonEnum.ETC]: '기타',
+    };
+    return reason[reasonEnum];
+  };
+
   const WITHDRAWAL_REASONS = [
-    '자주 사용하지 않게 됐어요',
-    '알림이 너무 자주 와요',
-    '볼 수 있는 콘텐츠가 부족해요',
-    '결과가 비슷하게 느껴졌어요',
-    '앱 사용이 불편해요 (속도, 화면 구성 등)',
-    '유료 기능이 많아서 부담돼요',
-    '개인정보 보호가 걱정돼요',
-    '기타',
+    UserWithdrawalRequestDtoReasonEnum.NOTUSE,
+    UserWithdrawalRequestDtoReasonEnum.FREQUENTALARM,
+    UserWithdrawalRequestDtoReasonEnum.LACKOFCONTENT,
+    UserWithdrawalRequestDtoReasonEnum.SIMILARRESULT,
+    UserWithdrawalRequestDtoReasonEnum.INCONVENIENCE,
+    UserWithdrawalRequestDtoReasonEnum.TOOMANYPAID,
+    UserWithdrawalRequestDtoReasonEnum.PRIVACY,
+    UserWithdrawalRequestDtoReasonEnum.ETC,
   ];
 
   const router = useRouter();
-  const [selectedReason, setSelectedReason] = useState<string[]>([]);
+  const [selectedReason, setSelectedReason] = useState<UserWithdrawalRequestDtoReasonEnum[]>([]);
   const [otherReason, setOtherReason] = useState<string>('');
 
-  const handleCheckboxPress = (checked: boolean, reason: string) => {
+  const handleCheckboxPress = (checked: boolean, reason: UserWithdrawalRequestDtoReasonEnum) => {
     if (checked) {
       checkReason(reason);
     } else {
+      if (reason === UserWithdrawalRequestDtoReasonEnum.ETC) {
+        setOtherReason('');
+      }
       uncheckReason(reason);
     }
   };
 
-  const checkReason = (reason: string) => {
+  const checkReason = (reason: UserWithdrawalRequestDtoReasonEnum) => {
     setSelectedReason((prev) => [...prev, reason]);
   };
-  const uncheckReason = (reason: string) => {
+
+  const uncheckReason = (reason: UserWithdrawalRequestDtoReasonEnum) => {
     setSelectedReason((prev) => prev.filter((r) => r !== reason));
   };
 
@@ -41,8 +60,11 @@ export default function ReasonPicker() {
       router.push({
         pathname: '/settings/withdrawal-confirm-page',
         params: {
-          reasons: selectedReason,
-          otherReason: selectedReason.includes('기타') ? otherReason : undefined,
+          reasons: selectedReason.join(','),
+          otherReason:
+            selectedReason.includes(UserWithdrawalRequestDtoReasonEnum.ETC) && otherReason
+              ? otherReason
+              : undefined,
         },
       });
     }
@@ -64,15 +86,14 @@ export default function ReasonPicker() {
               {WITHDRAWAL_REASONS.map((reason) => (
                 <ReasonItem
                   key={reason}
-                  label={reason}
+                  label={withdrawlReasonEnumToText(reason)}
                   value={selectedReason.includes(reason)}
                   onValueChange={(checked) => handleCheckboxPress(checked, reason)}
                 />
               ))}
-              {selectedReason.includes('기타') && (
+              {selectedReason.includes(UserWithdrawalRequestDtoReasonEnum.ETC) && (
                 <TextField
                   multiline
-                  autoFocus
                   placeholder="(선택) 상세 사유를 입력해 주세요"
                   containerClassName="ml-[30px]"
                   className="h-[96px]"

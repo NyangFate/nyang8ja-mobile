@@ -6,7 +6,7 @@ import { useFonts } from 'expo-font';
 import { Stack, type ErrorBoundaryProps } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-
+import Toast from 'react-native-toast-message';
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const [fontsLoaded, fontLoadError] = useFonts({
@@ -47,6 +47,7 @@ export default function RootLayout() {
           }}
         />
       </Stack>
+      <Toast />
     </ReactQueryClientProvider>
   );
 }

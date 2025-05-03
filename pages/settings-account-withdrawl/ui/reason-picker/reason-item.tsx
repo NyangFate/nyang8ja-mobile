@@ -1,7 +1,7 @@
 import COLORS from '@/shared/utils/colors';
 import Checkbox, { CheckboxProps } from 'expo-checkbox';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 type ReasonItemProps = {
   label: string;
@@ -9,7 +9,7 @@ type ReasonItemProps = {
 
 export default function ReasonItem({ label, value, onValueChange }: ReasonItemProps) {
   return (
-    <View className="flex-row items-center gap-1.5 py-2.5">
+    <Pressable onPress={() => onValueChange?.(!value)} className="flex-row items-center py-2.5">
       <View className="p-[3px]">
         <Checkbox
           value={value}
@@ -18,7 +18,7 @@ export default function ReasonItem({ label, value, onValueChange }: ReasonItemPr
           style={{ height: 18, width: 18 }}
         />
       </View>
-      <Text className="text-body3 text-grey-70 font-suit-regular">{label}</Text>
-    </View>
+      <Text className="flex-1 ml-2 text-body3 text-grey-70 font-suit-regular">{label}</Text>
+    </Pressable>
   );
 }

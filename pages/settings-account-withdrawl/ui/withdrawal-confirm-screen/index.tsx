@@ -1,41 +1,59 @@
-import { User } from '@/pages/my/model/types';
+import { UserWithdrawalRequestDtoReasonEnum } from '@/openapi/models/UserWithdrawalRequestDto';
+import useUser from '@/pages/my/api/useUser';
 import Header from '@/shared/ui/header';
-import { fakerKO as faker } from '@faker-js/faker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
+import Toast from 'react-native-toast-message';
+import useWithdrawAccount from '../../api/useWithdrawAccount';
 
 export default function WithdrawalConfirmScreen() {
-  // 실제 구현 시 상태 관리나 API로 현재 사용자 정보 가져오기
-  const user: User = {
-    name: faker.person.firstName(),
-    joinedAt: faker.date.past().toISOString(),
-    signInMethod: 'apple',
-    sajuInfo: {
-      gender: 'male',
-      birthDate: faker.date.past().toISOString(),
-      isBirthTimeKnown: false,
-    },
-  };
+  const { data: user } = useUser();
 
   const router = useRouter();
-  const { reasons, otherReason } = useLocalSearchParams();
+  const { reasons, otherReason } = useLocalSearchParams<{
+    reasons: string;
+    otherReason: string;
+  }>();
+  const { mutate: withdrawAccount } = useWithdrawAccount();
 
   const handleWithdrawal = () => {
-    // 계정 탈퇴 로직 구현
-
-    // 탈퇴 완료 후 네비게이션 스택 모두 제거하고 로그인 페이지로 이동
-    router.dismissAll();
-    router.replace('/login-page');
+    // TODO: 인터페이스 수정 후 변경
+    try {
+      withdrawAccount(
+        {
+          reason: reasons.split(',')[0] as UserWithdrawalRequestDtoReasonEnum,
+          detail: otherReason,
+        },
+        {
+          onSuccess: () => {
+            router.dismissAll();
+            router.replace('/(my)/my-page');
+            Toast.show({
+              type: 'success',
+              text1: '탈퇴가 완료되었습니다.',
+            });
+          },
+        }
+      );
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: '탈퇴에 실패했습니다.',
+      });
+    }
   };
 
   const handleStayPress = () => {
-    // 탈퇴 취소하고 메인 페이지로 이동
     router.dismissTo('/my-page');
   };
 
   const handleBackPress = () => {
     router.back();
   };
+
+  if (!user?.profile?.name) {
+    return null;
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -44,7 +62,7 @@ export default function WithdrawalConfirmScreen() {
       {/* 컨텐츠 */}
       <View className="flex-1 px-6 py-5">
         <Text className="mb-3 text-headline2 text-grey-90 font-suit-bold">
-          {user.name}님,{'\n'}탈퇴 전 꼭 확인해 주세요
+          {user?.profile?.name}님,{'\n'}탈퇴 전 꼭 확인해 주세요
         </Text>
 
         <View className="gap-2">
