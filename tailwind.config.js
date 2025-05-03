@@ -59,8 +59,6 @@ module.exports = {
           {
             lineHeight: '26px',
             fontWeight: '700',
-
-            color: 'red',
           },
         ],
         subhead3: [
