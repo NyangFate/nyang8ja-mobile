@@ -1,29 +1,65 @@
+import { UserNotificationResponseDto } from '@/openapi/models';
 import Header from '@/shared/ui/header';
 import COLORS from '@/shared/utils/colors';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView, Switch, Text, View } from 'react-native';
+import useEditNotification from '../api/useEditNotification';
+import useNotification from '../api/useNotification';
 
 export default function NotificationScreen() {
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const { data: notification } = useNotification();
+  const { mutate: editNotification } = useEditNotification();
+  const handleEventNotificationOnChange = ({
+    value,
+    notification,
+  }: {
+    value: boolean;
+    notification: UserNotificationResponseDto;
+  }) => {
+    if (!notification) return;
 
-  const [isEventNotificationOn, setIsEventNotificationOn] = useState(true);
-  const [isFortuneNotificationOn, setIsFortuneNotificationOn] = useState(true);
+    const newData = {
+      ...notification,
+      event: {
+        news: value,
+      },
+    };
 
-  const handleEventNotificationOnChange = (value: boolean) => {
-    // TODO: 이벤트 알림 설정 변경
-    // NOTE: 낙관적 업데이트, 디바운싱
-    setIsEventNotificationOn(value);
+    editNotification(newData);
+    queryClient.setQueryData(['notification'], newData);
   };
 
-  const handleFortuneNotificationOnChange = (value: boolean) => {
-    // TODO: 오늘의 운세 알림 설정 변경
-    setIsFortuneNotificationOn(value);
+  const handleFortuneNotificationOnChange = ({
+    value,
+    notification,
+  }: {
+    value: boolean;
+    notification: UserNotificationResponseDto;
+  }) => {
+    if (!notification) return;
+
+    const newData = {
+      ...notification,
+      service: {
+        fortune: value,
+      },
+    };
+
+    editNotification(newData);
+    queryClient.setQueryData(['notification'], newData);
   };
 
   const handleBackPress = () => {
     router.back();
   };
+
+  if (!notification) {
+    return null;
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -37,8 +73,13 @@ export default function NotificationScreen() {
           <Switch
             trackColor={{ false: COLORS.grey[10], true: COLORS.primary['03'] }}
             thumbColor={COLORS.white}
-            onValueChange={handleEventNotificationOnChange}
-            value={isEventNotificationOn}
+            onValueChange={() =>
+              handleEventNotificationOnChange({
+                value: !notification.event.news,
+                notification: notification,
+              })
+            }
+            value={notification.event.news}
           />
         </View>
       </View>
@@ -54,8 +95,13 @@ export default function NotificationScreen() {
           <Switch
             trackColor={{ false: COLORS.grey[10], true: COLORS.primary['03'] }}
             thumbColor={COLORS.white}
-            onValueChange={handleFortuneNotificationOnChange}
-            value={isFortuneNotificationOn}
+            onValueChange={() =>
+              handleFortuneNotificationOnChange({
+                value: !notification.service.fortune,
+                notification: notification,
+              })
+            }
+            value={notification.service.fortune}
           />
         </View>
       </View>
