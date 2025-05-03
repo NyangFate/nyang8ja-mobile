@@ -1,5 +1,5 @@
-import SajuInfoCreateScreen from '@/pages/saju-info-create/ui/saju-info-create-screen';
+import Intro from '@/pages/saju-info-create/ui/intro';
 
 export default function SajuInfoCreatePage() {
-  return <SajuInfoCreateScreen />;
+  return <Intro />;
 }

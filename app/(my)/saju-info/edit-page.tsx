@@ -1,5 +1,5 @@
-import SajuInfoEditScreen from '@/pages/saju-info-edit/ui/saju-info-edit-screen';
+import SajuInfoEdit from '@/pages/saju-info-edit/ui';
 
 export default function SajuInfoEditPage() {
-  return <SajuInfoEditScreen />;
+  return <SajuInfoEdit />;
 }

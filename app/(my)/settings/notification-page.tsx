@@ -1,5 +1,5 @@
-import NotificationScreen from '@/pages/settings-notification/ui/notification-screen';
+import Notification from '@/pages/settings-notification/ui';
 
 export default function NotificationPage() {
-  return <NotificationScreen />;
+  return <Notification />;
 }

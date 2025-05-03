@@ -1,5 +1,5 @@
-import GenderSelectScreen from '@/pages/saju-info-create/ui/gender-select-screen';
+import GenderForm from '@/pages/saju-info-create/ui/gender-form';
 
 export default function GenderSelectPage() {
-  return <GenderSelectScreen />;
+  return <GenderForm />;
 }

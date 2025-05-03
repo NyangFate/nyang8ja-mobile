@@ -19,7 +19,7 @@ import {
   View,
 } from 'react-native';
 import { z } from 'zod';
-export default function NameInputScreen() {
+export default function NameForm() {
   const { name, gender, birthDate, isLunarCalendar, birthTime, isBirthTimeUnknown } =
     useLocalSearchParams<{
       name?: string;

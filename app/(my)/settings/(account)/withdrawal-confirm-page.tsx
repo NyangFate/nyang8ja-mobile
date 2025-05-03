@@ -1,5 +1,5 @@
-import WithdrawalConfirmScreen from '@/pages/settings-account-withdrawl/ui/withdrawal-confirm-screen';
+import WithdrawalConfirmation from '@/pages/settings-account-withdrawl/ui/withdrawal-confirmation';
 
 export default function WithdrawalConfirmPage() {
-  return <WithdrawalConfirmScreen />;
+  return <WithdrawalConfirmation />;
 }

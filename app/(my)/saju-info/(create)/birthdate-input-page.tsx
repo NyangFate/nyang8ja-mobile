@@ -1,4 +1,4 @@
-import BirthdateInputScreen from '@/pages/saju-info-create/ui/birthdate-input-screen';
-export default function BirthdateInputPage() {
-  return <BirthdateInputScreen />;
+import BirthDateForm from '@/pages/saju-info-create/ui/birth-date-form';
+export default function BirthDateInputPage() {
+  return <BirthDateForm />;
 }

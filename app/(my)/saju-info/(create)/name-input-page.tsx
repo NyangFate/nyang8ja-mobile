@@ -1,4 +1,4 @@
-import NameInputScreen from '@/pages/saju-info-create/ui/name-input-screen';
+import NameForm from '@/pages/saju-info-create/ui/name-form';
 export default function NameInputPage() {
-  return <NameInputScreen />;
+  return <NameForm />;
 }

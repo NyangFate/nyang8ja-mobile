@@ -6,7 +6,7 @@ import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import useWithdrawAccount from '../../api/useWithdrawAccount';
 
-export default function WithdrawalConfirmScreen() {
+export default function WithdrawalConfirmation() {
   const { data: user } = useUser();
 
   const router = useRouter();

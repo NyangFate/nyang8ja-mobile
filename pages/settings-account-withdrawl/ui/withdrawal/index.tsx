@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 
-export default function WithdrawalScreen() {
+export default function Withdrawal() {
   const router = useRouter();
 
   const handleBackPress = () => {

@@ -6,7 +6,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 
-export default function ConfirmPage() {
+export default function Confirmation() {
   const { name, gender, birthDate, birthTime, isLunarCalendar, isBirthTimeUnknown } =
     useLocalSearchParams<{
       name: string;

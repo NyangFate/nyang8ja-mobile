@@ -6,7 +6,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 
-export default function GenderSelectScreen() {
+export default function GenderForm() {
   const { name, gender, birthDate, isLunarCalendar, birthTime, isBirthTimeUnknown } =
     useLocalSearchParams<{
       name: string;

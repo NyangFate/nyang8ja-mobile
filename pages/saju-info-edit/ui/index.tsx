@@ -19,7 +19,7 @@ import {
   View,
 } from 'react-native';
 
-export default function SajuInfoEditScreen() {
+export default function SajuInfoEdit() {
   const router = useRouter();
 
   const handleBackPress = () => {

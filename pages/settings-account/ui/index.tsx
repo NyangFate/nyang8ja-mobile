@@ -7,7 +7,7 @@ import Header from '@/shared/ui/header';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { SafeAreaView, View } from 'react-native';
-export default function AccountScreen() {
+export default function Account() {
   const router = useRouter();
   const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
   const { data: user } = useUser();

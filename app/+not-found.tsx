@@ -1,5 +1,5 @@
-import NotFoundScreen from '@/pages/special/ui/not-found-screen';
+import NotFound from '@/pages/special/ui/not-found';
 
-export default function NotFound() {
-  return <NotFoundScreen />;
+export default function NotFoundPage() {
+  return <NotFound />;
 }

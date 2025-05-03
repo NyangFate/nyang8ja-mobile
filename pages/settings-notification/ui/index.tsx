@@ -8,7 +8,7 @@ import { SafeAreaView, Switch, Text, View } from 'react-native';
 import useEditNotification from '../api/useEditNotification';
 import useNotification from '../api/useNotification';
 
-export default function NotificationScreen() {
+export default function Notification() {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { data: notification } = useNotification();

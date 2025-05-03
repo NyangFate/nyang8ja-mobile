@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
-export default function SajuInfoCreateScreen() {
+export default function Intro() {
   const router = useRouter();
 
   const [currentComponent, setCurrentComponent] = useState(0);
