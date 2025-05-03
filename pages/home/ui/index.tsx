@@ -5,7 +5,6 @@ import React from 'react';
 import { Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// SVG 아이콘 임포트 (실제 경로는 프로젝트에 맞게 조정 필요)
 import TextLogo from '@/assets/images/nyang8ja-text-logo.webp';
 import ArrowRightIcon from '@/assets/svgs/chevron-right.svg';
 import LockIcon from '@/assets/svgs/lock-off.svg';
@@ -13,6 +12,7 @@ import ProfileIcon from '@/assets/svgs/profile-circle.svg';
 import useUser from '@/shared/api/useUser';
 import dayjs from 'dayjs';
 import PopularFortuneCard from './popular-fortune-card';
+import TodayFortuneCard from './today-fortune-card';
 
 interface FortuneCardProps {
   title: string;
@@ -44,27 +44,6 @@ function FortuneCard({ title, icon, locked, onPress }: FortuneCardProps) {
       </View>
       <ArrowRightIcon width={24} height={24} />
     </TouchableOpacity>
-  );
-}
-
-interface FeaturedCardProps {
-  title: string;
-  subtitle: string;
-  buttonText: string;
-  onPress: () => void;
-}
-
-function FeaturedCard({ title, subtitle, buttonText, onPress }: FeaturedCardProps) {
-  return (
-    <View className="flex-row items-center justify-between p-4 bg-grey-00 rounded-2xl">
-      <View className="flex-1">
-        <Text className="mb-1 text-grey-50 font-suit-bold text-caption">{subtitle}</Text>
-        <Text className="text-grey-90 font-suit-bold text-subhead3">{title}</Text>
-      </View>
-      <TouchableOpacity onPress={onPress}>
-        <ArrowRightIcon width={24} height={24} />
-      </TouchableOpacity>
-    </View>
   );
 }
 
@@ -102,6 +81,7 @@ export default function Home() {
           <ProfileIcon width={24} height={24} />
         </Pressable>
       </View>
+
       <ScrollView className="flex-1">
         {user?.profile?.name && (
           <View className="flex-row items-center justify-between mt-6">
@@ -114,26 +94,12 @@ export default function Home() {
             </Text>
           </View>
         )}
-        <View className="my-7">
-          <PopularFortuneCard canNavigateToDetails={!!user} />
+        <View className="gap-3 my-7">
+          <PopularFortuneCard />
+          <TodayFortuneCard />
         </View>
 
-        {/* 콘텐츠 */}
-
-        {/* 인기 운세 카드 */}
-
-        {/* 오늘의 운세 카드 */}
-        <View className="mt-4">
-          <FeaturedCard
-            subtitle="냥도사가 봐주는"
-            title="오늘의 운세 보러가기"
-            buttonText="보러가기"
-            onPress={() => handleFortuneCardPress('today')}
-          />
-        </View>
-
-        {/* 운세 카드 그리드 */}
-        <Text className="mt-4 text-grey-50 font-suit-bold text-subhead1">콘텐츠</Text>
+        <Text className=" text-grey-50 font-suit-bold text-subhead1">콘텐츠</Text>
         <View className="gap-4 mt-6 pb-14">
           <FortuneCard
             title="오늘 그 사람이 날 생각하고 있을까?"

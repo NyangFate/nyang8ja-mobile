@@ -1,18 +1,17 @@
 import CatImage from '@/assets/images/surprised-cat-with-pacifier-hat.webp';
+import useUser from '@/shared/api/useUser';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
-type PopularFortuneCardProps = {
-  canNavigateToDetails: boolean;
-};
-
-export default function PopularFortuneCard({ canNavigateToDetails }: PopularFortuneCardProps) {
+export default function PopularFortuneCard() {
   const activeParticipants = 12374;
   const router = useRouter();
+  const { data: user } = useUser();
 
-  const handlePress = () => {
-    if (canNavigateToDetails) {
+  const handlePress = (isLoggedIn: boolean) => {
+    if (isLoggedIn) {
+      // TODO: 인기 운세 페이지로 이동
     } else {
       router.navigate('/login-page');
     }
@@ -20,7 +19,7 @@ export default function PopularFortuneCard({ canNavigateToDetails }: PopularFort
 
   return (
     <View className="px-5 pt-4 pb-[18px] bg-grey-00 rounded-[20px] justify-between gap-5">
-      <View>
+      <View className="pl-1">
         <View className="gap-[2px]">
           <Text className="text-primary-03 font-suit-bold text-captionBold">
             {activeParticipants.toLocaleString()}명이 보고 있는 중
@@ -31,7 +30,7 @@ export default function PopularFortuneCard({ canNavigateToDetails }: PopularFort
         </View>
       </View>
 
-      <Pressable onPress={handlePress} className="z-10 py-2 bg-white rounded-lg">
+      <Pressable onPress={() => handlePress(!!user)} className="z-10 py-2 bg-white rounded-lg">
         <Text className="text-center text-primary-03 font-suit-bold text-subhead1">보러가기</Text>
       </Pressable>
 
