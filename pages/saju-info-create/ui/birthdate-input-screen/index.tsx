@@ -5,13 +5,22 @@ import ErrorMessage from '@/pages/saju-info-edit/ui/error-message';
 import TextField from '@/shared/ui/text-field';
 import cn from '@/shared/utils/cn';
 import COLORS from '@/shared/utils/colors';
+import { useKeyboard } from '@/shared/utils/useKeyboard';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Checkbox from 'expo-checkbox';
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { KeyboardAvoidingView, Platform, Pressable, SafeAreaView, Text, View } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  SafeAreaView,
+  Text,
+  View,
+} from 'react-native';
 import { z } from 'zod';
 export default function BirthdateInputPage() {
   const { name, gender, birthDate, isLunarCalendar, birthTime, isBirthTimeUnknown } =
@@ -159,80 +168,93 @@ export default function BirthdateInputPage() {
       },
     });
   };
+  const { keyboardShown } = useKeyboard();
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        className="flex-1"
-      >
-        <Header />
-        <View className="items-center justify-center flex-1">
-          <View className="items-center justify-center">
-            <Image source={SurprisedCatWithPacifierImage} style={{ width: 180, height: 180 }} />
+    <Pressable onPress={Keyboard.dismiss} style={{ flex: 1 }}>
+      <SafeAreaView className="flex-1 bg-white">
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          className="flex-1"
+        >
+          <Header />
+          <View className="items-center justify-center flex-1">
+            <View className="items-center justify-center">
+              <Image source={SurprisedCatWithPacifierImage} style={{ width: 180, height: 180 }} />
+            </View>
+            <View className="mt-5">
+              <Text className="text-center text-body3 font-suit-regular text-grey-70">
+                생년월일도 알려줘.
+              </Text>
+            </View>
+            <View className="flex-row items-center justify-center gap-2 mt-3">
+              <Text className="text-headline1 font-suit-bold text-grey-90">내 생년월일은</Text>
+              <Controller
+                control={control}
+                name="birthDate"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextField
+                    error={!!errors.birthDate?.message}
+                    className="min-w-[112px] leading-[20px]"
+                    value={value}
+                    onChangeText={(text) => {
+                      const formattedDate = formatDate(text, prevInputRef.current);
+                      onChange(formattedDate);
+                    }}
+                    placeholder="YYYY.MM.DD"
+                    onBlur={onBlur}
+                    inputMode="numeric"
+                    maxLength={10}
+                  />
+                )}
+              />
+              <Text className="text-headline1 font-suit-bold text-grey-90">이야</Text>
+            </View>
           </View>
-          <View className="mt-5">
-            <Text className="text-center text-body3 font-suit-regular text-grey-70">
-              생년월일도 알려줘.
-            </Text>
-          </View>
-          <View className="flex-row items-center justify-center gap-2 mt-3">
-            <Text className="text-headline1 font-suit-bold text-grey-90">내 생년월일은</Text>
+          <View
+            className="flex-row items-center justify-center"
+            style={{
+              marginBottom: keyboardShown ? 16 : 0,
+            }}
+          >
             <Controller
               control={control}
-              name="birthDate"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextField
-                  error={!!errors.birthDate?.message}
-                  className="min-w-[112px]"
-                  value={value}
-                  onChangeText={(text) => {
-                    const formattedDate = formatDate(text, prevInputRef.current);
-                    onChange(formattedDate);
-                  }}
-                  placeholder="YYYY.MM.DD"
-                  onBlur={onBlur}
-                  inputMode="numeric"
-                  maxLength={10}
-                />
+              name="isLunarCalendar"
+              render={({ field: { onChange, value } }) => (
+                <Pressable
+                  onPress={() => onChange(!value)}
+                  className="flex-row items-center justify-center gap-1"
+                >
+                  <Checkbox
+                    value={value}
+                    onValueChange={onChange}
+                    color={value ? COLORS.primary['03'] : undefined}
+                  />
+                  <Text className="text-body-3 font-suit-regular text-grey-60">음력이에요</Text>
+                </Pressable>
               )}
             />
-            <Text className="text-headline1 font-suit-bold text-grey-90">이야</Text>
           </View>
-        </View>
-        <View className="flex-row items-center justify-center gap-1 ">
-          <Controller
-            control={control}
-            name="isLunarCalendar"
-            render={({ field: { onChange, value } }) => (
-              <Checkbox
-                value={value}
-                onValueChange={onChange}
-                color={value ? COLORS.primary['03'] : undefined}
-              />
-            )}
-          />
-          <Text className=" text-body-3 font-suit-regular text-grey-60">음력이에요</Text>
-        </View>
-      </KeyboardAvoidingView>
-      <View className="gap-4 p-5">
-        {errors.birthDate?.message && (
-          <View className="flex-row items-center justify-center gap-1">
-            <XCircleIcon width={24} height={24} />
-            <ErrorMessage message={errors.birthDate.message} />
-          </View>
-        )}
-        <Pressable
-          className={cn(
-            'bg-grey-90 h-[54px] rounded-lg justify-center items-center',
-            !isValid && 'bg-grey-30 text-grey-10'
+        </KeyboardAvoidingView>
+        <View className="gap-4 p-5">
+          {errors.birthDate?.message && (
+            <View className="flex-row items-center justify-center gap-1">
+              <XCircleIcon width={24} height={24} />
+              <ErrorMessage message={errors.birthDate.message} />
+            </View>
           )}
-          onPress={handleSubmit(onSubmit)}
-          disabled={!isValid}
-        >
-          <Text className="text-white text-subhead3 font-suit-bold">다음</Text>
-        </Pressable>
-      </View>
-    </SafeAreaView>
+          <Pressable
+            className={cn(
+              'bg-grey-90 h-[54px] rounded-lg justify-center items-center',
+              !isValid && 'bg-grey-30 text-grey-10'
+            )}
+            onPress={handleSubmit(onSubmit)}
+            disabled={!isValid}
+          >
+            <Text className="text-white text-subhead3 font-suit-bold">다음</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    </Pressable>
   );
 }

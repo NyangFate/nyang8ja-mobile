@@ -5,13 +5,22 @@ import ErrorMessage from '@/pages/saju-info-edit/ui/error-message';
 import TextField from '@/shared/ui/text-field';
 import cn from '@/shared/utils/cn';
 import COLORS from '@/shared/utils/colors';
+import { useKeyboard } from '@/shared/utils/useKeyboard';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Checkbox from 'expo-checkbox';
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { KeyboardAvoidingView, Platform, Pressable, SafeAreaView, Text, View } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  SafeAreaView,
+  Text,
+  View,
+} from 'react-native';
 import { z } from 'zod';
 export default function BirthTimeInputScreen() {
   const { name, gender, birthDate, isLunarCalendar, birthTime, isBirthTimeUnknown } =
@@ -65,8 +74,9 @@ export default function BirthTimeInputScreen() {
     formState: { errors, isValid },
     getValues,
     setValue,
+    trigger,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'all',
     resolver: zodResolver(birthTimeSchema),
     defaultValues: {
       birthTime: birthTime || '',
@@ -99,6 +109,8 @@ export default function BirthTimeInputScreen() {
     return formatTimeInput(text);
   };
 
+  const { keyboardShown } = useKeyboard();
+
   const onSubmit = (data: z.infer<typeof birthTimeSchema>) => {
     router.push({
       pathname: '/(my)/saju-info/(create)/confirm-page',
@@ -114,93 +126,117 @@ export default function BirthTimeInputScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        className="flex-1"
-      >
-        <Header />
-        <View className="items-center justify-center flex-1">
-          <View className="items-center justify-center">
-            <Image source={SurprisedCatWithPacifierImage} style={{ width: 180, height: 180 }} />
+    <Pressable onPress={Keyboard.dismiss} style={{ flex: 1 }}>
+      <SafeAreaView className="flex-1 bg-white">
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          className="flex-1"
+        >
+          <Header />
+          <View className="items-center justify-center flex-1">
+            <View className="items-center justify-center">
+              <Image source={SurprisedCatWithPacifierImage} style={{ width: 180, height: 180 }} />
+            </View>
+            <View className="mt-5">
+              <Text className="text-center text-body3 font-suit-regular text-grey-70">
+                태어난 시간도 궁금해.
+              </Text>
+            </View>
+            <View className="flex-row items-center justify-center gap-2 mt-3">
+              <Text className="text-headline1 font-suit-bold text-grey-90">내가 태어난 시간은</Text>
+              <Controller
+                control={control}
+                name="birthTime"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextField
+                    error={!!errors.birthTime?.message}
+                    value={value}
+                    onChangeText={(text) => {
+                      const formattedTime = handleTimeChange(text);
+                      onChange(formattedTime);
+                    }}
+                    placeholder="HH:MM"
+                    onBlur={onBlur}
+                    inputMode="numeric"
+                    maxLength={5}
+                    containerClassName={cn({
+                      'bg-grey-10': getValues('isBirthTimeUnknown'),
+                    })}
+                    className={cn('min-w-20', {
+                      'text-subhead3 font-suit-bold text-primary-03':
+                        getValues('isBirthTimeUnknown'),
+                      'text-body3 font-suit-regular text-grey-90': !getValues('isBirthTimeUnknown'),
+                    })}
+                    editable={!getValues('isBirthTimeUnknown')}
+                  />
+                )}
+              />
+              <Text className="text-headline1 font-suit-bold text-grey-90">이야</Text>
+            </View>
           </View>
-          <View className="mt-5">
-            <Text className="text-center text-body3 font-suit-regular text-grey-70">
-              태어난 시간도 궁금해.
-            </Text>
-          </View>
-          <View className="flex-row items-center justify-center gap-2 mt-3">
-            <Text className="text-headline1 font-suit-bold text-grey-90">내가 태어난 시간은</Text>
+          <View
+            className="flex-row items-center justify-center"
+            style={{
+              marginBottom: keyboardShown ? 16 : 0,
+            }}
+          >
             <Controller
               control={control}
-              name="birthTime"
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextField
-                  error={!!errors.birthTime?.message}
-                  value={value}
-                  onChangeText={(text) => {
-                    const formattedTime = handleTimeChange(text);
-                    onChange(formattedTime);
+              name="isBirthTimeUnknown"
+              render={({ field: { onChange, value } }) => (
+                <Pressable
+                  className="flex-row items-center justify-center gap-1"
+                  onPress={() => {
+                    onChange(!value);
+                    if (!value) {
+                      setValue('birthTime', '모름');
+                      trigger('birthTime');
+                    } else {
+                      setValue('birthTime', '');
+                      trigger('birthTime');
+                    }
                   }}
-                  placeholder="HH:MM"
-                  onBlur={onBlur}
-                  inputMode="numeric"
-                  maxLength={5}
-                  containerClassName={cn({
-                    'bg-grey-10': getValues('isBirthTimeUnknown'),
-                  })}
-                  className={cn('min-w-20', {
-                    'text-subhead3 font-suit-bold text-primary-03': getValues('isBirthTimeUnknown'),
-                    'text-body3 font-suit-regular text-grey-90': !getValues('isBirthTimeUnknown'),
-                  })}
-                  editable={!getValues('isBirthTimeUnknown')}
-                />
+                >
+                  <Checkbox
+                    value={value}
+                    onValueChange={(checked) => {
+                      onChange(checked);
+                      if (checked) {
+                        setValue('birthTime', '모름');
+                      } else {
+                        setValue('birthTime', '');
+                      }
+                    }}
+                    color={value ? COLORS.primary['03'] : undefined}
+                    style={{ height: 18, width: 18 }}
+                  />
+                  <Text className=" text-body-3 font-suit-regular text-grey-60">
+                    태어난 시간을 몰라요
+                  </Text>
+                </Pressable>
               )}
             />
-            <Text className="text-headline1 font-suit-bold text-grey-90">이야</Text>
           </View>
-        </View>
-        <View className="flex-row items-center justify-center gap-1 ">
-          <Controller
-            control={control}
-            name="isBirthTimeUnknown"
-            render={({ field: { onChange, value } }) => (
-              <Checkbox
-                value={value}
-                onValueChange={(checked) => {
-                  onChange(checked);
-                  if (checked) {
-                    setValue('birthTime', '모름');
-                  } else {
-                    setValue('birthTime', '');
-                  }
-                }}
-                color={value ? COLORS.primary['03'] : undefined}
-                style={{ height: 18, width: 18 }}
-              />
-            )}
-          />
-          <Text className=" text-body-3 font-suit-regular text-grey-60">태어난 시간을 몰라요</Text>
-        </View>
-      </KeyboardAvoidingView>
-      <View className="gap-4 p-5">
-        {errors.birthTime?.message && (
-          <View className="flex-row items-center justify-center gap-1">
-            <XCircleIcon width={24} height={24} />
-            <ErrorMessage message={errors.birthTime.message} />
-          </View>
-        )}
-        <Pressable
-          className={cn(
-            'bg-grey-90 h-[54px] rounded-lg justify-center items-center',
-            !isValid && 'bg-grey-30 text-grey-10'
+        </KeyboardAvoidingView>
+        <View className="gap-4 p-5">
+          {errors.birthTime?.message && (
+            <View className="flex-row items-center justify-center gap-1">
+              <XCircleIcon width={24} height={24} />
+              <ErrorMessage message={errors.birthTime.message} />
+            </View>
           )}
-          onPress={handleSubmit(onSubmit)}
-          disabled={!isValid}
-        >
-          <Text className="text-white text-subhead3 font-suit-bold">다음</Text>
-        </Pressable>
-      </View>
-    </SafeAreaView>
+          <Pressable
+            className={cn(
+              'bg-grey-90 h-[54px] rounded-lg justify-center items-center',
+              !isValid && 'bg-grey-30 text-grey-10'
+            )}
+            onPress={handleSubmit(onSubmit)}
+            disabled={!isValid}
+          >
+            <Text className="text-white text-subhead3 font-suit-bold">다음</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    </Pressable>
   );
 }
