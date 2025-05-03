@@ -1,5 +1,5 @@
 import { UserWithdrawalRequestDtoReasonEnum } from '@/openapi/models/UserWithdrawalRequestDto';
-import useUser from '@/pages/my/api/useUser';
+import useUser from '@/shared/api/useUser';
 import Header from '@/shared/ui/header';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';

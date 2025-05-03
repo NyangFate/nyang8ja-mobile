@@ -5,7 +5,7 @@ import {
   UserResponseDto,
   UserResponseDtoUserProfileStatusEnum,
 } from '@/openapi/models';
-import useUser from '@/pages/my/api/useUser';
+import useUser from '@/shared/api/useUser';
 import cn from '@/shared/utils/cn';
 import dayjs from '@/shared/utils/dayjs';
 import { Image } from 'expo-image';

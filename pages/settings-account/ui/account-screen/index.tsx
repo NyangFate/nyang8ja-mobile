@@ -1,8 +1,8 @@
-import useUser from '@/pages/my/api/useUser';
 import AccountInfo from '@/pages/settings-account/ui/account-info';
 import DeleteAccount from '@/pages/settings-account/ui/delete-account';
 import Logout from '@/pages/settings-account/ui/logout';
 import LogoutModal from '@/pages/settings-account/ui/logout-modal';
+import useUser from '@/shared/api/useUser';
 import Header from '@/shared/ui/header';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
