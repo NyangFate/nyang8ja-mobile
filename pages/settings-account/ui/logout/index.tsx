@@ -1,4 +1,6 @@
 import LogoutIcon from '@/assets/svgs/logout.svg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable, Text } from 'react-native';
@@ -7,11 +9,13 @@ import LogoutModal from '../logout-modal';
 export default function Logout() {
   const router = useRouter();
   const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
+  const queryClient = useQueryClient();
 
-  const handleLogout = () => {
-    // 로그아웃 로직 구현
+  const handleLogout = async () => {
     setIsLogoutModalVisible(false);
-    router.replace('/my-page');
+    await AsyncStorage.removeItem('accessToken');
+    queryClient.invalidateQueries();
+    router.replace('/(my)/my-page');
   };
 
   const handleLogoutPress = () => {
