@@ -1,8 +1,7 @@
 import SurprisedCatWithPacifierImage from '@/assets/images/surprised-cat-with-pacifier.webp';
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface ErrorScreenProps {
@@ -11,12 +10,6 @@ interface ErrorScreenProps {
 }
 
 export default function ErrorScreen({ error, retry }: ErrorScreenProps) {
-  const router = useRouter();
-
-  const handleGoHome = () => {
-    router.replace('/');
-  };
-
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="items-center justify-center flex-1 px-5 bg-white">
@@ -51,15 +44,14 @@ export default function ErrorScreen({ error, retry }: ErrorScreenProps) {
             </Text>
           )}
 
-          <View className="justify-center">
-            <Pressable
-              className="h-[54px] px-6 rounded-lg bg-grey-90 justify-center items-center"
-              onPress={handleGoHome}
-              accessibilityLabel="홈으로 돌아가기 버튼"
-              accessibilityRole="button"
-            >
-              <Text className="text-white text-subhead3 font-suit-bold">홈으로 돌아가기</Text>
-            </Pressable>
+          <View className="flex-row space-x-4">
+            {retry && (
+              <View className="h-[54px] px-6 rounded-lg bg-grey-90 justify-center items-center">
+                <Text className="text-white text-subhead3 font-suit-bold" onPress={retry}>
+                  홈으로 돌아가기
+                </Text>
+              </View>
+            )}
           </View>
         </View>
       </View>
