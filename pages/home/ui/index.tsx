@@ -115,7 +115,7 @@ export default function Home() {
           </View>
         )}
         <View className="my-7">
-          <PopularFortuneCard />
+          <PopularFortuneCard canNavigateToDetails={!!user} />
         </View>
 
         {/* 콘텐츠 */}
