@@ -1,6 +1,10 @@
 import ChillSwagSunglassesCatImage from '@/assets/images/chill-swag-sunglasses-cat.webp';
 import ChevronRightIcon from '@/assets/svgs/chevron-right.svg';
-import { UserProfileResponseDto, UserResponseDto } from '@/openapi/models';
+import {
+  UserProfileResponseDto,
+  UserResponseDto,
+  UserResponseDtoUserProfileStatusEnum,
+} from '@/openapi/models';
 import useUser from '@/pages/my/api/useUser';
 import cn from '@/shared/utils/cn';
 import dayjs from '@/shared/utils/dayjs';
@@ -16,7 +20,7 @@ export default function InfoCard() {
   const handleNavigate = (user: UserResponseDto | undefined) => {
     if (!user) {
       router.navigate('/login-page');
-    } else if (user.profile) {
+    } else if (user.userProfileStatus === UserResponseDtoUserProfileStatusEnum.COMPLETE) {
       router.navigate('/saju-info/edit-page');
     } else {
       router.navigate('/saju-info/create-page');
@@ -28,7 +32,7 @@ export default function InfoCard() {
       return '로그인하고 맞춤 결과를 만나봐요';
     }
 
-    if (user.profile) {
+    if (user.userProfileStatus === UserResponseDtoUserProfileStatusEnum.COMPLETE && user.profile) {
       return formatSajuInfoDescription(user.profile);
     }
 
@@ -37,7 +41,7 @@ export default function InfoCard() {
 
   const formatSajuInfoDescription = (profile: UserProfileResponseDto) => {
     const gender = profile.gender === 'FEMALE' ? '여' : '남';
-    const birthDate = dayjs.tz(profile.birthday, 'Asia/Seoul').format('YYYY.MM.DD');
+    const birthDate = dayjs.tz(profile.birthday, 'Asia/Seoul').format('YYYY. M. D.');
     const separator = ' ・ ';
 
     let birthTimeInfo = '모름';
@@ -60,7 +64,8 @@ export default function InfoCard() {
                 className={cn(
                   'bg-white border rounded-full border-grey-20 px-[6px] py-2 w-[60px] h-[60px] justify-center items-center',
                   {
-                    'opacity-35': !user.profile,
+                    'opacity-35':
+                      user.userProfileStatus === UserResponseDtoUserProfileStatusEnum.EMPTY,
                   }
                 )}
               >
