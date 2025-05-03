@@ -1,8 +1,9 @@
 import ReactQueryClientProvider from '@/application/config/react-query';
 import '@/global.css';
+import ErrorScreen from '@/pages/special/ui/error-screen';
 import { initializeKakaoSDK } from '@react-native-kakao/core';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, type ErrorBoundaryProps } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
@@ -48,4 +49,8 @@ export default function RootLayout() {
       </Stack>
     </ReactQueryClientProvider>
   );
+}
+
+export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+  return <ErrorScreen error={error} retry={retry} />;
 }
