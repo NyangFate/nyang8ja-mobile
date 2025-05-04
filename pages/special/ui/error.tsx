@@ -31,7 +31,7 @@ export default function Error({ error, retry }: ErrorProps) {
             className="mb-2 text-center text-body3 font-suit-regular text-grey-50"
             accessibilityLabel="오류 설명 메시지"
           >
-            네트워크 환경이나 일시적인 문제로{'\n'}이런 상황이 발생했을 수 있어요.{'\n\n'}다시
+            네트워크 환경이나 일시적인 문제로{'\n'}이런 상황이 발생했을 수 있어요{'\n\n'}다시
             시도해보시고, 문제가 계속되면{'\n'}문의해 주세요
           </Text>
 
