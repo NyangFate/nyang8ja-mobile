@@ -1,5 +1,5 @@
 import AccountInfo from '@/pages/settings-account/ui/account-info';
-import DeleteAccount from '@/pages/settings-account/ui/delete-account';
+import AccountWithdrawal from '@/pages/settings-account/ui/account-withdrawal';
 import Logout from '@/pages/settings-account/ui/logout';
 import LogoutModal from '@/pages/settings-account/ui/logout-modal';
 import useUser from '@/shared/api/useUser';
@@ -18,8 +18,7 @@ export default function Account() {
     router.replace('/my-page');
   };
 
-  const handleDeleteAccountPress = () => {
-    ``;
+  const handleWithdrawalPress = () => {
     router.push('/settings/withdrawal-page');
   };
 
@@ -43,7 +42,7 @@ export default function Account() {
       </View>
 
       {/* 탈퇴하기 */}
-      <DeleteAccount onDeleteAccountPress={handleDeleteAccountPress} />
+      <AccountWithdrawal onWithdrawalPress={handleWithdrawalPress} />
 
       {/* 로그아웃 확인 팝업 */}
       <LogoutModal

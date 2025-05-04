@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Pressable, Text } from 'react-native';
-import LogoutModal from '../logout-modal';
+import LogoutModal from './logout-modal';
 
 export default function Logout() {
   const router = useRouter();
