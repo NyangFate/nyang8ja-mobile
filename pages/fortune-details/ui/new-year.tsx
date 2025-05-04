@@ -1,36 +1,46 @@
+import CatImage from '@/assets/images/cat-rolling-a-boll.webp';
+import FortuneTitle from '@/pages/fortune-details/ui/fortune-title';
+import Divider from '@/shared/ui/divider';
+import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import React from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import FortuneDescription from './fortune-description';
 
 export default function NewYearFortune() {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView className="flex-1">
-        {/* 상단 타이틀 */}
-        <View className="px-5 pt-4">
-          <Text className="text-primary-03 font-suit-bold text-caption">신년운세</Text>
-          <Text className="mt-2 font-suit-bold text-headline2 text-grey-90">
-            2025년,{'\n'}
-            나한테 어떤 해가 될까?
-          </Text>
+        <View className="flex-1 pt-7 pb-[46px] px-5">
+          <FortuneTitle headerText="신년운세" titleText={`2025년,\n나한테 어떤 해가 될까?`} />
+
+          <View className="mx-auto">
+            <Image
+              source={CatImage}
+              className="w-full h-full"
+              style={{
+                width: 281,
+                height: 247,
+              }}
+            />
+          </View>
+
+          <View className="mt-4">
+            <FortuneDescription
+              descriptionText={`2025년, 그냥 흘러가게 두긴 아깝잖아. 
+올해는 뭘 시작하면 좋을지, 돈은 모일지, 사랑은 피어날지, 공부나 일은 좀 잘 풀릴지…솔직히 다들 속으론 궁금하잖아?\n 
+사주에선 올해 흐름이 어때 보이는지, 나한텐 어떤 기운이 붙어 있는지 살~짝 엿볼 수 있거든. 
+운세라는 게 꼭 믿으라는 건 아니고, 조금이라도 마음이 가는 쪽으로 발 디뎌보게 도와주는 힌트 같은 거지.
+              `}
+              highlightedText={`올해 나를 도와주는 기운,
+피해야 할 타이밍까지 콕 짚어줄게. 궁금하지?`}
+            />
+          </View>
         </View>
-        {/* 설명 섹션 */}
-        <View className="px-5 mt-4">
-          <Text className="leading-6 font-suit-regular text-body3 text-grey-60">
-            2025년, 그냥 흘러가게 두긴 아깝잖아.{'\n'}
-            올해는 뭘 시작하면 좋을지, 돈은 모일지, 사랑은 피어날지, 공부나 일은 좀 잘 풀릴지…솔직히
-            다들 속으론 궁금하잖아?{'\n'}
-            {'\n'}
-            사주에선 올해 흐름이 어때 보이는지, 나한텐 어떤 기운이 붙어 있는지 살~짝 엿볼 수 있거든.
-            {'\n'}
-            운세라는 게 꼭 믿으라는 건 아니고, 조금이라도 마음이 가는 쪽으로 발 디뎌보게 도와주는
-            힌트 같은 거지.{'\n'}
-            올해 나를 도와주는 기운,{'\n'}
-            피해야 할 타이밍까지 콕 짚어줄게. 궁금하지?
-          </Text>
-        </View>
-        {/* 인기있는 무료 사주 섹션 */}
+
+        <Divider />
+
         <View className="px-5 mt-10">
           <Text className="font-suit-bold text-subhead1 text-grey-70">
             지금 인기 있는 무료 사주 더보기
