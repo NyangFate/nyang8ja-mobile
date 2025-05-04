@@ -1,7 +1,7 @@
+import cn from '@/shared/utils/cn';
 import COLORS from '@/shared/utils/colors';
 import React, { forwardRef } from 'react';
 import { TextInput, TextInputProps, View } from 'react-native';
-import cn from '../../utils/cn';
 
 export interface TextFieldProps extends TextInputProps {
   className?: string;
