@@ -12,6 +12,7 @@ export default function TodayFortuneCard() {
   const handlePress = (isLoggedIn: boolean) => {
     // TODO: 오늘의 운세 페이지로 이동
     if (isLoggedIn) {
+      router.navigate('/(fortune)/new-year');
     } else {
       router.navigate('/login-page');
     }
@@ -26,7 +27,7 @@ export default function TodayFortuneCard() {
         <CatIcon />
         <View>
           <Text className="text-grey-40 font-suit-bold text-caption">냥도사가 봐주는</Text>
-          <Text className="text-grey-90 font-suit-bold text-subhead3">오늘의 운세</Text>
+          <Text className="text-grey-90 font-suit-bold text-subhead3">오늘의 운세 보러가기</Text>
         </View>
       </View>
 
