@@ -3,7 +3,8 @@ import cn from '@/shared/utils/cn';
 import React from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 import { Pressable, Text, View } from 'react-native';
-import ErrorMessage from '../error-message';
+import ErrorMessage from './error-message';
+
 type GenderFormFieldProps = {
   control: Control<SajuInfoFormData>;
   errors: FieldErrors<SajuInfoFormData>;

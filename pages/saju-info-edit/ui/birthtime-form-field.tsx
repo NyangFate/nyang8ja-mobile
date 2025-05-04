@@ -5,8 +5,8 @@ import Checkbox from 'expo-checkbox';
 import React from 'react';
 import { Control, Controller, FieldErrors, useController } from 'react-hook-form';
 import { Text, View } from 'react-native';
-import { SajuInfoFormData } from '../../model/types';
-import ErrorMessage from '../error-message';
+import { SajuInfoFormData } from '../model/types';
+import ErrorMessage from './error-message';
 
 type BirthtimeFormFieldProps = {
   control: Control<SajuInfoFormData>;

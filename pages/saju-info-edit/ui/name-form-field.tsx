@@ -3,7 +3,7 @@ import TextField from '@/shared/ui/text-field';
 import React from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 import { Text, View } from 'react-native';
-import ErrorMessage from '../error-message';
+import ErrorMessage from './error-message';
 
 type NameFieldProps = {
   control: Control<SajuInfoFormData>;
