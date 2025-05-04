@@ -1,10 +1,10 @@
 import BellIcon from '@/assets/svgs/bell.svg';
 // import BookmarkIcon from '@/assets/svgs/bookmark.svg';
 import CircleUserIcon from '@/assets/svgs/circel-user.svg';
+import useUser from '@/shared/api/useUser';
 import { Href, useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
-import useUser from '../../../../shared/api/useUser';
 
 export default function Menu() {
   const router = useRouter();
