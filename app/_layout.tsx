@@ -35,14 +35,14 @@ export default function RootLayout() {
 
   return (
     <ReactQueryClientProvider>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(my)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" options={{ headerShown: false }} />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(my)" />
+        <Stack.Screen name="(fortune)" />
+        <Stack.Screen name="+not-found" />
         <Stack.Screen
           name="login-page"
           options={{
-            headerShown: false,
             presentation: 'fullScreenModal',
           }}
         />
