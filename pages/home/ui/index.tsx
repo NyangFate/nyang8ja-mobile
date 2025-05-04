@@ -58,7 +58,9 @@ export default function Home() {
           <TodayFortuneCard />
         </View>
 
-        <FortuneCardList />
+        <View className="pb-14">
+          <FortuneCardList />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

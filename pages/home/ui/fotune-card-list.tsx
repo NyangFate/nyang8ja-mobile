@@ -11,7 +11,7 @@ export default function FortuneCardList() {
     router.navigate(href as Href);
   };
   return (
-    <View className="gap-4 pb-14">
+    <View className="gap-4">
       <Text className=" text-grey-50 font-suit-bold text-subhead1">콘텐츠</Text>
       <View className="gap-4">
         <FortuneCard

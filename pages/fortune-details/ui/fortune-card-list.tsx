@@ -12,7 +12,7 @@ export default function FortuneCardList() {
   };
 
   return (
-    <View className="gap-4 py-10">
+    <View className="gap-4">
       <Text className=" text-grey-50 font-suit-bold text-subhead1">콘텐츠</Text>
       <View className="gap-4">
         <FortuneCard

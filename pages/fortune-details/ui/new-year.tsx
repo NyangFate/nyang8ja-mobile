@@ -1,6 +1,7 @@
 import CatImage from '@/assets/images/cat-rolling-a-boll.webp';
 import FortuneTitle from '@/pages/fortune-details/ui/fortune-title';
 import Divider from '@/shared/ui/divider';
+import Header from '@/shared/ui/header';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import React from 'react';
@@ -12,8 +13,9 @@ import FortuneDescription from './fortune-description';
 export default function NewYearFortune() {
   return (
     <SafeAreaView className="flex-1 bg-white">
+      <Header title="" onBackPress={() => router.back()} />
       <ScrollView className="flex-1">
-        <View className="flex-1 pt-7 pb-[46px] px-5">
+        <View className="flex-1 pb-[46px] px-5">
           <FortuneTitle headerText="신년운세" titleText={`2025년,\n나한테 어떤 해가 될까?`} />
 
           <View className="mx-auto">
@@ -42,7 +44,9 @@ export default function NewYearFortune() {
 
         <Divider />
 
-        <FortuneCardList />
+        <View className="px-5 py-10">
+          <FortuneCardList />
+        </View>
 
         {/* 고양이 일러스트 영역 (간소화된 표현) */}
         <View className="items-center mt-12">
