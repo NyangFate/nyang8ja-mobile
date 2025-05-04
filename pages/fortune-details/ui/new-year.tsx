@@ -48,7 +48,7 @@ export default function NewYearFortune() {
           <FortuneCardList />
         </View>
 
-        <View className="h-20" />
+        <View className="h-24" />
       </ScrollView>
 
       {/* 하단 버튼 컨테이너 */}
@@ -60,7 +60,7 @@ export default function NewYearFortune() {
         <View className="px-5 py-8">
           <Pressable
             className="h-[54px] rounded-lg justify-center items-center bg-grey-70"
-            onPress={() => router.push('/')}
+            onPress={() => router.push('/new-year/result')}
           >
             <Text className="text-white font-suit-bold text-body2">2025년 내 운세 보러가기</Text>
           </Pressable>
