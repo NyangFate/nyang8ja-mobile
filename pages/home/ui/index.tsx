@@ -13,13 +13,6 @@ import dayjs from 'dayjs';
 import PopularFortuneCard from './popular-fortune-card';
 import TodayFortuneCard from './today-fortune-card';
 
-interface FortuneCardProps {
-  title: string;
-  icon?: React.ReactNode;
-  locked?: boolean;
-  onPress: () => void;
-}
-
 export default function Home() {
   const router = useRouter();
   const { data: user } = useUser();
