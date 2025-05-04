@@ -1,5 +1,5 @@
 import { UserWithdrawalRequestDtoReasonEnum } from '@/openapi/models/UserWithdrawalRequestDto';
-import ReasonItem from '@/pages/settings-account-withdrawl/ui/reason-picker/reason-item';
+import ReasonItem from '@/pages/settings-account-withdrawl/ui/reason-item';
 import TextField from '@/shared/ui/text-field';
 import cn from '@/shared/utils/cn';
 import { useRouter } from 'expo-router';

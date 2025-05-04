@@ -1,10 +1,10 @@
 import { UserWithdrawalRequestDtoReasonEnum } from '@/openapi/models/UserWithdrawalRequestDto';
+import useWithdrawAccount from '@/pages/settings-account-withdrawl/api/useWithdrawAccount';
 import useUser from '@/shared/api/useUser';
 import Header from '@/shared/ui/header';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import Toast from 'react-native-toast-message';
-import useWithdrawAccount from '../../api/useWithdrawAccount';
 
 export default function WithdrawalConfirmation() {
   const { data: user } = useUser();
