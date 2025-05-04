@@ -74,7 +74,7 @@ export default function Home() {
 
         <View className="gap-4 pb-14">
           <Text className=" text-grey-50 font-suit-bold text-subhead1">콘텐츠</Text>
-          <View className="gap-4 ">
+          <View className="gap-4">
             <FortuneCard
               type="saju"
               locked
