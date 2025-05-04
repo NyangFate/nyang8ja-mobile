@@ -5,7 +5,6 @@ import ErrorMessage from '@/pages/saju-info-edit/ui/error-message';
 import TextField from '@/shared/ui/text-field';
 import cn from '@/shared/utils/cn';
 import COLORS from '@/shared/utils/colors';
-import { useKeyboard } from '@/shared/utils/useKeyboard';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Checkbox from 'expo-checkbox';
 import { Image } from 'expo-image';
@@ -109,8 +108,6 @@ export default function BirthTimeForm() {
     return formatTimeInput(text);
   };
 
-  const { keyboardShown } = useKeyboard();
-
   const onSubmit = (data: z.infer<typeof birthTimeSchema>) => {
     router.push({
       pathname: '/(my)/saju-info/(create)/confirm-page',
@@ -177,7 +174,7 @@ export default function BirthTimeForm() {
           <View
             className="flex-row items-center justify-center"
             style={{
-              marginBottom: keyboardShown ? 16 : 0,
+              marginBottom: 16,
             }}
           >
             <Controller

@@ -5,7 +5,6 @@ import ErrorMessage from '@/pages/saju-info-edit/ui/error-message';
 import TextField from '@/shared/ui/text-field';
 import cn from '@/shared/utils/cn';
 import COLORS from '@/shared/utils/colors';
-import { useKeyboard } from '@/shared/utils/useKeyboard';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Checkbox from 'expo-checkbox';
 import { Image } from 'expo-image';
@@ -168,7 +167,6 @@ export default function BirthDateForm() {
       },
     });
   };
-  const { keyboardShown } = useKeyboard();
 
   return (
     <Pressable onPress={Keyboard.dismiss} style={{ flex: 1 }}>
@@ -214,7 +212,7 @@ export default function BirthDateForm() {
           <View
             className="flex-row items-center justify-center"
             style={{
-              marginBottom: keyboardShown ? 16 : 0,
+              marginBottom: 16,
             }}
           >
             <Controller
