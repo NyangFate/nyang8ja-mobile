@@ -6,6 +6,7 @@ import { router } from 'expo-router';
 import React from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import FortuneCardList from './fortune-card-list';
 import FortuneDescription from './fortune-description';
 
 export default function NewYearFortune() {
@@ -41,86 +42,8 @@ export default function NewYearFortune() {
 
         <Divider />
 
-        <View className="px-5 mt-10">
-          <Text className="font-suit-bold text-subhead1 text-grey-70">
-            지금 인기 있는 무료 사주 더보기
-          </Text>
+        <FortuneCardList />
 
-          <View className="mt-4 space-y-4">
-            {/* 첫 번째 카드 */}
-            <View className="flex-row items-center justify-between">
-              <View className="flex-row items-center">
-                <View className="relative items-center justify-center w-16 h-16 overflow-hidden border-2 rounded-md bg-primary-02 border-primary-01">
-                  {/* 장식 원들 (동심원) */}
-                  <View
-                    className="absolute w-[60%] h-[60%] rounded-full bg-primary-03"
-                    style={{ opacity: 0.7 }}
-                  />
-                  <View className="absolute w-[48%] h-[48%] rounded-full bg-primary-02" />
-                  <View className="absolute w-[36%] h-[36%] rounded-full bg-primary-01" />
-                  <View className="absolute w-[24%] h-[24%] rounded-full bg-primary-00" />
-                </View>
-                <View className="ml-3">
-                  <Text className="font-suit-bold text-subhead3 text-grey-90">
-                    오늘 그 사람이 날 생각하고 있을까?
-                  </Text>
-                </View>
-              </View>
-              {/* 화살표 대체 X 표시 */}
-              <View className="items-center justify-center w-6 h-6">
-                <View className="w-5 h-0.5 bg-grey-20 rotate-45 absolute"></View>
-                <View className="w-5 h-0.5 bg-grey-20 -rotate-45 absolute"></View>
-              </View>
-            </View>
-
-            {/* 두 번째 카드 */}
-            <View className="flex-row items-center justify-between">
-              <View className="flex-row items-center">
-                <View className="relative items-center justify-center w-16 h-16 overflow-hidden border-2 rounded-md bg-primary-02 border-primary-01">
-                  {/* 장식 원들 (동심원) */}
-                  <View
-                    className="absolute w-[60%] h-[60%] rounded-full bg-primary-03"
-                    style={{ opacity: 0.7 }}
-                  />
-                  <View className="absolute w-[48%] h-[48%] rounded-full bg-primary-02" />
-                  <View className="absolute w-[36%] h-[36%] rounded-full bg-primary-01" />
-                  <View className="absolute w-[24%] h-[24%] rounded-full bg-primary-00" />
-                </View>
-                <View className="ml-3">
-                  <Text className="font-suit-bold text-subhead3 text-grey-90">
-                    내 팔자에 숨겨진 특별한 연애운이 있을까?
-                  </Text>
-                </View>
-              </View>
-              {/* 화살표 대체 X 표시 */}
-              <View className="items-center justify-center w-6 h-6">
-                <View className="w-5 h-0.5 bg-grey-20 rotate-45 absolute"></View>
-                <View className="w-5 h-0.5 bg-grey-20 -rotate-45 absolute"></View>
-              </View>
-            </View>
-
-            {/* 세 번째 카드 (자물쇠 표시) */}
-            <View className="flex-row items-center justify-between">
-              <View className="flex-row items-center">
-                <View className="items-center justify-center w-10 h-10 mr-2">
-                  {/* 자물쇠 아이콘 표현 */}
-                  <View className="w-6 h-6 border border-yellow-400 rounded-full"></View>
-                  <View className="absolute w-4 h-4 bg-yellow-400 rounded-sm bottom-1"></View>
-                </View>
-                <View>
-                  <Text className="font-suit-bold text-subhead3 text-grey-90">
-                    20년 뒤, 옆에 누가 있을까?
-                  </Text>
-                </View>
-              </View>
-              {/* 화살표 대체 X 표시 */}
-              <View className="items-center justify-center w-6 h-6">
-                <View className="w-5 h-0.5 bg-grey-20 rotate-45 absolute"></View>
-                <View className="w-5 h-0.5 bg-grey-20 -rotate-45 absolute"></View>
-              </View>
-            </View>
-          </View>
-        </View>
         {/* 고양이 일러스트 영역 (간소화된 표현) */}
         <View className="items-center mt-12">
           <View className="flex items-center justify-center w-48 h-48 rounded-full bg-grey-00">
