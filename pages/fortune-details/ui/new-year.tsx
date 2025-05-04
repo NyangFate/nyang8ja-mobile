@@ -48,34 +48,23 @@ export default function NewYearFortune() {
           <FortuneCardList />
         </View>
 
-        {/* 고양이 일러스트 영역 (간소화된 표현) */}
-        <View className="items-center mt-12">
-          <View className="flex items-center justify-center w-48 h-48 rounded-full bg-grey-00">
-            <View className="rounded-full w-36 h-36 bg-primary-01">
-              <View
-                className="absolute right-0 w-8 h-12 rounded-full bg-primary-02 top-4"
-                style={{ transform: [{ rotate: '30deg' }] }}
-              ></View>
-              <View
-                className="absolute left-0 w-8 h-12 rounded-full bg-primary-02 top-4"
-                style={{ transform: [{ rotate: '-30deg' }] }}
-              ></View>
-              <View className="absolute bottom-0 w-24 h-24 rounded-full bg-primary-03 left-6"></View>
-            </View>
-          </View>
-        </View>
-        {/* 하단 여백 */}
-        <View className="h-32"></View>
+        <View className="h-20" />
       </ScrollView>
 
-      {/* 하단 그라데이션 배경과 버튼 컨테이너 */}
-      <View className="absolute bottom-0 left-0 right-0 px-5 pt-10 pb-5 bg-gradient-to-t from-white to-transparent">
-        <Pressable
-          className="bg-primary-03 h-[54px] rounded-lg justify-center items-center"
-          onPress={() => router.push('/')}
-        >
-          <Text className="text-white font-suit-bold text-body2">2025년 내 운세 보러가기</Text>
-        </Pressable>
+      {/* 하단 버튼 컨테이너 */}
+      <View className="absolute bottom-0 left-0 right-0 mb-[30px]">
+        {/* 반투명한 오버레이 (버튼 아래쪽만) */}
+        <View className="absolute bottom-0 left-0 right-0 h-16 bg-white opacity-70" />
+
+        {/* 버튼 컨테이너 */}
+        <View className="px-5 py-8">
+          <Pressable
+            className="h-[54px] rounded-lg justify-center items-center bg-grey-70"
+            onPress={() => router.push('/')}
+          >
+            <Text className="text-white font-suit-bold text-body2">2025년 내 운세 보러가기</Text>
+          </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   );
