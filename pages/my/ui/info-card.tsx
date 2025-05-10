@@ -74,7 +74,7 @@ export default function InfoCard() {
             )}
             <View className="gap-[2px]">
               <Text className="text-headline1 text-grey-90 font-suit-bold">
-                {user ? user.profile?.name : '로그인하기'}
+                {user ? user.name : '로그인하기'}
               </Text>
               <Text className="text-body1 font-suit-regular text-grey-70">{description}</Text>
             </View>

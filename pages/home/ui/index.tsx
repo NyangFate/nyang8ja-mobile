@@ -41,11 +41,11 @@ export default function Home() {
         </Pressable>
       </View>
       <ScrollView className="flex-1">
-        {user?.profile?.name && (
+        {user?.name && (
           <View className="flex-row items-center justify-between mt-6">
             <Text>
-              <Text className="text-subhead3 font-suit-bold text-grey-80">{user.profile.name}</Text>
-              <Text className=" text-grey-80 font-suit-regular text-body3">{`${getJosa(user.profile.name, '이/가')} 냥팔자와 함께한지`}</Text>
+              <Text className="text-subhead3 font-suit-bold text-grey-80">{user.name}</Text>
+              <Text className=" text-grey-80 font-suit-regular text-body3">{`${getJosa(user.name, '이/가')} 냥팔자와 함께한지`}</Text>
             </Text>
             <Text className="text-primary-03 font-suit-bold text-subhead3">
               {getDaysSinceJoined(user.socialAccounts[0].updatedAt)}일

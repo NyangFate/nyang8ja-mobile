@@ -7,7 +7,10 @@ export default function useWithdrawAccount() {
   const queryClient = useQueryClient();
   const router = useRouter();
   return useMutation({
-    mutationFn: async (params: { reason: UserWithdrawalRequestDtoReasonEnum; detail: string }) => {
+    mutationFn: async (params: {
+      reason: UserWithdrawalRequestDtoReasonEnum[];
+      detail?: string;
+    }) => {
       const accessToken = await AsyncStorage.getItem('accessToken');
 
       try {

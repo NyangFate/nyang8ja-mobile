@@ -21,7 +21,7 @@ export default function WithdrawalConfirmation() {
     try {
       withdrawAccount(
         {
-          reason: reasons.split(',')[0] as UserWithdrawalRequestDtoReasonEnum,
+          reason: reasons.split(',') as UserWithdrawalRequestDtoReasonEnum[],
           detail: otherReason,
         },
         {
@@ -51,7 +51,7 @@ export default function WithdrawalConfirmation() {
     router.back();
   };
 
-  if (!user?.profile?.name) {
+  if (!user?.name) {
     return null;
   }
 
@@ -62,7 +62,7 @@ export default function WithdrawalConfirmation() {
       {/* 컨텐츠 */}
       <View className="flex-1 px-6 py-5">
         <Text className="mb-3 text-headline2 text-grey-90 font-suit-bold">
-          {user?.profile?.name}님,{'\n'}탈퇴 전 꼭 확인해 주세요
+          {user.name}님,{'\n'}탈퇴 전 꼭 확인해 주세요
         </Text>
 
         <View className="gap-2">

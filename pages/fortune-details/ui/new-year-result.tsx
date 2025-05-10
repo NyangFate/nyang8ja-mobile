@@ -30,7 +30,7 @@ export default function NewYearFortuneResult() {
     router.dismissTo('/');
   };
 
-  if (!user?.profile?.name) return null;
+  if (!user?.name) return null;
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -38,10 +38,10 @@ export default function NewYearFortuneResult() {
         <View className="flex-1 px-5 pb-16 pt-7">
           <FortuneResultTitle
             headerText="2025년, 나한테 어떤 해가 될까?"
-            titleText={`올해 ${user.profile.name}의 총운은 꽤\n괜찮은 편이야`}
+            titleText={`올해 ${user.name}의 총운은 꽤\n괜찮은 편이야`}
           />
           <View className="gap-3 mt-5">
-            <FortuneSummaryCard userName={user.profile.name} />
+            <FortuneSummaryCard userName={user.name} />
             <FortuneResultCard />
           </View>
         </View>
