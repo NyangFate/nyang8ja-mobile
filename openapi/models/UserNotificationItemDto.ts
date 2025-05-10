@@ -16,32 +16,53 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface EventNotificationDto
+ * @interface UserNotificationItemDto
  */
-export interface EventNotificationDto {
+export interface UserNotificationItemDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserNotificationItemDto
+     */
+    description: string;
     /**
      * 
      * @type {boolean}
-     * @memberof EventNotificationDto
+     * @memberof UserNotificationItemDto
      */
-    news?: boolean;
+    enabled: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserNotificationItemDto
+     */
+    key: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserNotificationItemDto
+     */
+    label: string;
 }
 
-export function EventNotificationDtoFromJSON(json: any): EventNotificationDto {
-    return EventNotificationDtoFromJSONTyped(json, false);
+export function UserNotificationItemDtoFromJSON(json: any): UserNotificationItemDto {
+    return UserNotificationItemDtoFromJSONTyped(json, false);
 }
 
-export function EventNotificationDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): EventNotificationDto {
+export function UserNotificationItemDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): UserNotificationItemDto {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'news': !exists(json, 'news') ? undefined : json['news'],
+        'description': json['description'],
+        'enabled': json['enabled'],
+        'key': json['key'],
+        'label': json['label'],
     };
 }
 
-export function EventNotificationDtoToJSON(value?: EventNotificationDto | null): any {
+export function UserNotificationItemDtoToJSON(value?: UserNotificationItemDto | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -50,7 +71,10 @@ export function EventNotificationDtoToJSON(value?: EventNotificationDto | null):
     }
     return {
         
-        'news': value.news,
+        'description': value.description,
+        'enabled': value.enabled,
+        'key': value.key,
+        'label': value.label,
     };
 }
 

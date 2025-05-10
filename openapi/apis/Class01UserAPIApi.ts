@@ -18,12 +18,9 @@ import {
     DefaultResponse,
     DefaultResponseFromJSON,
     DefaultResponseToJSON,
-    UserNotificationResponseDto,
-    UserNotificationResponseDtoFromJSON,
-    UserNotificationResponseDtoToJSON,
-    UserNotificationUpdateRequestDto,
-    UserNotificationUpdateRequestDtoFromJSON,
-    UserNotificationUpdateRequestDtoToJSON,
+    UserNotificationCategoryDto,
+    UserNotificationCategoryDtoFromJSON,
+    UserNotificationCategoryDtoToJSON,
     UserResponseDto,
     UserResponseDtoFromJSON,
     UserResponseDtoToJSON,
@@ -40,7 +37,7 @@ export interface DeleteUserRequest {
 }
 
 export interface UpdateNotificationSettingsRequest {
-    userNotificationUpdateRequestDto: UserNotificationUpdateRequestDto;
+    body: object;
 }
 
 export interface UpdateUserInfoRequest {
@@ -95,7 +92,7 @@ export class Class01UserAPIApi extends runtime.BaseAPI {
      * 알림설정을 조회합니다
      * 알림설정 조회
      */
-    async getNotificationSettingsRaw(): Promise<runtime.ApiResponse<UserNotificationResponseDto>> {
+    async getNotificationSettingsRaw(): Promise<runtime.ApiResponse<Array<UserNotificationCategoryDto>>> {
         const queryParameters: runtime.HTTPQuery = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -111,14 +108,14 @@ export class Class01UserAPIApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UserNotificationResponseDtoFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UserNotificationCategoryDtoFromJSON));
     }
 
     /**
      * 알림설정을 조회합니다
      * 알림설정 조회
      */
-    async getNotificationSettings(): Promise<UserNotificationResponseDto> {
+    async getNotificationSettings(): Promise<Array<UserNotificationCategoryDto>> {
         const response = await this.getNotificationSettingsRaw();
         return await response.value();
     }
@@ -160,8 +157,8 @@ export class Class01UserAPIApi extends runtime.BaseAPI {
      * 알림설정 수정
      */
     async updateNotificationSettingsRaw(requestParameters: UpdateNotificationSettingsRequest): Promise<runtime.ApiResponse<DefaultResponse>> {
-        if (requestParameters.userNotificationUpdateRequestDto === null || requestParameters.userNotificationUpdateRequestDto === undefined) {
-            throw new runtime.RequiredError('userNotificationUpdateRequestDto','Required parameter requestParameters.userNotificationUpdateRequestDto was null or undefined when calling updateNotificationSettings.');
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling updateNotificationSettings.');
         }
 
         const queryParameters: runtime.HTTPQuery = {};
@@ -179,7 +176,7 @@ export class Class01UserAPIApi extends runtime.BaseAPI {
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
-            body: UserNotificationUpdateRequestDtoToJSON(requestParameters.userNotificationUpdateRequestDto),
+            body: requestParameters.body as any,
         });
 
         return new runtime.JSONApiResponse(response, (jsonValue) => DefaultResponseFromJSON(jsonValue));

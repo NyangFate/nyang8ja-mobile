@@ -14,34 +14,55 @@
 
 import { exists, mapValues } from '../runtime';
 /**
- * 
+ * 시간 (HH:mm)
  * @export
- * @interface ServiceNotificationDto
+ * @interface LocalTime
  */
-export interface ServiceNotificationDto {
+export interface LocalTime {
     /**
      * 
-     * @type {boolean}
-     * @memberof ServiceNotificationDto
+     * @type {number}
+     * @memberof LocalTime
      */
-    fortune?: boolean;
+    hour?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LocalTime
+     */
+    minute?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LocalTime
+     */
+    nano?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof LocalTime
+     */
+    second?: number;
 }
 
-export function ServiceNotificationDtoFromJSON(json: any): ServiceNotificationDto {
-    return ServiceNotificationDtoFromJSONTyped(json, false);
+export function LocalTimeFromJSON(json: any): LocalTime {
+    return LocalTimeFromJSONTyped(json, false);
 }
 
-export function ServiceNotificationDtoFromJSONTyped(json: any, ignoreDiscriminator: boolean): ServiceNotificationDto {
+export function LocalTimeFromJSONTyped(json: any, ignoreDiscriminator: boolean): LocalTime {
     if ((json === undefined) || (json === null)) {
         return json;
     }
     return {
         
-        'fortune': !exists(json, 'fortune') ? undefined : json['fortune'],
+        'hour': !exists(json, 'hour') ? undefined : json['hour'],
+        'minute': !exists(json, 'minute') ? undefined : json['minute'],
+        'nano': !exists(json, 'nano') ? undefined : json['nano'],
+        'second': !exists(json, 'second') ? undefined : json['second'],
     };
 }
 
-export function ServiceNotificationDtoToJSON(value?: ServiceNotificationDto | null): any {
+export function LocalTimeToJSON(value?: LocalTime | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -50,7 +71,10 @@ export function ServiceNotificationDtoToJSON(value?: ServiceNotificationDto | nu
     }
     return {
         
-        'fortune': value.fortune,
+        'hour': value.hour,
+        'minute': value.minute,
+        'nano': value.nano,
+        'second': value.second,
     };
 }
 

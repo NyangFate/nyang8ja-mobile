@@ -32,10 +32,22 @@ import {
 export interface UserResponseDto {
     /**
      * 
+     * @type {Date}
+     * @memberof UserResponseDto
+     */
+    createdAt: Date;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserResponseDto
+     */
+    name: string;
+    /**
+     * 
      * @type {UserProfileResponseDto}
      * @memberof UserResponseDto
      */
-    profile?: UserProfileResponseDto;
+    profile: UserProfileResponseDto;
     /**
      * 
      * @type {Array<SocialAccountResponseDto>}
@@ -66,7 +78,9 @@ export function UserResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'profile': !exists(json, 'profile') ? undefined : UserProfileResponseDtoFromJSON(json['profile']),
+        'createdAt': (new Date(json['createdAt'])),
+        'name': json['name'],
+        'profile': UserProfileResponseDtoFromJSON(json['profile']),
         'socialAccounts': ((json['socialAccounts'] as Array<any>).map(SocialAccountResponseDtoFromJSON)),
         'userKey': json['userKey'],
         'userProfileStatus': json['userProfileStatus'],
@@ -82,6 +96,8 @@ export function UserResponseDtoToJSON(value?: UserResponseDto | null): any {
     }
     return {
         
+        'createdAt': (value.createdAt.toISOString()),
+        'name': value.name,
         'profile': UserProfileResponseDtoToJSON(value.profile),
         'socialAccounts': ((value.socialAccounts as Array<any>).map(SocialAccountResponseDtoToJSON)),
         'userKey': value.userKey,
@@ -94,6 +110,7 @@ export function UserResponseDtoToJSON(value?: UserResponseDto | null): any {
 * @enum {string}
 */
 export enum UserResponseDtoUserProfileStatusEnum {
+    INACTIVE = 'INACTIVE',
     EMPTY = 'EMPTY',
     INCOMPLETE = 'INCOMPLETE',
     COMPLETE = 'COMPLETE'

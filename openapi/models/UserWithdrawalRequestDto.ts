@@ -27,10 +27,10 @@ export interface UserWithdrawalRequestDto {
     detail?: string;
     /**
      * 
-     * @type {string}
+     * @type {Array<string>}
      * @memberof UserWithdrawalRequestDto
      */
-    reason: UserWithdrawalRequestDtoReasonEnum;
+    reason: Array<UserWithdrawalRequestDtoReasonEnum>;
 }
 
 export function UserWithdrawalRequestDtoFromJSON(json: any): UserWithdrawalRequestDto {

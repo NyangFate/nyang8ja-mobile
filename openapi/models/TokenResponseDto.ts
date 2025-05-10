@@ -30,7 +30,7 @@ export interface TokenResponseDto {
      * @type {boolean}
      * @memberof TokenResponseDto
      */
-    isSignUp: boolean;
+    isSignUp?: boolean;
 }
 
 export function TokenResponseDtoFromJSON(json: any): TokenResponseDto {
@@ -44,7 +44,7 @@ export function TokenResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'accessToken': json['accessToken'],
-        'isSignUp': json['isSignUp'],
+        'isSignUp': !exists(json, 'isSignUp') ? undefined : json['isSignUp'],
     };
 }
 

@@ -26,13 +26,13 @@ export interface UserUpdateRequestDto {
      */
     birthType?: UserUpdateRequestDtoBirthTypeEnum;
     /**
-     * 
+     * 날짜 (ISO 8601, yyyy-MM-dd)
      * @type {Date}
      * @memberof UserUpdateRequestDto
      */
     birthday?: Date;
     /**
-     * 
+     * 시간 (HH:mm)
      * @type {Date}
      * @memberof UserUpdateRequestDto
      */
@@ -43,6 +43,12 @@ export interface UserUpdateRequestDto {
      * @memberof UserUpdateRequestDto
      */
     email?: string;
+    /**
+     * 푸시알림을 위한 fcmToken 문자열
+     * @type {string}
+     * @memberof UserUpdateRequestDto
+     */
+    fcmToken?: string;
     /**
      * 
      * @type {string}
@@ -71,6 +77,7 @@ export function UserUpdateRequestDtoFromJSONTyped(json: any, ignoreDiscriminator
         'birthday': !exists(json, 'birthday') ? undefined : (new Date(json['birthday'])),
         'birthtime': !exists(json, 'birthtime') ? undefined : (new Date(json['birthtime'])),
         'email': !exists(json, 'email') ? undefined : json['email'],
+        'fcmToken': !exists(json, 'fcmToken') ? undefined : json['fcmToken'],
         'gender': !exists(json, 'gender') ? undefined : json['gender'],
         'name': !exists(json, 'name') ? undefined : json['name'],
     };
@@ -89,6 +96,7 @@ export function UserUpdateRequestDtoToJSON(value?: UserUpdateRequestDto | null):
         'birthday': value.birthday === undefined ? undefined : (value.birthday.toISOString().substr(0,10)),
         'birthtime': value.birthtime === undefined ? undefined : (value.birthtime.toISOString().substr(0,10)),
         'email': value.email,
+        'fcmToken': value.fcmToken,
         'gender': value.gender,
         'name': value.name,
     };

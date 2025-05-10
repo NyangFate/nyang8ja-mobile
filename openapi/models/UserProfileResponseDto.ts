@@ -13,6 +13,13 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import {
+    LocalTime,
+    LocalTimeFromJSON,
+    LocalTimeFromJSONTyped,
+    LocalTimeToJSON,
+} from './';
+
 /**
  * 
  * @export
@@ -26,17 +33,17 @@ export interface UserProfileResponseDto {
      */
     birthType?: UserProfileResponseDtoBirthTypeEnum;
     /**
-     * 
+     * 날짜 (ISO 8601, yyyy-MM-dd)
      * @type {Date}
      * @memberof UserProfileResponseDto
      */
     birthday?: Date;
     /**
      * 
-     * @type {Date}
+     * @type {LocalTime}
      * @memberof UserProfileResponseDto
      */
-    birthtime?: Date;
+    birthtime?: LocalTime;
     /**
      * 
      * @type {string}
@@ -49,12 +56,6 @@ export interface UserProfileResponseDto {
      * @memberof UserProfileResponseDto
      */
     gender?: UserProfileResponseDtoGenderEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserProfileResponseDto
-     */
-    name?: string;
 }
 
 export function UserProfileResponseDtoFromJSON(json: any): UserProfileResponseDto {
@@ -69,10 +70,9 @@ export function UserProfileResponseDtoFromJSONTyped(json: any, ignoreDiscriminat
         
         'birthType': !exists(json, 'birthType') ? undefined : json['birthType'],
         'birthday': !exists(json, 'birthday') ? undefined : (new Date(json['birthday'])),
-        'birthtime': !exists(json, 'birthtime') ? undefined : (new Date(json['birthtime'])),
+        'birthtime': !exists(json, 'birthtime') ? undefined : LocalTimeFromJSON(json['birthtime']),
         'email': !exists(json, 'email') ? undefined : json['email'],
         'gender': !exists(json, 'gender') ? undefined : json['gender'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
     };
 }
 
@@ -87,10 +87,9 @@ export function UserProfileResponseDtoToJSON(value?: UserProfileResponseDto | nu
         
         'birthType': value.birthType,
         'birthday': value.birthday === undefined ? undefined : (value.birthday.toISOString().substr(0,10)),
-        'birthtime': value.birthtime === undefined ? undefined : (value.birthtime.toISOString().substr(0,10)),
+        'birthtime': LocalTimeToJSON(value.birthtime),
         'email': value.email,
         'gender': value.gender,
-        'name': value.name,
     };
 }
 
