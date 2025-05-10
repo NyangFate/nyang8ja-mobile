@@ -19,6 +19,16 @@ interface AppleAuthenticationError extends Error {
 export default function AppleLoginButton() {
   const { mutate: signInApple } = useSignInApple();
 
+  const getFullNameOrDefault = (fullName: AppleAuthentication.AppleAuthenticationFullName) => {
+    const { familyName = '', givenName = '' } = fullName;
+    const hasName = Boolean(familyName || givenName);
+    const defaultName = '김팔자';
+
+    if (!hasName) return defaultName;
+
+    return `${fullName.familyName || ''}${fullName.givenName || ''}`.trim();
+  };
+
   return (
     <Pressable
       className="h-[54px] flex-row items-center justify-between px-5 bg-[#24292F] rounded-[4px]"
@@ -34,8 +44,7 @@ export default function AppleLoginButton() {
           signInApple({
             appleSignInRequestDto: {
               idToken: credential.identityToken,
-              fullName:
-                `${credential.fullName?.familyName || ''}${credential.fullName?.givenName || ''}`.trim(),
+              fullName: getFullNameOrDefault(credential.fullName),
             },
           });
         } catch (e) {
