@@ -5,8 +5,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { SafeAreaView, Switch, Text, View } from 'react-native';
-import useEditNotification from '../api/useEditNotification';
 import useNotification from '../api/useNotification';
+import useEditNotification from '../api/useUpdateNotification';
 
 export default function Notification() {
   const router = useRouter();
