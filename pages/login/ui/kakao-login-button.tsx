@@ -2,9 +2,9 @@ import KakaoIcon from '@/assets/svgs/kakao.svg';
 import { Class00AuthAPIApi } from '@/openapi/apis';
 import useSignInKakao from '@/pages/login/api/useSignInKakao';
 import { login } from '@react-native-kakao/user';
-import { router } from 'expo-router';
 import React from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
+// import messaging from '@react-native-firebase/messaging';
 
 export default function KakaoLoginButton() {
   const { mutate: signInKakao } = useSignInKakao();
@@ -15,22 +15,13 @@ export default function KakaoLoginButton() {
         const credential = await login();
         try {
           const api = new Class00AuthAPIApi();
-          signInKakao(
-            {
-              kakaoSignInRequestDto: {
-                accessToken: credential.accessToken,
-              },
+          //TODO: 푸시알림 토큰 받아오기
+          //const fcmToken = await messaging().getToken();
+          signInKakao({
+            kakaoSignInRequestDto: {
+              accessToken: credential.accessToken,
             },
-            {
-              onSuccess: (data) => {
-                if (data.isSignUp) {
-                  router.replace('/saju-info/create-page');
-                } else {
-                  router.replace('/(my)/my-page');
-                }
-              },
-            }
-          );
+          });
         } catch (error) {
           Alert.alert('로그인에 실패했어요', '잠시 후 다시 시도해 주세요', [{ text: '확인' }]);
         }

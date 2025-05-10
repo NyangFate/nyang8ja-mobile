@@ -1,11 +1,10 @@
 import AppleIcon from '@/assets/svgs/apple.svg';
 import useSignInApple from '@/pages/login/api/useSignInApple';
 import * as AppleAuthentication from 'expo-apple-authentication';
-import { router } from 'expo-router';
 import React from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
+// import messaging from '@react-native-firebase/messaging';
 
-// Apple 인증 오류 타입 정의
 interface AppleAuthenticationError extends Error {
   code:
     | 'ERR_INVALID_OPERATION'
@@ -32,20 +31,15 @@ export default function AppleLoginButton() {
           if (!credential.identityToken || !credential.fullName) {
             throw new Error('Invalid credential');
           }
-          signInApple(
-            {
-              appleSignInRequestDto: {
-                idToken: credential.identityToken,
-                fullName:
-                  `${credential.fullName?.familyName || ''}${credential.fullName?.givenName || ''}`.trim(),
-              },
+          //TODO: 푸시알림 토큰 받아오기
+          //const fcmToken = await messaging().getToken();
+          signInApple({
+            appleSignInRequestDto: {
+              idToken: credential.identityToken,
+              fullName:
+                `${credential.fullName?.familyName || ''}${credential.fullName?.givenName || ''}`.trim(),
             },
-            {
-              onSuccess: () => {
-                router.replace('/(my)/my-page');
-              },
-            }
-          );
+          });
         } catch (e) {
           const error = e as AppleAuthenticationError;
           if (error.code !== 'ERR_REQUEST_CANCELED') {
