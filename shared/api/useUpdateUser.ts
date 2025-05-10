@@ -1,4 +1,6 @@
-import { Class01UserAPIApi, Configuration, UpdateUserInfoRequest } from '@/openapi';
+import { Class01UserAPIApi } from '@/openapi/apis';
+import { UpdateUserInfoRequest } from '@/openapi/apis/Class01UserAPIApi';
+import { Configuration } from '@/openapi/runtime';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMutation } from '@tanstack/react-query';
 export const useUpdateUser = () => {
