@@ -4,7 +4,6 @@ import useSignInKakao from '@/pages/login/api/useSignInKakao';
 import { login } from '@react-native-kakao/user';
 import React from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
-// import messaging from '@react-native-firebase/messaging';
 
 export default function KakaoLoginButton() {
   const { mutate: signInKakao } = useSignInKakao();
@@ -13,10 +12,9 @@ export default function KakaoLoginButton() {
     <Pressable
       onPress={async () => {
         const credential = await login();
+
         try {
           const api = new Class00AuthAPIApi();
-          //TODO: 푸시알림 토큰 받아오기
-          //const fcmToken = await messaging().getToken();
           signInKakao({
             kakaoSignInRequestDto: {
               accessToken: credential.accessToken,

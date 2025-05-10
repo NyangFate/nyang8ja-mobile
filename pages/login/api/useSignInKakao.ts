@@ -28,5 +28,8 @@ export default function useSignInKakao() {
         router.replace('/(my)/my-page');
       }
     },
+    onError: (error) => {
+      console.log(error);
+    },
   });
 }

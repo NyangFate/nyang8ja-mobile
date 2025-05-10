@@ -3,7 +3,6 @@ import useSignInApple from '@/pages/login/api/useSignInApple';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import React from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
-// import messaging from '@react-native-firebase/messaging';
 
 interface AppleAuthenticationError extends Error {
   code:
@@ -31,8 +30,7 @@ export default function AppleLoginButton() {
           if (!credential.identityToken || !credential.fullName) {
             throw new Error('Invalid credential');
           }
-          //TODO: 푸시알림 토큰 받아오기
-          //const fcmToken = await messaging().getToken();
+
           signInApple({
             appleSignInRequestDto: {
               idToken: credential.identityToken,
