@@ -40,7 +40,6 @@ export default function Home() {
           <ProfileIcon width={24} height={24} />
         </Pressable>
       </View>
-
       <ScrollView className="flex-1">
         {user?.profile?.name && (
           <View className="flex-row items-center justify-between mt-6">
