@@ -1,4 +1,4 @@
-import ReactQueryClientProvider from '@/application/config/react-query';
+import ReactQueryClientProvider from '@/app-setup/config/react-query';
 import '@/global.css';
 import Error from '@/pages/special/ui/error';
 import { initializeKakaoSDK } from '@react-native-kakao/core';
