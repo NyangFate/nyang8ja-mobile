@@ -1,12 +1,11 @@
-import { UserNotificationUpdateRequestDto } from '@/openapi';
-import { Class01UserAPIApi } from '@/openapi/apis';
+import { Class01UserAPIApi, UpdateNotificationSettingsRequest } from '@/openapi/apis';
 import { Configuration } from '@/openapi/runtime';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMutation } from '@tanstack/react-query';
 
 export default function useEditNotification() {
   return useMutation({
-    mutationFn: async (data: UserNotificationUpdateRequestDto) => {
+    mutationFn: async (data: UpdateNotificationSettingsRequest) => {
       const accessToken = await AsyncStorage.getItem('accessToken');
       const config = new Configuration({
         headers: {
@@ -16,9 +15,7 @@ export default function useEditNotification() {
 
       const api = new Class01UserAPIApi(config);
 
-      const res = await api.updateNotificationSettings({
-        userNotificationUpdateRequestDto: data,
-      });
+      const res = await api.updateNotificationSettings({ body: data });
 
       return res;
     },
