@@ -295,14 +295,19 @@ export interface ResponseTransformer<T> {
   (json: any): T;
 }
 
+function extractInnerData<T>(json: any): T {
+  return json?.data ?? json;
+}
+
 export class JSONApiResponse<T> {
   constructor(
     public raw: Response,
-    private transformer: ResponseTransformer<T> = (jsonValue: any) => jsonValue
+    private transformer: ResponseTransformer<T> = (jsonValue: any) => extractInnerData(jsonValue)
   ) {}
 
   async value(): Promise<T> {
-    return await this.raw.json();
+    const jsonValue = await this.raw.json();
+    return extractInnerData(jsonValue);
   }
 }
 
