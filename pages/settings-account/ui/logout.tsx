@@ -1,5 +1,8 @@
 import LogoutIcon from '@/assets/svgs/logout.svg';
+import { SocialAccountResponseDtoSocialTypeEnum } from '@/openapi/models';
+import useUser from '@/shared/api/useUser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logout } from '@react-native-kakao/user';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -10,17 +13,29 @@ export default function Logout() {
   const router = useRouter();
   const [isLogoutModalVisible, setIsLogoutModalVisible] = useState(false);
   const queryClient = useQueryClient();
+  const { data: user } = useUser();
+
+  const isKakaoLogin =
+    user?.socialAccounts[0].socialType === SocialAccountResponseDtoSocialTypeEnum.KAKAO;
 
   const handleLogout = async () => {
+    if (isKakaoLogin) {
+      await logout();
+    }
+
     setIsLogoutModalVisible(false);
     await AsyncStorage.removeItem('accessToken');
-    queryClient.invalidateQueries();
+    queryClient.clear();
     router.replace('/(my)/my-page');
   };
 
   const handleLogoutPress = () => {
     setIsLogoutModalVisible(true);
   };
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <>

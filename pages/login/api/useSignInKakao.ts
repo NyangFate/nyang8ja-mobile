@@ -23,11 +23,9 @@ export default function useSignInKakao() {
 
       if (data.isSignUp) {
         await messaging().requestPermission();
-        router.dismissAll();
         router.replace('/(my)/saju-info/(create)/create-page');
       } else {
-        router.dismissAll();
-        router.replace('/(my)/my-page');
+        router.dismiss();
       }
     },
     onError: (error) => {
