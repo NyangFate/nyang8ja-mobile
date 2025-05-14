@@ -17,7 +17,7 @@ export default function InfoCard() {
   const router = useRouter();
   const { data: user } = useUser();
 
-  const handleNavigate = (user: UserResponseDto | undefined) => {
+  const handleNavigate = (user: UserResponseDto | null | undefined) => {
     if (!user) {
       router.navigate('/login-page');
     } else {
@@ -25,7 +25,7 @@ export default function InfoCard() {
     }
   };
 
-  const getUserDescription = (user: UserResponseDto | undefined) => {
+  const getUserDescription = (user: UserResponseDto | null | undefined) => {
     if (!user) {
       return '로그인하고 맞춤 결과를 만나봐요';
     }
@@ -44,7 +44,7 @@ export default function InfoCard() {
 
     let birthTimeInfo = '모름';
     if (profile.birthtime) {
-      birthTimeInfo = dayjs.tz(profile.birthtime, 'Asia/Seoul').format('H시 m분');
+      birthTimeInfo = dayjs.tz(profile.birthtime as Date, 'Asia/Seoul').format('H시 m분');
     }
 
     return `${gender}${separator}${birthDate}${separator}${birthTimeInfo}`;
