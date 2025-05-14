@@ -8,16 +8,20 @@ export default function useUser() {
     queryKey: ['userInfo'],
     queryFn: async () => {
       const accessToken = await AsyncStorage.getItem('accessToken');
-      const api = new Class01UserAPIApi(
-        new Configuration({
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-      );
+
+      const config = accessToken
+        ? new Configuration({
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          })
+        : undefined;
+
+      const api = new Class01UserAPIApi(config);
 
       const res = await api.getUserInfo();
-      return res;
+
+      return res.name ? { ...res, name: res.name === 'NONE' ? '김팔자' : res.name } : null;
     },
   });
 }

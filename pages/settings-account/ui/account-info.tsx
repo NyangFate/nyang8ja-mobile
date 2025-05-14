@@ -1,6 +1,6 @@
 import AppleIcon from '@/assets/svgs/apple.svg';
 import KakaoIcon from '@/assets/svgs/kakao.svg';
-import { UserResponseDto } from '@/openapi';
+import { UserResponseDto } from '@/openapi/models';
 import { SocialAccountResponseDtoSocialTypeEnum } from '@/openapi/models/SocialAccountResponseDto';
 import cn from '@/shared/utils/cn';
 import React from 'react';
