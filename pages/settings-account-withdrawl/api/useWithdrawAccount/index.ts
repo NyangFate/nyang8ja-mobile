@@ -1,11 +1,10 @@
-import { Class01UserAPIApi, Configuration } from '@/openapi';
+import { Class01UserAPIApi } from '@/openapi/apis';
 import { UserWithdrawalRequestDtoReasonEnum } from '@/openapi/models/UserWithdrawalRequestDto';
+import { Configuration } from '@/openapi/runtime';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'expo-router';
 export default function useWithdrawAccount() {
   const queryClient = useQueryClient();
-  const router = useRouter();
   return useMutation({
     mutationFn: async (params: {
       reason: UserWithdrawalRequestDtoReasonEnum[];
@@ -36,7 +35,7 @@ export default function useWithdrawAccount() {
     },
     onSuccess: async () => {
       await AsyncStorage.removeItem('accessToken');
-      queryClient.invalidateQueries();
+      queryClient.clear();
     },
   });
 }

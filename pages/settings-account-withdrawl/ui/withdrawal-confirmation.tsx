@@ -17,7 +17,6 @@ export default function WithdrawalConfirmation() {
   const { mutate: withdrawAccount } = useWithdrawAccount();
 
   const handleWithdrawal = () => {
-    // TODO: 인터페이스 수정 후 변경
     try {
       withdrawAccount(
         {
@@ -26,8 +25,7 @@ export default function WithdrawalConfirmation() {
         },
         {
           onSuccess: () => {
-            router.dismissAll();
-            router.replace('/(my)/my-page');
+            router.navigate('/(my)/my-page');
             Toast.show({
               type: 'success',
               text1: '탈퇴가 완료되었습니다.',
