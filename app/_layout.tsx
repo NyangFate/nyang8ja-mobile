@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import Toast from 'react-native-toast-message';
 
 SplashScreen.preventAutoHideAsync();
+
 export default function RootLayout() {
   const [fontsLoaded, fontLoadError] = useFonts({
     'SUIT-Regular': require('../assets/fonts/SUIT-Regular.otf'),
@@ -17,10 +18,12 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    const prepare = async () => {
-      if (fontsLoaded || fontLoadError) {
-        await SplashScreen.hideAsync();
-      }
+    const prepare = () => {
+      setTimeout(async () => {
+        if (fontsLoaded || fontLoadError) {
+          await SplashScreen.hideAsync();
+        }
+      }, 1000);
     };
 
     prepare();
