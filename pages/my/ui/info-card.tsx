@@ -20,10 +20,8 @@ export default function InfoCard() {
   const handleNavigate = (user: UserResponseDto | undefined) => {
     if (!user) {
       router.navigate('/login-page');
-    } else if (user.userProfileStatus === UserResponseDtoUserProfileStatusEnum.COMPLETE) {
-      router.navigate('/saju-info/edit-page');
     } else {
-      router.navigate('/saju-info/create-page');
+      router.navigate('/saju-info/edit-page');
     }
   };
 
