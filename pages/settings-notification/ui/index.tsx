@@ -22,7 +22,11 @@ export default function Notification() {
       items: section.items.map((item) => (item.key === key ? { ...item, enabled: value } : item)),
     }));
 
-    editNotification({ body: { key, value } });
+    const body = {
+      [key]: value,
+    };
+
+    editNotification({ body });
     queryClient.setQueryData(['notification'], newData);
   };
 
