@@ -1,6 +1,12 @@
 import SurprisedCatWithPacifierImage from '@/assets/images/surprised-cat-with-pacifier.webp';
+import {
+  UserUpdateRequestDtoBirthTypeEnum,
+  UserUpdateRequestDtoGenderEnum,
+} from '@/openapi/models/UserUpdateRequestDto';
 import Header from '@/pages/saju-info-create/ui/header';
+import { useUpdateUser } from '@/shared/api/useUpdateUser';
 import cn from '@/shared/utils/cn';
+import { useQueryClient } from '@tanstack/react-query';
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
@@ -16,6 +22,10 @@ export default function Confirmation() {
       isLunarCalendar: string;
       isBirthTimeUnknown: string;
     }>();
+
+  const queryClient = useQueryClient();
+
+  const { mutate: updateUser } = useUpdateUser();
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -66,19 +76,27 @@ export default function Confirmation() {
           </Pressable>
           <Pressable
             className={cn('bg-grey-90 h-[54px] rounded-lg justify-center items-center flex-1')}
-            onPress={() => {
-              router.dismissAll();
-              router.replace({
-                pathname: '/(my)/my-page',
-                params: {
+            onPress={async () => {
+              await updateUser({
+                userUpdateRequestDto: {
                   name,
-                  gender,
-                  birthDate,
-                  birthTime,
-                  isLunarCalendar,
-                  isBirthTimeUnknown,
+                  gender:
+                    gender === 'male'
+                      ? UserUpdateRequestDtoGenderEnum.MALE
+                      : UserUpdateRequestDtoGenderEnum.FEMALE,
+                  birthday: birthDate as unknown as Date,
+                  birthtime: birthTime as unknown as Date,
+                  birthType:
+                    isLunarCalendar === 'true'
+                      ? UserUpdateRequestDtoBirthTypeEnum.LUNAR
+                      : UserUpdateRequestDtoBirthTypeEnum.SOLAR,
                 },
               });
+
+              queryClient.invalidateQueries();
+
+              router.dismissAll();
+              router.replace('/(my)/my-page');
             }}
           >
             <Text className="text-white text-subhead3 font-suit-bold">맞아, 기억해줘</Text>

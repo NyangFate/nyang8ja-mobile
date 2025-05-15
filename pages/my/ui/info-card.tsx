@@ -44,10 +44,13 @@ export default function InfoCard() {
 
     let birthTimeInfo = '모름';
     if (profile.birthtime) {
-      birthTimeInfo = dayjs.tz(profile.birthtime as Date, 'Asia/Seoul').format('H시 m분');
+      birthTimeInfo =
+        (profile.birthtime as unknown as string).split(':').map(Number).join('시 ') + '분';
     }
 
-    return `${gender}${separator}${birthDate}${separator}${birthTimeInfo}`;
+    return `${gender}${separator}${birthDate}${separator}${birthTimeInfo} ${
+      profile.birthType === 'LUNAR' ? '(음력)' : ''
+    }`;
   };
 
   const description = getUserDescription(user);
