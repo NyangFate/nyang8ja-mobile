@@ -43,7 +43,7 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
         <Stack.Screen name="(my)" />
-        <Stack.Screen name="(fortune)" />
+        <Stack.Screen name="fortune/[id]" />
         <Stack.Screen name="+not-found" />
         <Stack.Screen
           name="login-page"

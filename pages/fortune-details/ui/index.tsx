@@ -1,22 +1,32 @@
 import CatImage from '@/assets/images/cat-rolling-a-boll.webp';
 import FortuneTitle from '@/pages/fortune-details/ui/fortune-title';
+import { convertCategoryToKorean } from '@/pages/fortune-details/utils/categoryConverter';
 import Divider from '@/shared/ui/divider';
 import Header from '@/shared/ui/header';
 import { Image } from 'expo-image';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import useFortuneDetails from '../api/useFortuneDetails';
 import FortuneCardList from './fortune-card-list';
 import FortuneDescription from './fortune-description';
 
-export default function NewYearFortune() {
+export default function FortuneDetails() {
+  const { id } = useLocalSearchParams();
+  const { data: fortuneDetails } = useFortuneDetails(id as string);
+
+  if (!fortuneDetails) return null;
+
+  // 카테고리 한글 변환 예시
+  const categoryInKorean = convertCategoryToKorean(fortuneDetails.category);
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <Header title="" onBackPress={() => router.back()} />
       <ScrollView className="flex-1">
         <View className="flex-1 pb-[46px] px-5">
-          <FortuneTitle headerText="신년운세" titleText={`2025년,\n나한테 어떤 해가 될까?`} />
+          <FortuneTitle headerText={categoryInKorean} titleText={fortuneDetails.question} />
 
           <View className="mx-auto">
             <Image
@@ -31,8 +41,8 @@ export default function NewYearFortune() {
 
           <View className="mt-4">
             <FortuneDescription
-              descriptionText={`2025년, 그냥 흘러가게 두긴 아깝잖아.\n올해는 뭘 시작하면 좋을지, 돈은 모일지, 사랑은 피어날지, 공부나 일은 좀 잘 풀릴지…솔직히 다들 속으론 궁금하잖아?\n\n사주에선 올해 흐름이 어때 보이는지, 나한텐 어떤 기운이 붙어 있는지 살~짝 엿볼 수 있거든.\n운세라는 게 꼭 믿으라는 건 아니고, 조금이라도 마음이 가는 쪽으로 발 디뎌보게 도와주는 힌트 같은 거지.`}
-              highlightedText={`\n올해 나를 도와주는 기운,\n피해야 할 타이밍까지 콕 짚어줄게. 궁금하지?`}
+              descriptionText={fortuneDetails.description}
+              highlightedText={fortuneDetails.annotation ?? ''}
             />
           </View>
         </View>
@@ -55,7 +65,7 @@ export default function NewYearFortune() {
         <View className="px-5 py-8">
           <Pressable
             className="h-[54px] rounded-lg justify-center items-center bg-grey-70"
-            onPress={() => router.push('/new-year/result')}
+            onPress={() => router.push(`/fortune/result?id=${id}`)}
           >
             <Text className="text-white font-suit-bold text-body2">2025년 내 운세 보러가기</Text>
           </Pressable>

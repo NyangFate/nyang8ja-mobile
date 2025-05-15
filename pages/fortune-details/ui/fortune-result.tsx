@@ -22,7 +22,7 @@ function HomeButton({ onPress }: HomeButtonProps) {
   );
 }
 
-export default function NewYearFortuneResult() {
+export default function FortuneResult() {
   const router = useRouter();
   const { data: user } = useUser();
 

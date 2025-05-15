@@ -12,7 +12,7 @@ export default function TodayFortuneCard() {
   const handlePress = (isLoggedIn: boolean) => {
     // TODO: 오늘의 운세 페이지로 이동
     if (isLoggedIn) {
-      router.navigate('/(fortune)/new-year');
+      //      router.navigate('/(fortune)/new-year');
     } else {
       router.navigate('/login-page');
     }
