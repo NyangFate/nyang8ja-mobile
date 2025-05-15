@@ -4,7 +4,7 @@ import COLORS from '@/shared/utils/colors';
 import Checkbox from 'expo-checkbox';
 import React from 'react';
 import { Control, Controller, FieldErrors, useController } from 'react-hook-form';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { SajuInfoFormData } from '../model/types';
 import ErrorMessage from './error-message';
 
@@ -68,31 +68,34 @@ export default function BirthtimeFormField({ control, errors }: BirthtimeFormFie
         <View className="flex-row items-center pb-[2px]">
           <Text className="text-body1 text-grey-70 font-suit-regular">태어난 시간</Text>
         </View>
-        <View className="flex-row items-center gap-1">
-          <Controller
-            control={control}
-            name="isBirthTimeUnknown"
-            render={({ field: { onChange, value } }) => (
+        <Controller
+          control={control}
+          name="isBirthTimeUnknown"
+          render={({ field: { onChange, value } }) => (
+            <Pressable
+              onPress={() => {
+                const newValue = !value;
+                onChange(newValue);
+                if (newValue) {
+                  birthTimeField.onChange('모름');
+                } else {
+                  birthTimeField.onChange('');
+                }
+              }}
+              className="flex-row items-center gap-1"
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
               <View className="p-[3px]">
                 <Checkbox
                   value={value}
-                  onValueChange={(checked) => {
-                    onChange(checked);
-                    if (checked) {
-                      birthTimeField.onChange('모름');
-                    } else {
-                      birthTimeField.onChange('');
-                    }
-                  }}
                   color={value ? COLORS.primary['03'] : undefined}
                   style={{ height: 18, width: 18 }}
                 />
               </View>
-            )}
-          />
-
-          <Text className="text-body1 text-grey-90 font-suit-regular">시간을 몰라요</Text>
-        </View>
+              <Text className="text-body1 text-grey-90 font-suit-regular">시간을 몰라요</Text>
+            </Pressable>
+          )}
+        />
       </View>
       <View className="gap-1.5">
         <Controller

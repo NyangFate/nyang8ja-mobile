@@ -1,11 +1,20 @@
+import {
+  UserProfileResponseDtoBirthTypeEnum,
+  UserProfileResponseDtoGenderEnum,
+  UserUpdateRequestDtoBirthTypeEnum,
+  UserUpdateRequestDtoGenderEnum,
+} from '@/openapi/models';
 import { SajuInfoFormData, sajuInfoFormDataSchema } from '@/pages/saju-info-edit/model/types';
 import BirthdateFormField from '@/pages/saju-info-edit/ui/birthdate-form-field';
 import BirthtimeFormField from '@/pages/saju-info-edit/ui/birthtime-form-field';
 import GenderFormField from '@/pages/saju-info-edit/ui/gender-form-field';
 import NameFormField from '@/pages/saju-info-edit/ui/name-form-field';
+import { useUpdateUser } from '@/shared/api/useUpdateUser';
+import useUser from '@/shared/api/useUser';
 import Header from '@/shared/ui/header';
 import cn from '@/shared/utils/cn';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -18,33 +27,70 @@ import {
   Text,
   View,
 } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 export default function SajuInfoEdit() {
   const router = useRouter();
-
+  const { data: user } = useUser();
+  const { mutate: updateUser } = useUpdateUser();
   const handleBackPress = () => {
     router.back();
   };
+
+  const queryClient = useQueryClient();
 
   const {
     control,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm({
+  } = useForm<SajuInfoFormData>({
     mode: 'onChange',
     reValidateMode: 'onBlur',
     resolver: zodResolver(sajuInfoFormDataSchema),
-    defaultValues: {
-      isLunarCalendar: false,
-      isBirthTimeUnknown: false,
+    values: {
+      name: user?.name ?? '',
+      gender: (user?.profile?.gender === UserProfileResponseDtoGenderEnum.MALE
+        ? 'male'
+        : 'female') as 'male' | 'female',
+      birthDate: (user?.profile?.birthday as unknown as string)?.split('-').join('.') || '',
+      birthTime: (user?.profile?.birthtime as unknown as string) || '',
+      isLunarCalendar: user?.profile?.birthType === UserProfileResponseDtoBirthTypeEnum.LUNAR,
+      isBirthTimeUnknown: !user?.profile?.birthtime,
     },
   });
 
   // 저장 처리
-  const onSubmit = (data: SajuInfoFormData) => {
+  const onSubmit = async (data: SajuInfoFormData) => {
     // 사주 정보 저장 로직
-    router.back();
+    updateUser(
+      {
+        userUpdateRequestDto: {
+          name: data.name,
+          gender:
+            data.gender === 'male'
+              ? UserUpdateRequestDtoGenderEnum.MALE
+              : UserUpdateRequestDtoGenderEnum.FEMALE,
+          birthday: data.birthDate as unknown as Date,
+          birthtime: data.birthTime === '모름' ? undefined : (data.birthTime as unknown as Date),
+          birthType: data.isLunarCalendar
+            ? UserUpdateRequestDtoBirthTypeEnum.LUNAR
+            : UserUpdateRequestDtoBirthTypeEnum.SOLAR,
+        },
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries();
+          router.back();
+
+          Toast.show({
+            text1: '사주 정보가 저장되었습니다.',
+          });
+        },
+      }
+    );
   };
+
+  if (!user) return null;
 
   return (
     <KeyboardAvoidingView

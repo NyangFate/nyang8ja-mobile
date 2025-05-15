@@ -4,7 +4,7 @@ import COLORS from '@/shared/utils/colors';
 import Checkbox from 'expo-checkbox';
 import React, { useRef } from 'react';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
-import { Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import ErrorMessage from './error-message';
 
 type BirthdateFormFieldProps = {
@@ -103,11 +103,11 @@ export default function BirthdateFormField({ control, errors }: BirthdateFormFie
         <View className="flex-row items-center pb-[2px]">
           <Text className="text-body1 text-grey-70 font-suit-regular">생년월일</Text>
         </View>
-        <View className="flex-row items-center gap-1">
-          <Controller
-            control={control}
-            name="isLunarCalendar"
-            render={({ field: { onChange, value } }) => (
+        <Controller
+          control={control}
+          name="isLunarCalendar"
+          render={({ field: { onChange, value } }) => (
+            <Pressable className="flex-row items-center gap-1" onPress={() => onChange(!value)}>
               <View className="p-[3px]">
                 <Checkbox
                   value={value}
@@ -116,10 +116,10 @@ export default function BirthdateFormField({ control, errors }: BirthdateFormFie
                   style={{ height: 18, width: 18 }}
                 />
               </View>
-            )}
-          />
-          <Text className="self-start text-body1 text-grey-90 font-suit-regular">음력이에요</Text>
-        </View>
+              <Text className="text-body1 text-grey-90 font-suit-regular">음력이에요</Text>
+            </Pressable>
+          )}
+        />
       </View>
       <View className="gap-1.5">
         <Controller
