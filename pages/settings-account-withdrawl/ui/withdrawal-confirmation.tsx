@@ -1,7 +1,9 @@
+import CatOnCarpet from '@/assets/images/cat-on-carpet.webp';
 import { UserWithdrawalRequestDtoReasonEnum } from '@/openapi/models/UserWithdrawalRequestDto';
 import useWithdrawAccount from '@/pages/settings-account-withdrawl/api/useWithdrawAccount';
 import useUser from '@/shared/api/useUser';
 import Header from '@/shared/ui/header';
+import { Image } from 'expo-image';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Pressable, SafeAreaView, Text, View } from 'react-native';
 import Toast from 'react-native-toast-message';
@@ -60,7 +62,7 @@ export default function WithdrawalConfirmation() {
       {/* 컨텐츠 */}
       <View className="flex-1 px-6 py-5">
         <Text className="mb-3 text-headline2 text-grey-90 font-suit-bold">
-          {user.name}님,{'\n'}탈퇴 전 꼭 확인해 주세요
+          {user.name} 님,{'\n'}탈퇴 전 꼭 확인해 주세요
         </Text>
 
         <View className="gap-2">
@@ -80,7 +82,7 @@ export default function WithdrawalConfirmation() {
       <View className="px-6 mb-[6px]">
         <View className="relative gap-3 px-5 py-4 bg-primary-00 rounded-xl">
           <Text className="text-body1 text-grey-50 font-suit-regular">
-            지금 떠나면 그 동안의 기록도 모두 사라져요.{'\n'}
+            지금 떠나면 그동안의 기록도 모두 사라져요.{'\n'}
             혹시 다시 돌아오실 생각이 있다면,{'\n'}
             탈퇴 대신 잠시 쉬어보는 건 어때요?
           </Text>
@@ -90,8 +92,9 @@ export default function WithdrawalConfirmation() {
               조금 더 써볼게요 {'>'}
             </Text>
           </Pressable>
-          {/* 여기에 일러스트레이션 추가 (실제 구현 시 이미지 컴포넌트로 대체) */}
-          <View className="absolute w-20 h-20 right-4 top-6" />
+          <View className="absolute right-3 bottom-1.5">
+            <Image source={CatOnCarpet} style={{ width: 100, height: 94 }} />
+          </View>
         </View>
       </View>
 

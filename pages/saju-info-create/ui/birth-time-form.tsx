@@ -42,7 +42,7 @@ export default function BirthTimeForm() {
           const regex = /^([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
           return regex.test(value);
         },
-        { message: '올바른 시간 형식(HH:MM)을 입력해주세요.' }
+        { message: '정확한 시간을 입력해 주세요' }
       ),
     isBirthTimeUnknown: z.boolean(),
   });
@@ -152,7 +152,7 @@ export default function BirthTimeForm() {
                       const formattedTime = handleTimeChange(text);
                       onChange(formattedTime);
                     }}
-                    placeholder="HH:MM"
+                    placeholder="00 : 00"
                     onBlur={onBlur}
                     inputMode="numeric"
                     maxLength={5}

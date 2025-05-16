@@ -36,7 +36,7 @@ export default function BirthDateForm() {
       .string({
         required_error: '생년월일을 입력해 주세요',
       }) // YYYY.MM.DD 형식 검사 (정규식)
-      .regex(/^\d{4}\.\d{2}\.\d{2}$/, { message: '날짜는 YYYY.MM.DD 형식으로 입력해주세요' })
+      .regex(/^\d{4}\.\d{2}\.\d{2}$/, { message: '정확한 생년월일을 입력해 주세요' })
       .transform((val) => {
         // YYYY.MM.DD -> YYYY-MM-DD 로 변환 (Zod date() 메서드를 위함)
         return val.replace(/\./g, '-');

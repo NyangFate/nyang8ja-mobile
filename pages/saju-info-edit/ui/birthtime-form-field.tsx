@@ -118,7 +118,7 @@ export default function BirthtimeFormField({ control, errors }: BirthtimeFormFie
                   : 'text-body3 font-suit-regular'
               }
               editable={!isBirthTimeUnknownField.value}
-              placeholder="HH:MM"
+              placeholder="00 : 00"
               inputMode="numeric"
               maxLength={5}
               error={!!errors.birthTime}
