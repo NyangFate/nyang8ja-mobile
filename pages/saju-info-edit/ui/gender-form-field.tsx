@@ -25,7 +25,7 @@ export default function GenderFormField({ control, errors }: GenderFormFieldProp
             <View className="flex-row gap-3">
               <Pressable
                 className={cn(
-                  'flex-1 py-3 rounded-lg justify-center items-center',
+                  'flex-1 py-3 rounded-lg justify-center items-center h-[48px]',
                   value === 'male'
                     ? 'bg-primary-01 border border-primary-03'
                     : 'bg-grey-00 border border-grey-20',
@@ -45,7 +45,7 @@ export default function GenderFormField({ control, errors }: GenderFormFieldProp
               </Pressable>
               <Pressable
                 className={cn(
-                  'flex-1 py-3 rounded-lg justify-center items-center',
+                  'flex-1 py-3 rounded-lg justify-center items-center h-[48px]',
                   value === 'female'
                     ? 'bg-primary-01 border border-primary-03'
                     : 'bg-grey-00 border border-grey-20',

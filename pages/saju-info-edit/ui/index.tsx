@@ -44,7 +44,7 @@ export default function SajuInfoEdit() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<SajuInfoFormData>({
-    mode: 'onChange',
+    mode: 'onBlur',
     reValidateMode: 'onBlur',
     resolver: zodResolver(sajuInfoFormDataSchema),
     values: {

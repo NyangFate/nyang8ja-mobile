@@ -14,14 +14,17 @@ const TextField = forwardRef<TextInput, TextFieldProps>(
     return (
       <View
         className={cn(
-          'px-3 py-2 bg-grey-00 rounded-lg',
+          'px-3 py-2 bg-grey-00 rounded-lg relative',
           error && 'border border-error',
           containerClassName
         )}
       >
         <TextInput
           ref={ref}
-          className={cn('text-body3 font-suit-regular align-top pt-0 pb-0 min-h-8', className)}
+          className={cn(
+            'text-body3 font-suit-regular -mt-2 align-top pt-0 pb-0 min-h-[41px]',
+            className
+          )}
           placeholder={placeholder}
           placeholderTextColor={COLORS.grey[30]}
           {...props}

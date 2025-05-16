@@ -112,15 +112,19 @@ export default function BirthtimeFormField({ control, errors }: BirthtimeFormFie
               containerClassName={cn({
                 'bg-grey-10': isBirthTimeUnknownField.value,
               })}
-              className={cn({
-                'text-subhead3 font-suit-bold text-primary-03 ': isBirthTimeUnknownField.value,
-                'text-body3 font-suit-regular text-grey-90': !isBirthTimeUnknownField.value,
-              })}
+              className={
+                isBirthTimeUnknownField.value
+                  ? 'text-subhead3 font-suit-bold'
+                  : 'text-body3 font-suit-regular'
+              }
               editable={!isBirthTimeUnknownField.value}
               placeholder="HH:MM"
               inputMode="numeric"
               maxLength={5}
               error={!!errors.birthTime}
+              style={{
+                color: isBirthTimeUnknownField.value ? COLORS.primary['03'] : COLORS.grey['90'],
+              }}
             />
           )}
         />
