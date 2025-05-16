@@ -7,27 +7,12 @@ import FortuneResultCard from './fortune-result-card';
 import FortuneResultTitle from './fortune-result-title';
 import FortuneSummaryCard from './fortune-summary-card';
 
-// 홈 버튼 컴포넌트
-type HomeButtonProps = {
-  onPress: () => void;
-};
-
-function HomeButton({ onPress }: HomeButtonProps) {
-  return (
-    <View className="items-center py-6">
-      <Pressable onPress={onPress} className="px-6 py-3 rounded-lg bg-primary-03">
-        <Text className="text-base text-white font-suit-bold">홈으로 돌아가기</Text>
-      </Pressable>
-    </View>
-  );
-}
-
 export default function FortuneResult() {
   const router = useRouter();
   const { data: user } = useUser();
 
   const handleGoHome = () => {
-    router.dismissTo('/');
+    router.navigate('/');
   };
 
   if (!user?.name) return null;
