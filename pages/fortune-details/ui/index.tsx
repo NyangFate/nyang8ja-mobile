@@ -18,7 +18,6 @@ export default function FortuneDetails() {
 
   if (!fortuneDetails) return null;
 
-  // 카테고리 한글 변환 예시
   const categoryInKorean = convertCategoryToKorean(fortuneDetails.category);
 
   return (
@@ -67,7 +66,9 @@ export default function FortuneDetails() {
             className="h-[54px] rounded-lg justify-center items-center bg-grey-70"
             onPress={() => router.push(`/fortune/result?id=${id}`)}
           >
-            <Text className="text-white font-suit-bold text-body2">2025년 내 운세 보러가기</Text>
+            <Text className="text-white font-suit-bold text-body2">
+              내 {categoryInKorean} 보러가기
+            </Text>
           </Pressable>
         </View>
       </View>
