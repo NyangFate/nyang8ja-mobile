@@ -8,13 +8,16 @@ import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 import useFortuneDetails from '../api/useFortuneDetails';
+import useRequestFortune from '../api/useRequestFortune';
 import FortuneCardList from './fortune-card-list';
 import FortuneDescription from './fortune-description';
 
 export default function FortuneDetails() {
   const { id } = useLocalSearchParams();
   const { data: fortuneDetails } = useFortuneDetails(id as string);
+  const { mutate: requestFortune } = useRequestFortune();
 
   if (!fortuneDetails) return null;
 
@@ -64,7 +67,19 @@ export default function FortuneDetails() {
         <View className="px-5 py-8">
           <Pressable
             className="h-[54px] rounded-lg justify-center items-center bg-grey-70"
-            onPress={() => router.push(`/fortune/result?id=${id}`)}
+            onPress={async () => {
+              requestFortune(Number(id), {
+                onSuccess: () => {
+                  router.push(`/fortune/result?id=${id}`);
+                },
+                onError: () => {
+                  Toast.show({
+                    type: 'error',
+                    text1: '오류가 발생했습니다. 다시 시도해주세요.',
+                  });
+                },
+              });
+            }}
           >
             <Text className="text-white font-suit-bold text-body2">
               내 {categoryInKorean} 보러가기
