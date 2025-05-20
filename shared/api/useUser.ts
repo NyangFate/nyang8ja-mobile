@@ -17,7 +17,7 @@ export default function useUser() {
           })
         : undefined;
 
-      const api = new Class01UserAPIApi(config);
+      const api = new Class01UserAPIApi(accessToken ? config : undefined);
 
       const res = await api.getUserInfo();
 

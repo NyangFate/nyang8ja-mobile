@@ -14,13 +14,14 @@ export default function useFortuneContentsList() {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      const api = new Class02DivinationAPIApi(config);
+      const api = new Class02DivinationAPIApi(accessToken ? config : undefined);
       try {
         const res = await api.getDivinationQuestions({
           request: {
             pageSize: 10,
           },
         });
+        console.log(res);
         return res;
       } catch (error) {
         console.error(error);

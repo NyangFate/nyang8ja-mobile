@@ -19,7 +19,7 @@ export default function useWithdrawAccount() {
           },
         });
 
-        const api = new Class01UserAPIApi(config);
+        const api = new Class01UserAPIApi(accessToken ? config : undefined);
 
         const response = await api.deleteUser({
           userWithdrawalRequestDto: {

@@ -15,7 +15,7 @@ export default function useFortuneDetails(id: string) {
         },
       });
 
-      const api = new Class02DivinationAPIApi(config);
+      const api = new Class02DivinationAPIApi(accessToken ? config : undefined);
 
       try {
         const res = await api.getDivinationQuestionDetail({
