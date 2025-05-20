@@ -99,10 +99,12 @@ export function DivinationQuestionResponseDtoToJSON(value?: DivinationQuestionRe
 * @enum {string}
 */
 export enum DivinationQuestionResponseDtoCategoryEnum {
+    SUMMARY = 'SUMMARY',
     LOVE = 'LOVE',
     WEALTH = 'WEALTH',
     CAREER = 'CAREER',
     HEALTH = 'HEALTH',
+    ADVICE = 'ADVICE',
     NONE = 'NONE'
 }
 /**

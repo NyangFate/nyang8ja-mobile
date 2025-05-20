@@ -83,10 +83,12 @@ export function DivinationQuestionListReqeustDtoToJSON(value?: DivinationQuestio
 * @enum {string}
 */
 export enum DivinationQuestionListReqeustDtoCategoryEnum {
+    SUMMARY = 'SUMMARY',
     LOVE = 'LOVE',
     WEALTH = 'WEALTH',
     CAREER = 'CAREER',
     HEALTH = 'HEALTH',
+    ADVICE = 'ADVICE',
     NONE = 'NONE'
 }
 /**

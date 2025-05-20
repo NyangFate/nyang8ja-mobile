@@ -64,10 +64,6 @@ export class Class01UserAPIApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
-
         const response = await this.request({
             path: `/v1/user`,
             method: 'DELETE',
@@ -97,10 +93,6 @@ export class Class01UserAPIApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
-
         const response = await this.request({
             path: `/v1/user/notification`,
             method: 'GET',
@@ -128,10 +120,6 @@ export class Class01UserAPIApi extends runtime.BaseAPI {
         const queryParameters: runtime.HTTPQuery = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
 
         const response = await this.request({
             path: `/v1/user`,
@@ -167,10 +155,6 @@ export class Class01UserAPIApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
-
         const response = await this.request({
             path: `/v1/user/notification`,
             method: 'PATCH',
@@ -205,10 +189,6 @@ export class Class01UserAPIApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
 
         const response = await this.request({
             path: `/v1/user`,

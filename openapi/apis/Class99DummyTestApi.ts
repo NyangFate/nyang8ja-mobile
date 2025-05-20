@@ -103,10 +103,6 @@ export class Class99DummyTestApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
-
         const response = await this.request({
             path: `/dummy/health-check22`,
             method: 'GET',
@@ -140,10 +136,6 @@ export class Class99DummyTestApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
 
         const response = await this.request({
             path: `/dummy/health-check333`,

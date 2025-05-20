@@ -33,15 +33,15 @@ import {
 } from '../models';
 
 export interface CheckDivinationDoneRequest {
-    questionId: string;
+    questionId: number;
 }
 
 export interface DoDivinationRequest {
-    questionId: string;
+    questionId: number;
 }
 
 export interface GetDivinationQuestionDetailRequest {
-    questionId: string;
+    questionId: number;
 }
 
 export interface GetDivinationQuestionsRequest {
@@ -69,10 +69,6 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
-
         const response = await this.request({
             path: `/v1/divination/questions/{questionId}/check`.replace(`{${"questionId"}}`, encodeURIComponent(String(requestParameters.questionId))),
             method: 'GET',
@@ -92,6 +88,32 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
     }
 
     /**
+     * Daily fortune
+     */
+    async doDailyFortuneRaw(): Promise<runtime.ApiResponse<DefaultResponse>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/divination/daily-fortune`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DefaultResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Daily fortune
+     */
+    async doDailyFortune(): Promise<DefaultResponse> {
+        const response = await this.doDailyFortuneRaw();
+        return await response.value();
+    }
+
+    /**
      * Divination do
      */
     async doDivinationRaw(requestParameters: DoDivinationRequest): Promise<runtime.ApiResponse<DefaultResponse>> {
@@ -102,10 +124,6 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
         const queryParameters: runtime.HTTPQuery = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
 
         const response = await this.request({
             path: `/v1/divination/questions/{questionId}`.replace(`{${"questionId"}}`, encodeURIComponent(String(requestParameters.questionId))),
@@ -136,10 +154,6 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
         const queryParameters: runtime.HTTPQuery = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
 
         const response = await this.request({
             path: `/v1/divination/questions/{questionId}`.replace(`{${"questionId"}}`, encodeURIComponent(String(requestParameters.questionId))),
@@ -175,10 +189,6 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
-
         const response = await this.request({
             path: `/v1/divination/questions`,
             method: 'GET',
@@ -208,10 +218,6 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
         const queryParameters: runtime.HTTPQuery = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.apiKey) {
-            headerParameters["X-Guest-ID"] = this.configuration.apiKey("X-Guest-ID"); // 유저 식별 Key authentication
-        }
 
         const response = await this.request({
             path: `/v1/divination/results/{resultId}`.replace(`{${"resultId"}}`, encodeURIComponent(String(requestParameters.resultId))),
