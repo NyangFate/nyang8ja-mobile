@@ -21,7 +21,6 @@ export default function useFortuneContentsList() {
             pageSize: 10,
           },
         });
-        console.log(res);
         return res;
       } catch (error) {
         console.error(error);
