@@ -16,7 +16,7 @@ import FortuneDescription from './fortune-description';
 
 export default function FortuneDetails() {
   const { id } = useLocalSearchParams();
-  const { data: fortuneDetails } = useFortuneDetails(id as string);
+  const { data: fortuneDetails } = useFortuneDetails(Number(id));
   const { mutate: requestFortune } = useRequestFortune();
 
   if (!fortuneDetails) return null;

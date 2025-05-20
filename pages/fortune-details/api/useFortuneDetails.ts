@@ -3,7 +3,7 @@ import { Configuration } from '@/openapi/runtime';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery } from '@tanstack/react-query';
 
-export default function useFortuneDetails(id: string) {
+export default function useFortuneDetails(id: number) {
   return useQuery({
     queryKey: ['fortuneDetails'],
     queryFn: async () => {
