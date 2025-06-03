@@ -36,7 +36,7 @@ export interface DivinationQuestionResponseDto {
      * @type {string}
      * @memberof DivinationQuestionResponseDto
      */
-    description: string;
+    description?: string;
     /**
      * 
      * @type {number}
@@ -55,6 +55,12 @@ export interface DivinationQuestionResponseDto {
      * @memberof DivinationQuestionResponseDto
      */
     type: DivinationQuestionResponseDtoTypeEnum;
+    /**
+     * 
+     * @type {number}
+     * @memberof DivinationQuestionResponseDto
+     */
+    views?: number;
 }
 
 export function DivinationQuestionResponseDtoFromJSON(json: any): DivinationQuestionResponseDto {
@@ -69,10 +75,11 @@ export function DivinationQuestionResponseDtoFromJSONTyped(json: any, ignoreDisc
         
         'annotation': !exists(json, 'annotation') ? undefined : json['annotation'],
         'category': json['category'],
-        'description': json['description'],
+        'description': !exists(json, 'description') ? undefined : json['description'],
         'id': json['id'],
         'question': json['question'],
         'type': json['type'],
+        'views': !exists(json, 'views') ? undefined : json['views'],
     };
 }
 
@@ -91,6 +98,7 @@ export function DivinationQuestionResponseDtoToJSON(value?: DivinationQuestionRe
         'id': value.id,
         'question': value.question,
         'type': value.type,
+        'views': value.views,
     };
 }
 

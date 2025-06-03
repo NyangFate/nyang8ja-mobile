@@ -15,9 +15,6 @@
 
 import * as runtime from '../runtime';
 import {
-    DefaultResponse,
-    DefaultResponseFromJSON,
-    DefaultResponseToJSON,
     DivinationQuestionListReqeustDto,
     DivinationQuestionListReqeustDtoFromJSON,
     DivinationQuestionListReqeustDtoToJSON,
@@ -30,13 +27,15 @@ import {
     DivinationQuestionSolveCheckResponseDto,
     DivinationQuestionSolveCheckResponseDtoFromJSON,
     DivinationQuestionSolveCheckResponseDtoToJSON,
+    DivinationResultResponseDto,
+    DivinationResultResponseDtoFromJSON,
+    DivinationResultResponseDtoToJSON,
+    DivinationSalResultResponseDto,
+    DivinationSalResultResponseDtoFromJSON,
+    DivinationSalResultResponseDtoToJSON,
 } from '../models';
 
 export interface CheckDivinationDoneRequest {
-    questionId: number;
-}
-
-export interface DoDivinationRequest {
     questionId: number;
 }
 
@@ -49,7 +48,11 @@ export interface GetDivinationQuestionsRequest {
 }
 
 export interface GetDivinationResultRequest {
-    resultId: string;
+    resultId: number;
+}
+
+export interface TakeDivinationRequest {
+    questionId: number;
 }
 
 /**
@@ -58,7 +61,7 @@ export interface GetDivinationResultRequest {
 export class Class02DivinationAPIApi extends runtime.BaseAPI {
 
     /**
-     * Check if divination has been done
+     * 사주/질문을 본 적 있는지 확인합니다
      */
     async checkDivinationDoneRaw(requestParameters: CheckDivinationDoneRequest): Promise<runtime.ApiResponse<DivinationQuestionSolveCheckResponseDto>> {
         if (requestParameters.questionId === null || requestParameters.questionId === undefined) {
@@ -69,6 +72,14 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("JWT Token", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/v1/divination/questions/{questionId}/check`.replace(`{${"questionId"}}`, encodeURIComponent(String(requestParameters.questionId))),
             method: 'GET',
@@ -80,7 +91,7 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
     }
 
     /**
-     * Check if divination has been done
+     * 사주/질문을 본 적 있는지 확인합니다
      */
     async checkDivinationDone(requestParameters: CheckDivinationDoneRequest): Promise<DivinationQuestionSolveCheckResponseDto> {
         const response = await this.checkDivinationDoneRaw(requestParameters);
@@ -88,63 +99,7 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
     }
 
     /**
-     * Daily fortune
-     */
-    async doDailyFortuneRaw(): Promise<runtime.ApiResponse<DefaultResponse>> {
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/v1/divination/daily-fortune`,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => DefaultResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Daily fortune
-     */
-    async doDailyFortune(): Promise<DefaultResponse> {
-        const response = await this.doDailyFortuneRaw();
-        return await response.value();
-    }
-
-    /**
-     * Divination do
-     */
-    async doDivinationRaw(requestParameters: DoDivinationRequest): Promise<runtime.ApiResponse<DefaultResponse>> {
-        if (requestParameters.questionId === null || requestParameters.questionId === undefined) {
-            throw new runtime.RequiredError('questionId','Required parameter requestParameters.questionId was null or undefined when calling doDivination.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/v1/divination/questions/{questionId}`.replace(`{${"questionId"}}`, encodeURIComponent(String(requestParameters.questionId))),
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => DefaultResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Divination do
-     */
-    async doDivination(requestParameters: DoDivinationRequest): Promise<DefaultResponse> {
-        const response = await this.doDivinationRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * Get divination question detail
+     * 사주/타로 질문의 상세 정보를 가져옵니다.
      */
     async getDivinationQuestionDetailRaw(requestParameters: GetDivinationQuestionDetailRequest): Promise<runtime.ApiResponse<DivinationQuestionResponseDto>> {
         if (requestParameters.questionId === null || requestParameters.questionId === undefined) {
@@ -166,7 +121,7 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get divination question detail
+     * 사주/타로 질문의 상세 정보를 가져옵니다.
      */
     async getDivinationQuestionDetail(requestParameters: GetDivinationQuestionDetailRequest): Promise<DivinationQuestionResponseDto> {
         const response = await this.getDivinationQuestionDetailRaw(requestParameters);
@@ -174,7 +129,7 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get divinations
+     * 사주/타로 질문 리스트를 가져옵니다.
      */
     async getDivinationQuestionsRaw(requestParameters: GetDivinationQuestionsRequest): Promise<runtime.ApiResponse<DivinationQuestionListResponseDto>> {
         if (requestParameters.request === null || requestParameters.request === undefined) {
@@ -200,7 +155,7 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get divinations
+     * 사주/타로 질문 리스트를 가져옵니다.
      */
     async getDivinationQuestions(requestParameters: GetDivinationQuestionsRequest): Promise<DivinationQuestionListResponseDto> {
         const response = await this.getDivinationQuestionsRaw(requestParameters);
@@ -210,7 +165,7 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
     /**
      * Get divination result
      */
-    async getDivinationResultRaw(requestParameters: GetDivinationResultRequest): Promise<runtime.ApiResponse<void>> {
+    async getDivinationResultRaw(requestParameters: GetDivinationResultRequest): Promise<runtime.ApiResponse<DivinationSalResultResponseDto>> {
         if (requestParameters.resultId === null || requestParameters.resultId === undefined) {
             throw new runtime.RequiredError('resultId','Required parameter requestParameters.resultId was null or undefined when calling getDivinationResult.');
         }
@@ -219,6 +174,14 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("JWT Token", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
         const response = await this.request({
             path: `/v1/divination/results/{resultId}`.replace(`{${"resultId"}}`, encodeURIComponent(String(requestParameters.resultId))),
             method: 'GET',
@@ -226,14 +189,113 @@ export class Class02DivinationAPIApi extends runtime.BaseAPI {
             query: queryParameters,
         });
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => DivinationSalResultResponseDtoFromJSON(jsonValue));
     }
 
     /**
      * Get divination result
      */
-    async getDivinationResult(requestParameters: GetDivinationResultRequest): Promise<void> {
-        await this.getDivinationResultRaw(requestParameters);
+    async getDivinationResult(requestParameters: GetDivinationResultRequest): Promise<DivinationSalResultResponseDto> {
+        const response = await this.getDivinationResultRaw(requestParameters);
+        return await response.value();
+    }
+
+    /**
+     * 오늘의 추천 사주 질문을 가져옵니다.
+     */
+    async getRecommendDivinationRaw(): Promise<runtime.ApiResponse<DivinationQuestionResponseDto>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/v1/divination/recommend`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DivinationQuestionResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     * 오늘의 추천 사주 질문을 가져옵니다.
+     */
+    async getRecommendDivination(): Promise<DivinationQuestionResponseDto> {
+        const response = await this.getRecommendDivinationRaw();
+        return await response.value();
+    }
+
+    /**
+     * 오늘의 운세 사주를 봅니다.
+     */
+    async takeDailyFortuneRaw(): Promise<runtime.ApiResponse<DivinationResultResponseDto>> {
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("JWT Token", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/divination/daily-fortune`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DivinationResultResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     * 오늘의 운세 사주를 봅니다.
+     */
+    async takeDailyFortune(): Promise<DivinationResultResponseDto> {
+        const response = await this.takeDailyFortuneRaw();
+        return await response.value();
+    }
+
+    /**
+     * 사주/타로를 봅니다.
+     */
+    async takeDivinationRaw(requestParameters: TakeDivinationRequest): Promise<runtime.ApiResponse<DivinationSalResultResponseDto>> {
+        if (requestParameters.questionId === null || requestParameters.questionId === undefined) {
+            throw new runtime.RequiredError('questionId','Required parameter requestParameters.questionId was null or undefined when calling takeDivination.');
+        }
+
+        const queryParameters: runtime.HTTPQuery = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = typeof token === 'function' ? token("JWT Token", []) : token;
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/v1/divination/questions/{questionId}`.replace(`{${"questionId"}}`, encodeURIComponent(String(requestParameters.questionId))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        });
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => DivinationSalResultResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     * 사주/타로를 봅니다.
+     */
+    async takeDivination(requestParameters: TakeDivinationRequest): Promise<DivinationSalResultResponseDto> {
+        const response = await this.takeDivinationRaw(requestParameters);
+        return await response.value();
     }
 
 }
