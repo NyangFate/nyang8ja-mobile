@@ -20,7 +20,6 @@ export default function FortuneResult() {
   if (!fortuneDetails) return null;
 
   const categoryInKorean = convertCategoryToKorean(fortuneDetails.category);
-
   const handleGoHome = () => {
     router.navigate('/');
   };
@@ -31,7 +30,7 @@ export default function FortuneResult() {
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView className="flex-1">
         <View className="flex-1 px-5 pb-16 pt-7">
-          <FortuneResultTitle headerText={categoryInKorean} titleText={result.title} />
+          <FortuneResultTitle headerText={''} titleText={result.title} />
           <View className="gap-3 mt-5">
             <FortuneSummaryCard summary={result.summary} />
             <FortuneResultCard result={result} />
