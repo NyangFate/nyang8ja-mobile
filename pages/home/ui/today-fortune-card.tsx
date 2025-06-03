@@ -4,14 +4,27 @@ import useUser from '@/shared/api/useUser';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
+import Toast from 'react-native-toast-message';
+import useRequestTodayFortune from '../api/useRequestTodayFortune';
 
 export default function TodayFortuneCard() {
   const { data: user } = useUser();
   const router = useRouter();
+  const { mutate: requestTodayFortune } = useRequestTodayFortune();
 
   const handlePress = (isLoggedIn: boolean) => {
     if (isLoggedIn) {
-      router.navigate('/fortune/result');
+      requestTodayFortune(undefined, {
+        onSuccess: (data) => {
+          router.push(`/fortune/today-result?data=${JSON.stringify(data)}`);
+        },
+        onError: () => {
+          Toast.show({
+            type: 'error',
+            text1: '오류가 발생했습니다. 다시 시도해주세요.',
+          });
+        },
+      });
     } else {
       router.navigate('/login-page');
     }
