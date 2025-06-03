@@ -1,5 +1,6 @@
 import { DivinationQuestionResponseDtoTypeEnum } from '@/openapi/models';
 import FortuneCard from '@/pages/home/ui/fortune-card';
+import useUser from '@/shared/api/useUser';
 import { useRouter } from 'expo-router';
 import { Text, View } from 'react-native';
 import useFortuneContentsList from '../api/useFortuneContentsList';
@@ -7,10 +8,12 @@ import useFortuneContentsList from '../api/useFortuneContentsList';
 export default function FortuneCardList() {
   const router = useRouter();
   const { data: fortuneContentsList } = useFortuneContentsList();
-  const handleFortuneCardPress = (fortuneId: number) => {
-    // TODO: 실제 적절한 경로로 수정 필요
-    // locked, isLoggedIn 조건 추가
-    // as Href 제거
+  const { data: user } = useUser();
+  const handleFortuneCardPress = (fortuneId: number, isLoggedIn: boolean) => {
+    if (!isLoggedIn) {
+      router.navigate('/login-page');
+    }
+
     router.navigate(`/fortune/${fortuneId}`);
   };
 
@@ -25,7 +28,7 @@ export default function FortuneCardList() {
             key={item.id}
             type={item.type === DivinationQuestionResponseDtoTypeEnum.SAJU ? 'saju' : 'tarot'}
             title={item.question}
-            onPress={() => handleFortuneCardPress(item.id)}
+            onPress={() => handleFortuneCardPress(item.id, !!user)}
           />
         ))}
       </View>

@@ -1,17 +1,23 @@
 import CatImage from '@/assets/images/surprised-cat-with-pacifier-hat.webp';
+import { DivinationQuestionResponseDtoCategoryEnum } from '@/openapi/models';
 import useUser from '@/shared/api/useUser';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
+import useFortuneContentsList from '../api/useFortuneContentsList';
 
 export default function PopularFortuneCard() {
-  const activeParticipants = 12374;
+  const { data: fortuneContentsList } = useFortuneContentsList();
+  const loveFortune = fortuneContentsList?.results.find(
+    (item) => item.category === DivinationQuestionResponseDtoCategoryEnum.LOVE
+  );
+  const activeParticipants = loveFortune?.views ?? 0;
   const router = useRouter();
   const { data: user } = useUser();
 
   const handlePress = (isLoggedIn: boolean) => {
     if (isLoggedIn) {
-      // TODO: 인기 운세 페이지로 이동
+      router.navigate(`/fortune/${loveFortune?.id}`);
     } else {
       router.navigate('/login-page');
     }

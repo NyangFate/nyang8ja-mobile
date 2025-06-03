@@ -44,7 +44,7 @@ export default function FortuneDetails() {
           <View className="mt-4">
             <FortuneDescription
               descriptionText={fortuneDetails.description}
-              highlightedText={fortuneDetails.annotation ?? ''}
+              highlightedText={fortuneDetails.annotation}
             />
           </View>
         </View>
