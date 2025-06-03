@@ -69,8 +69,8 @@ export default function FortuneDetails() {
             className="h-[54px] rounded-lg justify-center items-center bg-grey-70"
             onPress={async () => {
               requestFortune(Number(id), {
-                onSuccess: () => {
-                  router.push(`/fortune/result?id=${id}`);
+                onSuccess: (data) => {
+                  router.push(`/fortune/result?id=${id}&data=${JSON.stringify(data)}`);
                 },
                 onError: () => {
                   Toast.show({

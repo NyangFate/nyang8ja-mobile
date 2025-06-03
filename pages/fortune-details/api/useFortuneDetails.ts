@@ -8,7 +8,6 @@ export default function useFortuneDetails(id: number) {
     queryKey: ['fortuneDetails'],
     queryFn: async () => {
       const accessToken = await AsyncStorage.getItem('accessToken');
-
       const config = new Configuration({
         headers: {
           Authorization: `Bearer ${accessToken}`,
