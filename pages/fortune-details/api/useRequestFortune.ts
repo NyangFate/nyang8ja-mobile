@@ -16,7 +16,7 @@ export default function useRequestFortune() {
 
       const api = new Class02DivinationAPIApi(accessToken ? config : undefined);
 
-      const res = await api.doDivination({
+      const res = await api.takeDivination({
         questionId: questionId,
       });
 
