@@ -5,12 +5,17 @@ import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 import useFortuneContentsList from '../api/useFortuneContentsList';
+import useRecommendedFortune from '../api/useRecommendedFortune';
 
 export default function PopularFortuneCard() {
   const { data: fortuneContentsList } = useFortuneContentsList();
+  const { data: recommendedFortune } = useRecommendedFortune();
+
+  console.log('reco', recommendedFortune);
   const loveFortune = fortuneContentsList?.results.find(
     (item) => item.category === DivinationQuestionResponseDtoCategoryEnum.LOVE
   );
+
   const activeParticipants = loveFortune?.views ?? 0;
   const router = useRouter();
   const { data: user } = useUser();
@@ -23,15 +28,19 @@ export default function PopularFortuneCard() {
     }
   };
 
+  if (!recommendedFortune) return null;
+
   return (
     <View className="px-5 pt-4 pb-[18px] bg-grey-00 rounded-[20px] justify-between gap-5">
       <View className="pl-1">
         <View className="gap-[2px]">
-          <Text className="text-primary-03 font-suit-bold text-captionBold">
-            {activeParticipants.toLocaleString()}명이 보고 있는 중
-          </Text>
+          {recommendedFortune.views && recommendedFortune.views > 0 && (
+            <Text className="text-primary-03 font-suit-bold text-captionBold">
+              {recommendedFortune.views.toLocaleString()}명이 보고 있는 중
+            </Text>
+          )}
           <Text className="text-grey-90 font-suit-bold text-subhead3">
-            오늘 그 사람이{'\n'}날 생각하고 있을까?
+            {recommendedFortune.question}
           </Text>
         </View>
       </View>
