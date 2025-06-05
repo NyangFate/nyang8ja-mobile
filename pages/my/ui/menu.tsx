@@ -3,8 +3,12 @@ import BellIcon from '@/assets/svgs/bell.svg';
 import CircleUserIcon from '@/assets/svgs/circel-user.svg';
 import useUser from '@/shared/api/useUser';
 import { Href, useRouter } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
+
+const TERMS_OF_SERVICE_URL = 'https://www.notion.so/6458ce9583fa4858af469474365d7943';
+const PRIVACY_POLICY_URL = 'https://www.notion.so/c8e3d289486f43968a49905826e027f6';
 
 export default function Menu() {
   const router = useRouter();
@@ -16,6 +20,10 @@ export default function Menu() {
       return;
     }
     router.navigate(path);
+  };
+
+  const handleOpenExternalLink = async (url: string) => {
+    await WebBrowser.openBrowserAsync(url);
   };
 
   return (
@@ -61,10 +69,10 @@ export default function Menu() {
 
       {/* 기타 메뉴 */}
       <View className="px-5 py-3">
-        <Pressable className="py-3">
+        <Pressable className="py-3" onPress={() => handleOpenExternalLink(TERMS_OF_SERVICE_URL)}>
           <Text className="font-suit-regular text-body-3 text-grey-40">서비스 이용약관</Text>
         </Pressable>
-        <Pressable className="py-3">
+        <Pressable className="py-3" onPress={() => handleOpenExternalLink(PRIVACY_POLICY_URL)}>
           <Text className="font-suit-regular text-body-3 text-grey-40">개인정보처리방침</Text>
         </Pressable>
       </View>
