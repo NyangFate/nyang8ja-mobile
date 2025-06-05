@@ -11,7 +11,6 @@ export default function PopularFortuneCard() {
   const { data: fortuneContentsList } = useFortuneContentsList();
   const { data: recommendedFortune } = useRecommendedFortune();
 
-  console.log('reco', recommendedFortune);
   const loveFortune = fortuneContentsList?.results.find(
     (item) => item.category === DivinationQuestionResponseDtoCategoryEnum.LOVE
   );
